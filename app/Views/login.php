@@ -112,7 +112,7 @@
                                         </div>
                                     <?php endif; ?>
 
-                                    <form class="user" method="post" action="<?= base_url('clogin/signin') ?>">
+                                    <form class="user" method="post" action="<?= base_url('clogin/authenticate') ?>">
                                         <?= csrf_field() ?> <!-- Protección CSRF -->
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"

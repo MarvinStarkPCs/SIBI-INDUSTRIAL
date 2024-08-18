@@ -2,34 +2,72 @@
 
 namespace App\Controllers;
 
+use App\Models\UserModel;
+
 class Clogin extends BaseController
 {
-    public function index(): string
+    public function index()
     {
-        return view('login'); 
-    }
-    public function signin()
-    {
-        $userModel = new \App\Models\UserModel(); // Carga el UserModel
-    
-        $email = $this->request->getPost('email');
-        $password = $this->request->getPost('password');
-    
-        if (!$email || !$password) {
-            return redirect()->back()->with('error', 'Por favor, complete todos los campos.');
-        }
-    
-        $user = $userModel->getUserByEmail($email);
-    
-        if ($user && password_verify($password, $user['password'])) {
-            $session = session();
-            $session->set('user_id', $user['id']);
-            $session->set('logged_in', true);
-    
+        $session = session();
+
+        // Verifica si el usuario está logueado
+        if ($session->get('login')) {
+            // Redirige al usuario a la página principal
             return redirect()->to('/dashboard');
         } else {
-            return redirect()->back()->with('error', 'Correo o contraseña incorrectos.');
+            // Muestra la vista de login si no está logueado
+            return view('login');
+        }
+}
+    public function authenticate()
+    {
+        // Reglas de validación con mensajes personalizados
+        $rules = [
+            'email' => [
+                'rules' => 'required|valid_email',
+                'errors' => [
+                    'required' => 'El campo de correo electrónico es obligatorio.',
+                    'valid_email' => 'Debe ingresar un correo electrónico válido.',
+                ],
+            ],
+            // 'password' => [
+            //     'rules' => 'required|min_length[8]',
+            //     'errors' => [
+            //         'required' => 'El campo de contraseña es obligatorio.',
+            //         'min_length' => 'La contraseña debe tener al menos 8 caracteres.',
+            //     ],
+            // ],
+        ];
+
+        // Validación
+        if (!$this->validate($rules)) {
+            return redirect()->back()->with('error', implode('<br>', $this->validator->getErrors()));
+        }
+
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+
+        $userModel = new UserModel();
+        $user = $userModel->login($email, $password);
+
+        if ($user) {
+            $session = session();
+            $session->set([
+                'login' => true,
+                'id_user' => $user['id'],
+                'nombre' => $user['nombre'],
+                'correo' => $user['correo']
+            ]);
+            return redirect()->to('/dashboard'); // Redirige a la página principal
+        } else {
+            return redirect()->back()->with('error', 'Correo electrónico o contraseña incorrectos.');
         }
     }
-    
+
+    public function logout()
+    {
+        $session = session();
+        $session->destroy(); // Destruye la sesión actual
+        return redirect()->to(base_url('/')); // Redirige a la página de login
+    }
 }

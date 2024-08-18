@@ -1,0 +1,666 @@
+INFO - 2024-08-18 01:01:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:01:23 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723942670
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/dashboard
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:01:23 --> User is logged in, loading INVENTARIO view.
+CRITICAL - 2024-08-18 01:01:23 --> ErrorException: Namespace declaration statement has to be the very first statement or after any declare call in the script
+[Method: GET, Route: inventario]
+in APPPATH\Models\InventarioModel.php on line 4.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+INFO - 2024-08-18 01:02:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:02:17 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723942670
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/dashboard
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:02:17 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:02:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:02:24 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723942670
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:02:24 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:02:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:02:59 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723942979
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:02:59 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:03:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:03:01 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723942979
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:03:01 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:03:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:03:02 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723942979
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:03:02 --> User is logged in, loading home view.
+INFO - 2024-08-18 01:03:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:03:07 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723942979
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/dashboard
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:03:07 --> User is logged in, loading home view.
+INFO - 2024-08-18 01:06:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:06:14 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723942979
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/dashboard
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:06:14 --> User is logged in, loading home view.
+INFO - 2024-08-18 01:06:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:06:28 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723942979
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/dashboard
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:06:28 --> User is logged in, loading home view.
+INFO - 2024-08-18 01:06:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:06:37 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723942979
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/dashboard
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:06:37 --> User is logged in, loading home view.
+INFO - 2024-08-18 01:07:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:07:40 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723942979
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/dashboard
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:07:40 --> User is logged in, loading home view.
+INFO - 2024-08-18 01:07:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:07:42 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723942979
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/dashboard
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:07:42 --> User is logged in, loading home view.
+INFO - 2024-08-18 01:08:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:08:46 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723943326
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/dashboard
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:08:46 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:08:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:08:49 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723943326
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:08:49 --> User is logged in, loading home view.
+INFO - 2024-08-18 01:08:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:08:52 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723943326
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/dashboard
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:08:52 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:08:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:08:54 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723943326
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:08:54 --> User is logged in, loading home view.
+INFO - 2024-08-18 01:08:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:08:59 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723943326
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/dashboard
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:08:59 --> User is logged in, loading home view.
+INFO - 2024-08-18 01:09:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:09:03 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723943326
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/dashboard
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:09:03 --> User is logged in, loading home view.
+INFO - 2024-08-18 01:09:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-18 01:11:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:11:21 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723943326
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/gestion-usuarios
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:11:21 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:29:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:29:15 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723944555
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:29:15 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:29:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:29:16 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723944555
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:29:16 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:29:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:29:17 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723944555
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:29:17 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:29:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:29:32 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723944555
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:29:32 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:29:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-18 01:29:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:29:53 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723944555
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/gestion-usuarios
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:29:53 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:30:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:30:16 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723944555
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:30:16 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:30:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:30:17 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723944555
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:30:17 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:30:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:30:32 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723944555
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:30:32 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:30:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:30:32 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723944555
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:30:32 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:31:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:31:03 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723944555
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:31:03 --> User is logged in, loading INVENTARIO view.
+CRITICAL - 2024-08-18 01:31:03 --> ErrorException: Undefined variable $inventarios
+[Method: GET, Route: inventario]
+in APPPATH\Views\inventario.php on line 56.
+ 1 APPPATH\Views\inventario.php(56): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $inventarios', 'C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\inventario.php', 56)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\inventario.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('inventario', [], true)
+ 5 APPPATH\Controllers\cInventario.php(21): view('inventario')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CInventario->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CInventario))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-18 01:31:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:31:04 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723944555
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:31:04 --> User is logged in, loading INVENTARIO view.
+CRITICAL - 2024-08-18 01:31:04 --> ErrorException: Undefined variable $inventarios
+[Method: GET, Route: inventario]
+in APPPATH\Views\inventario.php on line 56.
+ 1 APPPATH\Views\inventario.php(56): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $inventarios', 'C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\inventario.php', 56)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\inventario.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('inventario', [], true)
+ 5 APPPATH\Controllers\cInventario.php(21): view('inventario')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CInventario->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CInventario))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-18 01:31:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:31:12 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723944555
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:31:12 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:34:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:34:16 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723944856
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:34:16 --> User is logged in, loading INVENTARIO view.
+CRITICAL - 2024-08-18 01:34:16 --> ErrorException: Undefined property: stdClass::$id
+[Method: GET, Route: inventario]
+in APPPATH\Views\inventario.php on line 73.
+ 1 APPPATH\Views\inventario.php(73): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$id', 'C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\inventario.php', 73)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\inventario.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('inventario', [], true)
+ 5 APPPATH\Controllers\cInventario.php(30): view('inventario', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CInventario->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CInventario))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-18 01:34:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:34:20 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723944856
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:34:20 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:36:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:36:08 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723944856
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:36:08 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:36:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:36:11 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723944856
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:36:11 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:36:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:36:49 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723944856
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:36:49 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:38:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:38:55 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723944856
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:38:55 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:40:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:40:12 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723945212
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:40:12 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:44:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:44:23 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723945212
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:44:23 --> User is logged in, loading INVENTARIO view.
+CRITICAL - 2024-08-18 01:44:23 --> ErrorException: Undefined variable $data
+[Method: GET, Route: inventario]
+in APPPATH\Views\inventario.php on line 70.
+ 1 APPPATH\Views\inventario.php(70): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $data', 'C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\inventario.php', 70)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\inventario.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('inventario', [], true)
+ 5 APPPATH\Controllers\cInventario.php(30): view('inventario', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CInventario->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CInventario))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-18 01:44:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:44:24 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723945212
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:44:24 --> User is logged in, loading INVENTARIO view.
+CRITICAL - 2024-08-18 01:44:25 --> ErrorException: Undefined variable $data
+[Method: GET, Route: inventario]
+in APPPATH\Views\inventario.php on line 70.
+ 1 APPPATH\Views\inventario.php(70): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $data', 'C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\inventario.php', 70)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\inventario.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('inventario', [], true)
+ 5 APPPATH\Controllers\cInventario.php(30): view('inventario', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CInventario->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CInventario))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-18 01:44:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:44:28 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723945212
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:44:28 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:45:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:45:51 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723945551
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:45:51 --> User is logged in, loading home view.
+INFO - 2024-08-18 01:45:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:45:53 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723945551
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/dashboard
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:45:53 --> User is logged in, loading INVENTARIO view.
+CRITICAL - 2024-08-18 01:45:53 --> ErrorException: Undefined variable $atributos
+[Method: GET, Route: inventario]
+in APPPATH\Views\inventario.php on line 71.
+ 1 APPPATH\Views\inventario.php(71): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $atributos', 'C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\inventario.php', 71)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\inventario.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('inventario', [], true)
+ 5 APPPATH\Controllers\cInventario.php(30): view('inventario', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CInventario->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CInventario))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-18 01:50:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:50:01 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723945551
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/dashboard
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:50:01 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:51:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:51:28 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723945888
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:51:28 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:53:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:53:23 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723945888
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:53:23 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:56:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:56:55 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723946215
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:56:55 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 01:57:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 01:57:17 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723946215
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 01:57:17 --> User is logged in, loading INVENTARIO view.
