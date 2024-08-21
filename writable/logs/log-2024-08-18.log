@@ -664,3 +664,27 @@ DEBUG - 2024-08-18 01:57:17 --> Session Data: Array
 )
 
 DEBUG - 2024-08-18 01:57:17 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-18 09:33:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 09:33:08 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723973588
+)
+
+DEBUG - 2024-08-18 09:33:08 --> Redirecting to login because session is not set.
+INFO - 2024-08-18 09:33:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-18 09:33:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-18 09:33:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-18 09:33:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-18 09:33:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-18 09:33:26 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1723973588
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-18 09:33:26 --> User is logged in, loading home view.
+INFO - 2024-08-18 09:33:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

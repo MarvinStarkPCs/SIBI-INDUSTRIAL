@@ -1,0 +1,157 @@
+INFO - 2024-08-20 19:31:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-20 19:32:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-20 19:32:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-20 19:32:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-20 19:32:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-20 19:32:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-20 19:32:36 --> Resultados de la consulta getUsuariosConPerfiles: [{"id":"1","nombre":"Juan Perez","identificacion":"123456789","correo":"admin@admin.com","perfil":"Administrador"},{"id":"2","nombre":"Ana Gomez","identificacion":"987654321","correo":"ana.gomez@example.com","perfil":"Usuario"}]
+INFO - 2024-08-20 19:32:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-20 19:32:37 --> Resultados de la consulta getUsuariosConPerfiles: [{"id":"1","nombre":"Juan Perez","identificacion":"123456789","correo":"admin@admin.com","perfil":"Administrador"},{"id":"2","nombre":"Ana Gomez","identificacion":"987654321","correo":"ana.gomez@example.com","perfil":"Usuario"}]
+INFO - 2024-08-20 19:33:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-20 19:33:17 --> Resultados de la consulta getUsuariosConPerfiles: [{"id":"1","nombre":"Juan Perez","identificacion":"123456789","correo":"admin@admin.com","perfil":"Administrador"},{"id":"2","nombre":"Ana Gomez","identificacion":"987654321","correo":"ana.gomez@example.com","perfil":"Usuario"}]
+INFO - 2024-08-20 19:33:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-20 19:33:47 --> Resultados de la consulta getUsuariosConPerfiles: [{"id":"1","nombre":"Juan Perez","identificacion":"123456789","correo":"admin@admin.com","perfil":"Administrador"},{"id":"2","nombre":"Ana Gomez","identificacion":"987654321","correo":"ana.gomez@example.com","perfil":"Usuario"}]
+INFO - 2024-08-20 19:34:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-20 19:34:15 --> Resultados de la consulta getUsuariosConPerfiles: [{"id":"1","nombre":"Juan Perez","identificacion":"123456789","correo":"admin@admin.com","perfil":"Administrador"},{"id":"2","nombre":"Ana Gomez","identificacion":"987654321","correo":"ana.gomez@example.com","perfil":"Usuario"}]
+INFO - 2024-08-20 19:34:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-20 19:34:22 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1724182344
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/gestion-usuarios
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-20 19:34:22 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-20 19:34:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-20 19:34:25 --> Resultados de la consulta getUsuariosConPerfiles: [{"id":"1","nombre":"Juan Perez","identificacion":"123456789","correo":"admin@admin.com","perfil":"Administrador"},{"id":"2","nombre":"Ana Gomez","identificacion":"987654321","correo":"ana.gomez@example.com","perfil":"Usuario"}]
+INFO - 2024-08-20 19:34:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-20 19:34:28 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1724182344
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/gestion-usuarios
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-20 19:34:28 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-20 19:36:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2024-08-20 19:36:45 --> Session Data: Array
+(
+    [__ci_last_regenerate] => 1724182344
+    [_ci_previous_url] => http://localhost/SIBI-INDUSTRIAL/inventario
+    [login] => 1
+    [id_user] => 1
+    [nombre] => Juan Perez
+    [correo] => admin@admin.com
+)
+
+DEBUG - 2024-08-20 19:36:45 --> User is logged in, loading INVENTARIO view.
+INFO - 2024-08-20 19:36:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-20 19:36:49 --> Resultados de la consulta getUsuariosConPerfiles: [{"id":"1","nombre":"Juan Perez","identificacion":"123456789","correo":"admin@admin.com","perfil":"Administrador"},{"id":"2","nombre":"Ana Gomez","identificacion":"987654321","correo":"ana.gomez@example.com","perfil":"Usuario"}]
+INFO - 2024-08-20 19:36:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-20 19:36:56 --> Resultados de la consulta getUsuariosConPerfiles: [{"id":"1","nombre":"Juan Perez","identificacion":"123456789","correo":"admin@admin.com","perfil":"Administrador"},{"id":"2","nombre":"Ana Gomez","identificacion":"987654321","correo":"ana.gomez@example.com","perfil":"Usuario"}]
+CRITICAL - 2024-08-20 19:38:09 --> ErrorException: Undefined variable $idUsuario
+[Method: GET, Route: cambiar-contrasena]
+in APPPATH\Views\cambio_contrasena.php on line 2.
+ 1 APPPATH\Views\cambio_contrasena.php(2): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $idUsuario', 'C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\cambio_contrasena.php', 2)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\cambio_contrasena.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('cambio_contrasena', [], true)
+ 5 APPPATH\Controllers\CambioContrasena.php(13): view('cambio_contrasena')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CambioContrasena->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CambioContrasena))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-20 19:38:21 --> ErrorException: Undefined variable $idUsuario
+[Method: GET, Route: cambiar-contrasena]
+in APPPATH\Views\cambio_contrasena.php on line 2.
+ 1 APPPATH\Views\cambio_contrasena.php(2): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $idUsuario', 'C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\cambio_contrasena.php', 2)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\cambio_contrasena.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('cambio_contrasena', [], true)
+ 5 APPPATH\Controllers\CambioContrasena.php(13): view('cambio_contrasena')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CambioContrasena->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CambioContrasena))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-20 19:38:22 --> ErrorException: Undefined variable $idUsuario
+[Method: GET, Route: cambiar-contrasena]
+in APPPATH\Views\cambio_contrasena.php on line 2.
+ 1 APPPATH\Views\cambio_contrasena.php(2): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $idUsuario', 'C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\cambio_contrasena.php', 2)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\cambio_contrasena.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('cambio_contrasena', [], true)
+ 5 APPPATH\Controllers\CambioContrasena.php(13): view('cambio_contrasena')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CambioContrasena->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CambioContrasena))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-20 19:38:22 --> ErrorException: Undefined variable $idUsuario
+[Method: GET, Route: cambiar-contrasena]
+in APPPATH\Views\cambio_contrasena.php on line 2.
+ 1 APPPATH\Views\cambio_contrasena.php(2): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $idUsuario', 'C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\cambio_contrasena.php', 2)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\cambio_contrasena.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('cambio_contrasena', [], true)
+ 5 APPPATH\Controllers\CambioContrasena.php(13): view('cambio_contrasena')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CambioContrasena->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CambioContrasena))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-20 19:38:22 --> ErrorException: Undefined variable $idUsuario
+[Method: GET, Route: cambiar-contrasena]
+in APPPATH\Views\cambio_contrasena.php on line 2.
+ 1 APPPATH\Views\cambio_contrasena.php(2): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $idUsuario', 'C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\cambio_contrasena.php', 2)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\cambio_contrasena.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('cambio_contrasena', [], true)
+ 5 APPPATH\Controllers\CambioContrasena.php(13): view('cambio_contrasena')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CambioContrasena->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CambioContrasena))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-20 19:39:27 --> ErrorException: Undefined variable $idUsuario
+[Method: GET, Route: cambiar-contrasena]
+in APPPATH\Views\cambio_contrasena.php on line 6.
+ 1 APPPATH\Views\cambio_contrasena.php(6): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $idUsuario', 'C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\cambio_contrasena.php', 6)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\cambio_contrasena.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('cambio_contrasena', [], true)
+ 5 APPPATH\Controllers\CambioContrasena.php(13): view('cambio_contrasena')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CambioContrasena->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CambioContrasena))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-20 19:39:27 --> ErrorException: Undefined variable $idUsuario
+[Method: GET, Route: cambiar-contrasena]
+in APPPATH\Views\cambio_contrasena.php on line 6.
+ 1 APPPATH\Views\cambio_contrasena.php(6): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $idUsuario', 'C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\cambio_contrasena.php', 6)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\SIBI-INDUSTRIAL\\app\\Views\\cambio_contrasena.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('cambio_contrasena', [], true)
+ 5 APPPATH\Controllers\CambioContrasena.php(13): view('cambio_contrasena')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CambioContrasena->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CambioContrasena))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-20 19:39:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-20 19:39:28 --> Resultados de la consulta getUsuariosConPerfiles: [{"id":"1","nombre":"Juan Perez","identificacion":"123456789","correo":"admin@admin.com","perfil":"Administrador"},{"id":"2","nombre":"Ana Gomez","identificacion":"987654321","correo":"ana.gomez@example.com","perfil":"Usuario"}]

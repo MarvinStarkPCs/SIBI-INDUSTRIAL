@@ -42,13 +42,9 @@
                         <td><?= esc($inventario->articulo_nombre) ?></td>
                         <td><?= esc($inventario->articulo_marca) ?></td>
                         <td><?= esc($inventario->articulo_descripcion) ?></td>
-                        <td><?= esc($inventario->valor_unitario) ?></td>
                         <td><?= esc($inventario->estado_nombre) ?></td>
-                        <td><?= esc($inventario->procedencia_nombre) ?></td>
-                        <td><?= esc($inventario->categoria_nombre) ?></td>
-                        <td><?= esc($inventario->ubicacion_nombre) ?></td>
-                        <td><?= esc($inventario->sede_nombre) ?></td>
                         <td><?= esc($inventario->stock_inicio) ?></td>
+                        <td><?= esc($inventario->valor_unitario) ?></td>
                         <td><?= esc($inventario->valor_total_stock) ?></td>
                         <td>
                             <?php

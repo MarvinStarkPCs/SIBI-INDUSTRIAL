@@ -13,3 +13,6 @@ $routes->get('clogin/logout', 'clogin::logout');
 $routes->get('gestion-usuarios', 'CgestionUsarios::index');
 
 $routes->post('clogin/authenticate', 'Clogin::authenticate');
+
+$routes->get('cambiar-contrasena', 'CambioContrasena::index');
+$routes->post('cambiar-contrasena/actualizar', 'CambioContrasena::actualizar');
