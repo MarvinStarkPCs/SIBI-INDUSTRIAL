@@ -126,7 +126,7 @@ INSERT INTO `estados` (`id`, `nombre`) VALUES
 
 CREATE TABLE `inventario_anual` (
   `id` bigint(20) NOT NULL,
-  `articulo_id` bigint(20) NOT NULL,
+  `ubicacion_id` bigint(20) NOT NULL,
   `ano` year(4) NOT NULL,
   `stock_inicio` int(11) NOT NULL,
   `stock_final` int(11) NOT NULL
@@ -136,7 +136,7 @@ CREATE TABLE `inventario_anual` (
 -- Volcado de datos para la tabla `inventario_anual`
 --
 
-INSERT INTO `inventario_anual` (`id`, `articulo_id`, `ano`, `stock_inicio`, `stock_final`) VALUES
+INSERT INTO `inventario_anual` (`id`, `ubicacion_id`, `ano`, `stock_inicio`, `stock_final`) VALUES
 (1, 1, '2024', 10, 8),
 (2, 2, '2024', 5, 4),
 (3, 3, '2024', 15, 12),
@@ -343,7 +343,7 @@ ALTER TABLE `estados`
 --
 ALTER TABLE `inventario_anual`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unique_articulo_ano` (`articulo_id`,`ano`);
+  ADD UNIQUE KEY `unique_articulo_ano` (`ubicacion_id`,`ano`);
 
 --
 -- Indices de la tabla `movimientos`
@@ -485,7 +485,7 @@ ALTER TABLE `asignaciones`
 -- Filtros para la tabla `inventario_anual`
 --
 ALTER TABLE `inventario_anual`
-  ADD CONSTRAINT `inventario_anual_ibfk_1` FOREIGN KEY (`articulo_id`) REFERENCES `articulos` (`id`);
+  ADD CONSTRAINT `inventario_anual_ibfk_1` FOREIGN KEY (`ubicacion_id`) REFERENCES `ubicaciones` (`id`);
 
 --
 -- Filtros para la tabla `movimientos`

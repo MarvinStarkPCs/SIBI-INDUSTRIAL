@@ -6,13 +6,26 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
-$routes->get('/', 'clogin::index');
-$routes->get('dashboard', 'chome::index');
-$routes->get('inventario', 'cinventario::index');
-$routes->get('clogin/logout', 'clogin::logout');
-$routes->get('gestion-usuarios', 'CgestionUsarios::index');
+//rutas por vista
 
+//authentication
+$routes->get('/', 'clogin::index');
 $routes->post('clogin/authenticate', 'Clogin::authenticate');
+$routes->post('cambiar-contrasena/actualizar', 'CambioContrasena::actualizar');
+$routes->get('clogin/logout', 'clogin::logout');
+
+//dashboard
+$routes->get('dashboard', 'chome::index');
+
+//inventario
+$routes->get('inventario', 'cinventario::index');
+
+//seguridad
+///Gestion de usuarios crud
+$routes->get('gestion-usuarios', 'CgestionUsarios::index');
+$routes->get('gestion-usuarios/deleteusuario/(:num)', 'CgestionUsarios::deleteusuario/$1');
+
+
+
 
 $routes->get('cambiar-contrasena', 'CambioContrasena::index');
-$routes->post('cambiar-contrasena/actualizar', 'CambioContrasena::actualizar');

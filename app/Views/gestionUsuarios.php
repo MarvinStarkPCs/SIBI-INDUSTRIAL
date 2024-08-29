@@ -16,34 +16,34 @@
                     Agregar Usuario
                 </button>
             </div>
-            
+
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Identificación</th>
-                        <th>Correo</th>
-                        <th>Perfil</th>
-                        <th>Acciones</th>
-                    </tr>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Identificación</th>
+                    <th>Correo</th>
+                    <th>Perfil</th>
+                    <th>Acciones</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($usuarios as $usuario): ?>
-                        <tr>
-                            <td><?= esc($usuario['nombre']) ?></td>
-                            <td><?= esc($usuario['identificacion']) ?></td>
-                            <td><?= esc($usuario['correo']) ?></td>
-                            <td><?= esc($usuario['perfil']) ?></td>
-                            <td>
-                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#editModal-<?= $usuario['id'] ?>">
-                                    Editar
-                                </button>
-                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal-<?= $usuario['id'] ?>">
-                                    Eliminar
-                                </button>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
+                <?php foreach ($usuarios as $usuario): ?>
+                    <tr>
+                        <td><?= esc($usuario['nombre']) ?></td>
+                        <td><?= esc($usuario['identificacion']) ?></td>
+                        <td><?= esc($usuario['correo']) ?></td>
+                        <td><?= esc($usuario['perfil']) ?></td>
+                        <td>
+                            <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#editModal-<?= $usuario['id'] ?>">
+                                Editar
+                            </button>
+                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal-<?= $usuario['id'] ?>">
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
@@ -52,20 +52,75 @@
 
 <!-- Modal de Agregar Usuario -->
 <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
-    <!-- Contenido del modal de agregar usuario -->
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addUserModalLabel">Agregar Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Contenido del formulario para agregar usuario -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Guardar Usuario</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Modales de Editar y Eliminar -->
 <?php foreach ($usuarios as $usuario): ?>
     <!-- Modal de Editar Usuario -->
-    <div class="modal fade" id="editModal-<?= $usuario['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-        <!-- Contenido del modal para editar -->
+    <div class="modal fade" id="editModal-<?= $usuario['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel-<?= $usuario['id'] ?>" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel-<?= $usuario['id'] ?>">Editar Usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Contenido del formulario para editar usuario -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Modal de Eliminar Usuario -->
-    <div class="modal fade" id="deleteModal-<?= $usuario['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <!-- Contenido del modal para eliminar -->
+    <div class="modal fade" id="deleteModal-<?= $usuario['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-<?= $usuario['id'] ?>" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel-<?= $usuario['id'] ?>">Eliminar Usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas eliminar a este usuario?</p>
+                    <p><strong><?= esc($usuario['nombre']) ?></strong></p>
+                </div>
+                <div class="modal-footer">
+
+                        <?= csrf_field() ?>
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <a href="gestion-usuarios/deleteusuario/<?php echo $usuario['id']; ?>" class="btn btn-danger">Eliminar</a>
+
+                </div>
+            </div>
+        </div>
     </div>
+
+
 <?php endforeach; ?>
 
 <?= $this->endSection() ?>

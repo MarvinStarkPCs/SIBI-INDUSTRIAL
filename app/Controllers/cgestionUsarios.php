@@ -73,7 +73,11 @@ class CgestionUsarios extends Controller
         $model = new GestionUsuariosModel();
         $model->deleteUsuario($id);
 
-        return redirect()->to('/gestionUsuarios');
+        if ($model->deleteUsuario($id)) {
+            return redirect()->to('/gestion-usuarios')->with('message', 'Usuario eliminado correctamente.');
+        } else {
+            return redirect()->to('/gestion-usuarios')->with('error', 'No se pudo eliminar el usuario.');
+        }
     }
 }
 
