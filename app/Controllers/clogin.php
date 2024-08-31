@@ -55,7 +55,7 @@ class Clogin extends BaseController
             $session->set([
                 'login' => true,
                 'id_user' => $user['id'],
-                'nombre' => $user['nombre'],
+                'nombre' => $user['nombres'],
                 'correo' => $user['correo']
             ]);
             return redirect()->to('/dashboard'); // Redirige a la página principal

@@ -10,6 +10,7 @@
         <h6 class="m-0 font-weight-bold text-primary">Lista de Usuarios</h6>
     </div>
     <div class="card-body">
+
         <div class="table-responsive">
             <div class="d-flex justify-content-end mb-2">
                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addUserModal">
@@ -30,7 +31,7 @@
                 <tbody>
                 <?php foreach ($usuarios as $usuario): ?>
                     <tr>
-                        <td><?= esc($usuario['nombre']) ?></td>
+                        <td><?= esc($usuario['nombres']) ?></td>
                         <td><?= esc($usuario['identificacion']) ?></td>
                         <td><?= esc($usuario['correo']) ?></td>
                         <td><?= esc($usuario['perfil']) ?></td>
@@ -61,15 +62,55 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Contenido del formulario para agregar usuario -->
+                <form id="addUserForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputName">Nombres</label>
+                            <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Nombre">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputName">Apellidos</label>
+                            <input type="text" class="form-control" id="inputLastname" placeholder="Apellidos">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputName">Identidad</label>
+                            <input type="number" class="form-control" id="inputIdentity" placeholder="Identidad">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Correo Electrónico">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputPhone">Teléfono</label>
+                            <input type="tel" class="form-control" id="inputPhone" placeholder="Teléfono">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputAddress">Dirección</label>
+                            <input type="text" class="form-control" id="inputAddress" placeholder="Dirección">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="selectRole">Rol</label>
+
+                        <select class="form-control" id="selectRole">
+                            <?php foreach ($perfiles as $perfil): ?>
+                            <option value="<?=esc($perfil['id'])?>"><?=esc($perfil['nombre']) ?> </option>
+                            <?php endforeach; ?>
+                        </select>
+
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar Usuario</button>
+                <button type="button" class="btn btn-primary" id="saveUserButton">Guardar Usuario</button>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Modales de Editar y Eliminar -->
 <?php foreach ($usuarios as $usuario): ?>
@@ -106,7 +147,7 @@
                 </div>
                 <div class="modal-body">
                     <p>¿Estás seguro de que deseas eliminar a este usuario?</p>
-                    <p><strong><?= esc($usuario['nombre']) ?></strong></p>
+                    <p><strong><?= esc($usuario['nombres']) ?></strong></p>
                 </div>
                 <div class="modal-footer">
 

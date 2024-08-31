@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 use App\Models\GestionUsuariosModel;
+use App\Models\ComboboxModel;
+use CodeIgniter\Database\Exceptions\DatabaseException;
 
 use CodeIgniter\Controller;
 
@@ -14,8 +16,10 @@ class CgestionUsarios extends Controller
         if (!$session->get('login')) {
             return redirect()->to('/'); // Redirige al login si no está logueado
         } else {
-            $model = new GestionUsuariosModel();
-            $data['usuarios'] = $model->getUsuariosConPerfiles();
+            $modelUsuarios = new GestionUsuariosModel();
+            $modelPerfiles = new ComboboxModel();
+            $data['usuarios'] = $modelUsuarios->getUsuariosConPerfiles();
+            $data['perfiles']=  $modelPerfiles->getTableData('perfiles');
             return view('gestionUsuarios', $data); // Carga la vista 'gestionUsuarios' con los datos de usuarios
         }
     }
@@ -23,10 +27,9 @@ class CgestionUsarios extends Controller
     public function addusuario()
     {
         $model = new GestionUsuariosModel();
-
         // Recoge los datos enviados desde el formulario
         $data = [
-            'nombre' => $this->request->getPost('nombre'),
+            'nombres' => $this->request->getPost('nombre'),
             'email' => $this->request->getPost('email'),
             'perfil_id' => $this->request->getPost('perfil_id'),
             'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
@@ -38,13 +41,6 @@ class CgestionUsarios extends Controller
         return redirect()->to('/gestionUsuarios');
     }
 
-    public function editusuario($id)
-    {
-        $model = new GestionUsuariosModel();
-        $data['usuario'] = $model->getUsuarioById($id);
-
-        return view('editUsuarioModal', $data); // Carga el modal con los datos del usuario a editar
-    }
 
     public function updateusuario($id)
     {
@@ -52,7 +48,7 @@ class CgestionUsarios extends Controller
 
         // Recoge los datos actualizados
         $data = [
-            'nombre' => $this->request->getPost('nombre'),
+            'nombres' => $this->request->getPost('nombre'),
             'email' => $this->request->getPost('email'),
             'perfil_id' => $this->request->getPost('perfil_id'),
             // Solo actualiza la contraseña si se ha proporcionado una nueva
@@ -71,13 +67,25 @@ class CgestionUsarios extends Controller
     public function deleteusuario($id)
     {
         $model = new GestionUsuariosModel();
-        $model->deleteUsuario($id);
 
-        if ($model->deleteUsuario($id)) {
-            return redirect()->to('/gestion-usuarios')->with('message', 'Usuario eliminado correctamente.');
-        } else {
-            return redirect()->to('/gestion-usuarios')->with('error', 'No se pudo eliminar el usuario.');
+        try {
+            $resultado = $model->deleteUsuario($id);
+
+            if ($resultado) {
+                return redirect()->to('/gestion-usuarios')->with('success', 'Usuario eliminado correctamente.');
+            } else {
+                return redirect()->to('/gestion-usuarios')->with('error', 'No se pudo eliminar el usuario.');
+            }
+        } catch (DatabaseException $e) {
+            // Manejo del error específico
+            if (strpos($e->getMessage(), 'Cannot delete or update a parent row: a foreign key constraint fails') !== false) {
+                return redirect()->to('/gestion-usuarios')->with('error', 'No se puede eliminar el usuario porque está asociado a otros registros o asignación.');
+            }
+
+            // Otros errores
+            return redirect()->to('/gestion-usuarios')->with('error', 'Ocurrió un error al intentar eliminar el usuario.');
         }
     }
+
 }
 

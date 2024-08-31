@@ -35,9 +35,9 @@ INSERT INTO `perfiles` (`id`, `nombre`) VALUES
 (3, 'Supervisor');
 
 -- Insertar datos en la tabla `usuarios`
-INSERT INTO `usuarios` (`id`, `nombre`, `identificacion`, `correo`, `contrasena`, `perfil_id`) VALUES
-(1, 'Carlos Méndez', '1234567890', 'carlos@example.com', 'password123', 1),
-(2, 'Laura Martínez', '0987654321', 'laura@example.com', 'password456', 2);
+INSERT INTO `usuarios` (`id`, `nombres`, `apellidos`, `identificacion`, `telefono`,`direccion`,`correo`, `contrasena`, `perfil_id`) VALUES
+(1, 'Carlos','méndez', '1234567890','3122212312','crr2332 -222 ', 'admin@admin.com', 'admin', 1),
+(2, 'Laura','Martinez', '0987654321','3122121212','crr 25 -05 barrio cristorey', 'laura@example.com', 'password456', 2);
 
 -- Insertar datos en la tabla `articulos`
 INSERT INTO `articulos` (`id`, `nombre`, `marca`, `descripcion`, `fecha_adquisicion`, `valor_unitario`, `estado_id`, `procedencia_id`, `categoria_id`) VALUES
