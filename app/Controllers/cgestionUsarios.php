@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Models\GestionUsuariosModel;
 use App\Models\ComboboxModel;
 use CodeIgniter\Database\Exceptions\DatabaseException;
@@ -19,27 +20,64 @@ class CgestionUsarios extends Controller
             $modelUsuarios = new GestionUsuariosModel();
             $modelPerfiles = new ComboboxModel();
             $data['usuarios'] = $modelUsuarios->getUsuariosConPerfiles();
-            $data['perfiles']=  $modelPerfiles->getTableData('perfiles');
+            $data['perfiles'] = $modelPerfiles->getTableData('perfiles');
             return view('gestionUsuarios', $data); // Carga la vista 'gestionUsuarios' con los datos de usuarios
         }
     }
 
     public function addusuario()
     {
+        $validation = \Config\Services::validation();
         $model = new GestionUsuariosModel();
-        // Recoge los datos enviados desde el formulario
-        $data = [
-            'nombres' => $this->request->getPost('nombre'),
-            'email' => $this->request->getPost('email'),
-            'perfil_id' => $this->request->getPost('perfil_id'),
-            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+
+        // Definir las reglas de validación
+
+        $rules = [
+            'nombres' => 'required|min_length[2]|max_length[20]',
+            'apellidos' => 'required|min_length[2]|max_length[100]',
+            'identidad' => 'required|numeric|min_length[5]',
+            'email' => 'required|valid_email|max_length[100]',
+            'telefono' => 'required|numeric|min_length[8]|max_length[15]',
+            'direccion' => 'required|max_length[200]',
+            'perfil_id' => 'required|numeric',
         ];
 
-        // Inserta los datos en la base de datos
-        $model->insertUsuario($data);
+        // Validar las reglas definidas
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors-insert', $validation->getErrors());
+        }
 
-        return redirect()->to('/gestionUsuarios');
+        // Verificar unicidad del correo electrónico y del número de documento
+        $identidad = $this->request->getPost('identidad');
+        $email = $this->request->getPost('email');
+
+        // Verificar si el número de documento ya está registrado
+        if ($model->where('identificacion', $identidad)->first()) {
+            return redirect()->back()->withInput()->with('errors-insert', ['identidad' => 'El número de documento ya está registrado.']);
+        }
+
+        // Verificar si el correo electrónico ya está registrado
+        if ($model->where('correo', $email)->first()) {
+            return redirect()->back()->withInput()->with('errors-insert', ['email' => 'El correo electrónico ya está registrado.']);
+        }
+
+        // Si la validación es exitosa, recoger los datos y proceder
+        $data = [
+            'nombres' => $this->request->getPost('nombres'),
+            'apellidos' => $this->request->getPost('apellidos'),
+            'identificacion' => $this->request->getPost('identidad'),
+            'telefono' => $this->request->getPost('telefono'),
+            'direccion' => $this->request->getPost('direccion'),
+            'correo' => $this->request->getPost('email'),
+            'perfil_id' => $this->request->getPost('perfil_id'),
+            'contrasena' => password_hash("SIBI2024", PASSWORD_DEFAULT),
+        ];
+
+        $model->insert($data);
+
+        return redirect()->to('/gestion-usuarios')->with('success', 'Usuario agregado correctamente');
     }
+
 
 
     public function updateusuario($id)

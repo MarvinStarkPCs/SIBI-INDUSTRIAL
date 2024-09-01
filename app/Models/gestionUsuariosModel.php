@@ -28,7 +28,7 @@ class GestionUsuariosModel extends Model
     public function getUsuariosConPerfiles()
 {
     // Realizar la consulta
-    $usuarios = $this->select('usuarios.id, usuarios.nombres,usuarios.apellidos, usuarios.identificacion,usuarios.telefono,usuarios.direccion, usuarios.correo, perfiles.nombre as perfil')
+    $usuarios = $this->select('usuarios.id, usuarios.nombres,usuarios.apellidos, usuarios.identificacion,usuarios.telefono,usuarios.direccion, usuarios.correo, perfiles.nombre as nombre_perfil, perfiles.id as id_perfil')
                      ->join('perfiles', 'usuarios.perfil_id = perfiles.id')
                      ->findAll();
 

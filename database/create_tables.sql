@@ -115,10 +115,10 @@ CREATE TABLE `usuarios`
     `id`             bigint(20) NOT NULL,
     `nombres`        varchar(100) NOT NULL,
     `apellidos`      varchar(100) NOT NULL,
-    `identificacion` varchar(100) NOT NULL,
+    `identificacion` varchar(100) NOT NULL UNIQUE ,
     `telefono`       varchar(20)  NOT NULL,
     `direccion`      varchar(20)  NOT NULL,
-    `correo`         varchar(255) NOT NULL,
+    `correo`         varchar(255) NOT NULL UNIQUE ,
     `contrasena`     varchar(255) NOT NULL,
     `perfil_id`      bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

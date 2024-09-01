@@ -24,7 +24,7 @@ $routes->get('inventario', 'cinventario::index');
 ///Gestion de usuarios crud
 $routes->get('gestion-usuarios', 'CgestionUsarios::index');
 $routes->get('gestion-usuarios/deleteusuario/(:num)', 'CgestionUsarios::deleteusuario/$1');
-$routes->post('gestion-usuarios', 'CgestionUsarios::addusuario');
+$routes->post('gestion-usuarios/addusuarios/', 'CgestionUsarios::addusuario');
 
 
 
