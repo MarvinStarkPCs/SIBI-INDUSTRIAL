@@ -17,6 +17,7 @@ CREATE TABLE `articulos`
     `estado_id`         bigint(20) DEFAULT NULL,
     `procedencia_id`    bigint(20) DEFAULT NULL,
     `categoria_id`      bigint(20) DEFAULT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_general_ci;
 
 -- Estructura de tabla para la tabla `asignaciones`
@@ -48,8 +49,9 @@ CREATE TABLE `estados`
 CREATE TABLE `inventario_anual`
 (
     `id`           bigint(20) NOT NULL,
+    `articulo_id` bigint(20) NOT NULL,
     `ubicacion_id` bigint(20) NOT NULL,
-    `ano` year(4) NOT NULL,
+    `fecha`TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `stock_inicio` int(11) NOT NULL,
     `stock_final`  int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

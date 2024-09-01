@@ -17,11 +17,7 @@ class UserModel extends Model
     {
         $user = $this->where('correo', $email)->first();
 
-//        if ($user && password_verify($password,$user['contrasena'])) {
-//            return $user;
-//        }
-
-        if ($user && $password==$user['contrasena']) {
+        if ($user && password_verify($password,$user['contrasena'])) {
             return $user;
         }
 

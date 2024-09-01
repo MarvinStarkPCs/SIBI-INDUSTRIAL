@@ -96,7 +96,7 @@
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('home'); ?>">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('dashboard'); ?>">
             <div class="sidebar-brand-icon">
                 <img src="<?= base_url('img/logo colegio.png'); ?>" alt="">
             </div>
@@ -106,7 +106,7 @@
         <hr class="sidebar-divider my-0">
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="<?= base_url('home'); ?>">
+            <a class="nav-link" href="<?= base_url('dashboard'); ?>">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -127,8 +127,12 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Gestión del Sistema</h6>
                     <a class="collapse-item" href="<?= base_url('inventario'); ?>">Inventario</a>
-                    <a class="collapse-item" href="<?= base_url('articulos'); ?>">Artículos</a>
                     <a class="collapse-item" href="<?= base_url('mover-articulo'); ?>">Mover Artículo</a>
+                    <a class="collapse-item" href="<?= base_url('gestion-extras'); ?>">Asignar Artículo</a>
+
+
+                    <a class="collapse-item" href="<?= base_url('gestion-extras'); ?>">Gestion de Extras</a>
+
                 </div>
             </div>
         </li>

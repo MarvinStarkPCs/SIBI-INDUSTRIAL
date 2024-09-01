@@ -22,7 +22,9 @@ ALTER TABLE `asignaciones`
 -- Filtros para la tabla `inventario_anual`
 --
 ALTER TABLE `inventario_anual`
-  ADD CONSTRAINT `inventario_anual_ibfk_1` FOREIGN KEY (`ubicacion_id`) REFERENCES `ubicaciones` (`id`);
+  ADD CONSTRAINT `inventario_anual_ibfk_1` FOREIGN KEY (`ubicacion_id`) REFERENCES `ubicaciones` (`id`),
+ADD CONSTRAINT `inventario_anual_ibfk_2` FOREIGN KEY (`articulo_id`) REFERENCES `articulos` (`id`);
+
 
 --
 -- Filtros para la tabla `movimientos`

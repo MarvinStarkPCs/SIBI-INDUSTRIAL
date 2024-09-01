@@ -272,23 +272,21 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="<?= base_url('gestion-usuarios/deleteusuario/' . $usuario['id']) ?>" method="post">
-                        <?= csrf_field() ?>
-                        <input type="hidden" name="_method" value="DELETE">
-                        <p>¿Estás seguro de que deseas eliminar al usuario <strong><?= esc($usuario['nombres'] . ' ' . $usuario['apellidos']) ?></strong>? Esta acción no se puede deshacer.</p>
-                        <div class="form-group">
-                            <label for="deleteReason">Razón (opcional)</label>
-                            <input type="text" class="form-control" id="deleteReason" name="deleteReason" placeholder="Razón para eliminar">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                        </div>
-                    </form>
+                    <p>¿Estás seguro de que deseas eliminar a este usuario?</p>
+                    <p><strong><?= esc($usuario['nombres'].' '.$usuario['apellidos']) ?></strong></p>
+                </div>
+                <div class="modal-footer">
+
+                    <?= csrf_field() ?>
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <a href="gestion-usuarios/deleteusuario/<?php echo $usuario['id']; ?>" class="btn btn-danger">Eliminar</a>
+
                 </div>
             </div>
         </div>
     </div>
+
 <?php endforeach; ?>
 
 <script>
