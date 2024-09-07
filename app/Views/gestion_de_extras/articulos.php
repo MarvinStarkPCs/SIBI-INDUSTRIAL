@@ -10,11 +10,22 @@
         <h6 class="m-0 font-weight-bold text-primary">Lista de Artículos</h6>
     </div>
     <div class="card-body">
-        <div class="d-flex justify-content-end mb-2">
-            <button type="button" id="openModalButtonArticle" class="btn btn-primary" data-toggle="modal" data-target="#addArticleModal">
-                <i class="fas fa-plus"></i> Agregar Artículo
-            </button>
+        <div class="d-flex justify-content-between mb-2">
+            <!-- Grupo de botones alineados a la izquierda -->
+            <div>
+                <!-- Botón para descargar Excel -->
+                <a href="<?= base_url('/articulos/articulos-excel') ?>" class="btn btn-success">
+                    <i class="fas fa-file-excel"></i> Descargar Excel
+                </a>
+            </div>
+            <!-- Grupo de botones alineados a la derecha -->
+            <div>
+                <button type="button" id="openModalButtonArticle" class="btn btn-primary" data-toggle="modal" data-target="#addArticleModal">
+                    <i class="fas fa-plus"></i> Agregar Artículo
+                </button>
+            </div>
         </div>
+
 
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -25,7 +36,6 @@
                     <th>Descripción</th>
                     <th>Fecha de Adquisición</th>
                     <th>Valor Unitario</th>
-                    <th>Estado</th>
                     <th>Categoría</th>
                     <th>Acciones</th>
                 </tr>
@@ -37,8 +47,7 @@
                         <td><?= esc($articulo['marca']) ?></td>
                         <td><?= esc($articulo['descripcion']) ?></td>
                         <td><?= esc($articulo['fecha_adquisicion']) ?></td>
-                        <td><?= esc($articulo['valor_unitario']) ?></td>
-                        <td><?= esc($articulo['estado']) ?></td>
+                        <td><?= esc($articulo['valor_unitario'].' $') ?></td>
                         <td><?= esc($articulo['categoria']) ?></td>
                         <td class="text-center">
                             <button class="btn btn-icon btn-secondary btn-sm" data-toggle="modal" data-target="#detailsModal-<?= $articulo['id'] ?>" title="Ver detalles">
@@ -60,6 +69,7 @@
 </div>
 
 <!-- Modal de Agregar Artículo -->
+<!-- Modal HTML -->
 <div class="modal fade" id="addArticleModal" tabindex="-1" role="dialog" aria-labelledby="addArticleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -70,61 +80,64 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('gestion-articulos/addarticulo/') ?>" method="post" id="addArticleForm">
+                <form action="<?= base_url('articulos/addusuarios') ?>" method="post" id="addArticleForm">
                     <?= csrf_field() ?>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputName">Nombre</label>
-                            <input type="text" class="form-control <?= session('errors-insert.nombre') ? 'is-invalid errors-insert' : '' ?>" id="inputName" name="nombre" placeholder="Nombre" value="<?= old('nombre') ?>">
+                            <input type="text" class="form-control <?= session('errors-insert.nombre') ? 'is-invalid errors-insert-article' : '' ?>" id="inputName" name="nombre" placeholder="Nombre" value="<?= old('nombre') ?>">
                             <div class="invalid-feedback">
                                 <?= session('errors-insert.nombre') ?>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputBrand">Marca</label>
-                            <input type="text" class="form-control <?= session('errors-insert.marca') ? 'is-invalid errors-insert' : '' ?>" id="inputBrand" name="marca" placeholder="Marca" value="<?= old('marca') ?>">
+                            <input type="text" class="form-control <?= session('errors-insert.marca') ? 'is-invalid errors-insert-article' : '' ?>" id="inputBrand" name="marca" placeholder="Marca" value="<?= old('marca') ?>">
                             <div class="invalid-feedback">
                                 <?= session('errors-insert.marca') ?>
                             </div>
                         </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputBrand">Modelo</label>
+                            <input type="text" class="form-control <?= session('errors-insert.modelo') ? 'is-invalid errors-insert-article' : '' ?>" id="inputBrand" name="modelo" placeholder="modelo" value="<?= old('modelo') ?>">
+                            <div class="invalid-feedback">
+                                <?= session('errors-insert.modelo') ?>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputBrand">Serial</label>
+                            <input type="text" class="form-control <?= session('errors-insert.serial') ? 'is-invalid errors-insert-article' : '' ?>" id="inputBrand" name="serial" placeholder="serial" value="<?= old('serial') ?>">
+                            <div class="invalid-feedback">
+                                <?= session('errors-insert.serial') ?>
+                            </div>
+                        </div>
+
                         <div class="form-group col-md-12">
                             <label for="inputDescription">Descripción</label>
-                            <textarea class="form-control <?= session('errors-insert.descripcion') ? 'is-invalid errors-insert' : '' ?>" id="inputDescription" name="descripcion" rows="3" placeholder="Descripción"><?= old('descripcion') ?></textarea>
+                            <textarea class="form-control <?= session('errors-insert.descripcion') ? 'is-invalid errors-insert-article' : '' ?>" id="inputDescription" name="descripcion" rows="3" placeholder="Descripción"><?= old('descripcion') ?></textarea>
                             <div class="invalid-feedback">
                                 <?= session('errors-insert.descripcion') ?>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputAcquisitionDate">Fecha de Adquisición</label>
-                            <input type="date" class="form-control <?= session('errors-insert.fecha_adquisicion') ? 'is-invalid errors-insert' : '' ?>" id="inputAcquisitionDate" name="fecha_adquisicion" value="<?= old('fecha_adquisicion') ?>">
+                            <input type="date" class="form-control <?= session('errors-insert.fecha_adquisicion') ? 'is-invalid errors-insert-article' : '' ?>" id="inputAcquisitionDate" name="fecha_adquisicion" value="<?= old('fecha_adquisicion') ?>">
                             <div class="invalid-feedback">
                                 <?= session('errors-insert.fecha_adquisicion') ?>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputUnitValue">Valor Unitario</label>
-                            <input type="number" class="form-control <?= session('errors-insert.valor_unitario') ? 'is-invalid errors-insert' : '' ?>" id="inputUnitValue" name="valor_unitario" placeholder="Valor Unitario" value="<?= old('valor_unitario') ?>">
+                            <input type="number" class="form-control <?= session('errors-insert.valor_unitario') ? 'is-invalid errors-insert-article' : '' ?>" id="inputUnitValue" name="valor_unitario" placeholder="Valor Unitario" value="<?= old('valor_unitario') ?>">
                             <div class="invalid-feedback">
                                 <?= session('errors-insert.valor_unitario') ?>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="selectState">Estado</label>
-                        <select class="form-control <?= session('errors-insert.estado_id') ? 'is-invalid errors-insert' : '' ?>" id="selectState" name="estado_id">
-                            <?php foreach ($estados as $estado): ?>
-                                <option value="<?= esc($estado['id']) ?>" <?= old('estado_id') == $estado['id'] ? 'selected' : '' ?>>
-                                    <?= esc($estado['nombre']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                        <div class="invalid-feedback">
-                            <?= session('errors-insert.estado_id') ?>
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label for="selectCategory">Categoría</label>
-                        <select class="form-control <?= session('errors-insert.categoria_id') ? 'is-invalid errors-insert' : '' ?>" id="selectCategory" name="categoria_id">
+                        <select class="form-control <?= session('errors-insert.categoria_id') ? 'is-invalid errors-insert-article' : '' ?>" id="selectCategory" name="categoria_id">
                             <?php foreach ($categorias as $categoria): ?>
                                 <option value="<?= esc($categoria['id']) ?>" <?= old('categoria_id') == $categoria['id'] ? 'selected' : '' ?>>
                                     <?= esc($categoria['nombre']) ?>
@@ -135,9 +148,11 @@
                             <?= session('errors-insert.categoria_id') ?>
                         </div>
                     </div>
+
                     <div style="border: 1px solid #17a2b8; padding: 10px; background-color: #e9f7fc; border-radius: 5px; margin-bottom: 15px;">
                         <strong>Información:</strong> Asegúrate de ingresar todos los datos correctamente antes de guardar el artículo.
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         <button type="submit" class="btn btn-primary" id="saveArticleButton">Guardar Artículo</button>
@@ -147,7 +162,7 @@
         </div>
     </div>
 </div>
-
+<?=var_dump($articulos) ?>
 <!-- Modal de Detalles de Artículo -->
 <?php foreach ($articulos as $articulo): ?>
     <div class="modal fade" id="detailsModal-<?= $articulo['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel-<?= $articulo['id'] ?>" aria-hidden="true">
@@ -167,8 +182,20 @@
                                 <input type="text" class="form-control" id="detailsName" value="<?= esc($articulo['nombre']) ?>" readonly>
                             </div>
                             <div class="form-group col-md-6">
+                                <label for="detailsName">Codigo Institucional</label>
+                                <input type="text" class="form-control" id="detailsName" value="<?= esc($articulo['cod_institucional']) ?>" readonly>
+                            </div>
+                            <div class="form-group col-md-6">
                                 <label for="detailsBrand">Marca</label>
                                 <input type="text" class="form-control" id="detailsBrand" value="<?= esc($articulo['marca']) ?>" readonly>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="detailsBrand">Serial</label>
+                                <input type="text" class="form-control" id="detailsBrand" value="<?= esc($articulo['serial']) ?>" readonly>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="detailsBrand">Cod institucional</label>
+                                <input type="text" class="form-control" id="detailsBrand" value="<?= esc($articulo['cod_institucional']) ?>" readonly>
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="detailsDescription">Descripción</label>
@@ -180,11 +207,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="detailsUnitValue">Valor Unitario</label>
-                                <input type="number" class="form-control" id="detailsUnitValue" value="<?= esc($articulo['valor_unitario']) ?>" readonly>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="detailsState">Estado</label>
-                                <input type="text" class="form-control" id="detailsState" value="<?= esc($articulo['estado']) ?>" readonly>
+                                <input type="text" class="form-control" id="detailsUnitValue" value="<?= esc($articulo['valor_unitario'].'$') ?> " readonly>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="detailsCategory">Categoría</label>
@@ -213,7 +236,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="<?= base_url('gestion-articulos/editarticulo/'.$articulo['id']) ?>" method="post" id="editArticleForm-<?= $articulo['id'] ?>">
+                    <form action="<?= base_url('articulos/addusuarios/'.$articulo['id']) ?>" method="post" id="editArticleForm-<?= $articulo['id'] ?>">
                         <?= csrf_field() ?>
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -250,19 +273,6 @@
                                 <div class="invalid-feedback">
                                     <?= session('errors-update.valor_unitario') ?>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="editState-<?= $articulo['id'] ?>">Estado</label>
-                            <select class="form-control <?= session('errors-update.estado_id') ? 'is-invalid errors-update' : '' ?>" id="editState-<?= $articulo['id'] ?>" name="estado_id">
-                                <?php foreach ($estados as $estado): ?>
-                                    <option value="<?= esc($estado['id']) ?>" <?= $articulo['estado_id'] == $estado['id'] ? 'selected' : '' ?>>
-                                        <?= esc($estado['nombre']) ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                            <div class="invalid-feedback">
-                                <?= session('errors-update.estado_id') ?>
                             </div>
                         </div>
                         <div class="form-group">
@@ -320,4 +330,33 @@
     </div>
 <?php endforeach; ?>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Verifica si hay un input con la clase específica dentro del formulario
+        let form = document.getElementById('addArticleForm');
+        let input = form.querySelector('input.errors-insert-article');
+        if (input) {
+            // Si existe, hace clic en el botón
+            document.getElementById('openModalButtonArticle').click();
+        }
+        let formUpdate = document.getElementById('editForm');
+        let inputUpdate = formUpdate ? formUpdate.querySelector('input.errors-update') : null;
+        if (inputUpdate){
+            let target = localStorage.getItem("data_target");
+            const elements = document.querySelectorAll(`[data-target="${target}"]`);
+            elements.forEach(element => {
+                element.click();
+            });
+        }
+        document.querySelectorAll('#editButton').forEach(button => {
+            button.addEventListener('click', function () {
+                const dataTargetValue = this.getAttribute('data-target');
+                localStorage.setItem("data_target", dataTargetValue);
+            });
+        });
+
+
+    });
+
+</script>
 <?= $this->endSection() ?>

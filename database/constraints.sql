@@ -6,9 +6,7 @@
 -- Filtros para la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  ADD CONSTRAINT `articulos_ibfk_1` FOREIGN KEY (`estado_id`) REFERENCES `estados` (`id`),
-  ADD CONSTRAINT `articulos_ibfk_2` FOREIGN KEY (`procedencia_id`) REFERENCES `procedencias` (`id`),
-  ADD CONSTRAINT `articulos_ibfk_3` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`);
+  ADD CONSTRAINT `articulos_ibfk_1` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`);
 
 --
 -- Filtros para la tabla `asignaciones`
@@ -22,8 +20,10 @@ ALTER TABLE `asignaciones`
 -- Filtros para la tabla `inventario_anual`
 --
 ALTER TABLE `inventario_anual`
-  ADD CONSTRAINT `inventario_anual_ibfk_1` FOREIGN KEY (`ubicacion_id`) REFERENCES `ubicaciones` (`id`),
-ADD CONSTRAINT `inventario_anual_ibfk_2` FOREIGN KEY (`articulo_id`) REFERENCES `articulos` (`id`);
+ADD CONSTRAINT `inventario_anual_ibfk_1` FOREIGN KEY (`ubicacion_id`) REFERENCES `ubicaciones` (`id`),
+ADD CONSTRAINT `inventario_anual_ibfk_2` FOREIGN KEY (`articulo_id`) REFERENCES `articulos` (`id`),
+ADD CONSTRAINT `inventario_anual_ibfk_3` FOREIGN KEY (`estado_id`) REFERENCES `estados` (`id`),
+ADD CONSTRAINT `inventario_anual_ibfk_4` FOREIGN KEY (`procedencia_id`) REFERENCES `procedencias` (`id`);
 
 
 --

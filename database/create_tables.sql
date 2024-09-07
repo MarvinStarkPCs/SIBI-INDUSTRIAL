@@ -11,11 +11,12 @@ CREATE TABLE `articulos`
     `id`                bigint(20) NOT NULL,
     `nombre`            varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
     `marca`             varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+    `modelo` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+    `serial` varchar(80)DEFAULT NULL,
+    cod_institucional varchar(100) DEFAULT NULL UNIQUE,
     `descripcion`       text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
     `fecha_adquisicion` date                                                          NOT NULL,
     `valor_unitario`    decimal(10, 2)                                                NOT NULL,
-    `estado_id`         bigint(20) DEFAULT NULL,
-    `procedencia_id`    bigint(20) DEFAULT NULL,
     `categoria_id`      bigint(20) DEFAULT NULL
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_general_ci;
@@ -51,9 +52,11 @@ CREATE TABLE `inventario_anual`
     `id`           bigint(20) NOT NULL,
     `articulo_id` bigint(20) NOT NULL,
     `ubicacion_id` bigint(20) NOT NULL,
+    `estado_id` bigint(20) NOT NULL,
+    `procedencia_id` bigint(20) NOT NULL,
     `fecha`TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `stock_inicio` int(11) NOT NULL,
-    `stock_final`  int(11) NOT NULL
+    `stock_final`  int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Estructura de tabla para la tabla `movimientos`

@@ -33,7 +33,6 @@ class GestionUsuariosModel extends Model
                      ->findAll();
 
     // Registrar los resultados de la consulta en el log
-    log_message('info', 'Resultados de la consulta getUsuariosConPerfiles: ' . json_encode($usuarios));
 
     return $usuarios;
 }
@@ -54,6 +53,8 @@ class GestionUsuariosModel extends Model
     // Actualizar un usuario existente
     public function updateUsuario($id, $data)
     {
+        log_message('info', 'Resultados de la consulta updateUsuario: ' . json_encode($data));
+
         return $this->update($id, $data);
     }
 

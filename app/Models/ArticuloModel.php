@@ -11,8 +11,8 @@ class ArticuloModel extends Model
     protected $useSoftDeletes = false;
 
     protected $allowedFields = [
-        'nombre', 'marca', 'descripcion', 'fecha_adquisicion',
-        'valor_unitario', 'estado_id', 'procedencia_id', 'categoria_id'
+        'nombre', 'marca','serial','modelo', 'serial','cod_institucional', 'descripcion', 'fecha_adquisicion',
+        'valor_unitario', 'categoria_id'
     ];
 
     protected $useTimestamps = false;
@@ -22,10 +22,20 @@ class ArticuloModel extends Model
 
     public function getArticulos()
     {
-        return $this->select('articulos.id, articulos.nombre, articulos.marca, articulos.descripcion, articulos.fecha_adquisicion, articulos.valor_unitario, estados.nombre as estado, estados.id as estado_id, procedencias.nombre as procedencia, categorias.nombre as categoria, categorias.id as categoria_id')
-            ->join('estados', 'articulos.estado_id = estados.id')
-            ->join('procedencias', 'articulos.procedencia_id = procedencias.id')
+        return $this->select('
+        articulos.id, 
+        articulos.nombre, 
+        articulos.marca,
+        articulos.serial, 
+        articulos.cod_institucional, 
+        articulos.descripcion, 
+        articulos.fecha_adquisicion, 
+        articulos.valor_unitario, 
+        categorias.nombre as categoria, 
+        categorias.id as categoria_id
+    ')
             ->join('categorias', 'articulos.categoria_id = categorias.id')
             ->findAll();
     }
+
 }

@@ -10,13 +10,16 @@
 
     <title>SIBI - Dashboard</title>
 
-    <!-- Custom fonts for this template-->
+    <!-- Custom fonts for this template -->
     <link href="<?= base_url('assets/fontawesome-free/css/all.min.css'); ?>" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
-    <link href="<?= base_url('assets/datatables/dataTables.bootstrap4.min.css'); ?>" rel="stylesheet" >
 
-    <!-- Custom styles for this template-->
+    <!-- CSS de Select2 (si lo usas) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="<?= base_url('assets/datatables/dataTables.bootstrap4.min.css'); ?>" rel="stylesheet">
     <link href="<?= base_url('css/sb-admin-2.min.css'); ?>" rel="stylesheet">
     <style>
         .sidebar-brand {
@@ -86,8 +89,6 @@
         .alert-danger .progress-bar {
             background-color: #dc3545; /* Rojo para error */
         }
-
-
     </style>
 </head>
 
@@ -129,10 +130,7 @@
                     <a class="collapse-item" href="<?= base_url('inventario'); ?>">Inventario</a>
                     <a class="collapse-item" href="<?= base_url('mover-articulo'); ?>">Mover Artículo</a>
                     <a class="collapse-item" href="<?= base_url('gestion-extras'); ?>">Asignar Artículo</a>
-
-
                     <a class="collapse-item" href="<?= base_url('gestion-extras'); ?>">Gestion de Extras</a>
-
                 </div>
             </div>
         </li>
@@ -230,6 +228,8 @@
                         </div>
                     </div>
                 <?php endif; ?>
+
+                <!-- Page content here -->
                 <?= $this->renderSection('content') ?>
             </div>
             <!-- /.container-fluid -->
@@ -240,7 +240,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2021</span>
+                    <span>Copyright &copy; Your Website <?= date('Y') ?></span>
                 </div>
             </div>
         </footer>
@@ -275,32 +275,40 @@
     </div>
 </div>
 
-<!-- Bootstrap core JavaScript-->
+<!-- Scripts -->
+<!-- jQuery -->
 <script src="<?= base_url('assets/jquery/jquery.min.js') ?>"></script>
 
+<!-- Select2 JavaScript (si lo usas) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<!--select inventario-->
+<script src="<?= base_url('js/selectInventario.js') ?>"></script>
+
+<!-- Bootstrap core JavaScript -->
 <script src="<?= base_url('assets/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 
-<!-- Core plugin JavaScript-->
+<!-- Core plugin JavaScript -->
 <script src="<?= base_url('assets/jquery-easing/jquery.easing.min.js') ?>"></script>
 
-<!-- Custom scripts for all pages-->
+<!-- Custom scripts for all pages -->
 <script src="<?= base_url('js/sb-admin-2.min.js') ?>"></script>
 
 <!-- Page level plugins -->
 <script src="<?= base_url('assets/chart.js/Chart.min.js') ?>"></script>
 
-
 <!-- Page level custom scripts -->
 <script src="<?= base_url('js/demo/chart-area-demo.js') ?>"></script>
 <script src="<?= base_url('js/demo/chart-pie-demo.js') ?>"></script>
 
-<!--datatable-->
-<script src="<?= base_url('assets/datatables/jquery.dataTables.min.js')?>" ></script>
+<!-- DataTables -->
+<script src="<?= base_url('assets/datatables/jquery.dataTables.min.js') ?>"></script>
 <script src="<?= base_url('assets/datatables/dataTables.bootstrap4.min.js') ?>"></script>
-
 <script src="<?= base_url('js/demo/datatables-demo.js') ?>"></script>
-<!--alert personalizada-->
+
+<!-- Custom alerts -->
 <script src="<?= base_url('js/demo/alert_custom.js') ?>"></script>
+
 </body>
 
 </html>

@@ -34,7 +34,6 @@ CREATE TABLE `articulos` (
   `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `fecha_adquisicion` date NOT NULL,
   `valor_unitario` decimal(10,2) NOT NULL,
-  `estado_id` bigint(20) DEFAULT NULL,
   `procedencia_id` bigint(20) DEFAULT NULL,
   `categoria_id` bigint(20) DEFAULT NULL,
   `ubicacion_id` bigint(20) DEFAULT NULL
@@ -127,6 +126,7 @@ INSERT INTO `estados` (`id`, `nombre`) VALUES
 CREATE TABLE `inventario_anual` (
   `id` bigint(20) NOT NULL,
   `ubicacion_id` bigint(20) NOT NULL,
+  `id_estado` bigint(20) NOT NULL
   `ano` year(4) NOT NULL,
   `stock_inicio` int(11) NOT NULL,
   `stock_final` int(11) NOT NULL

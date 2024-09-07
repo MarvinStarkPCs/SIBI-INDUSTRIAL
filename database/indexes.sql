@@ -1,8 +1,6 @@
 -- Indices de la tabla `articulos`
 ALTER TABLE `articulos`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `estado_id` (`estado_id`),
-  ADD KEY `procedencia_id` (`procedencia_id`),
   ADD KEY `categoria_id` (`categoria_id`);
 
 -- Indices de la tabla `asignaciones`
@@ -23,6 +21,9 @@ ALTER TABLE `estados`
 -- Indices de la tabla `inventario_anual`
 ALTER TABLE `inventario_anual`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `articulo_id` (`articulo_id`),
+  ADD KEY `procedencia_id` (`procedencia_id`),
+  ADD KEY `estado_id` (`estado_id`),
   ADD KEY `ubicacion_id` (`ubicacion_id`);
 
 -- Indices de la tabla `movimientos`

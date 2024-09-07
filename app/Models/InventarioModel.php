@@ -12,7 +12,16 @@ class InventarioModel extends Model
     protected $returnType = 'array';
     protected $useSoftDeletes = false;
     // Puedes definir los campos que se pueden actualizar si lo necesitas
-    protected $allowedFields = ['articulo_id', 'stock_inicio', 'stock_final', 'fecha'];
+
+    protected $allowedFields = [
+        'articulo_id',
+        'ubicacion_id',
+        'estado_id',
+        'procedencia_id',
+        'stock_inicio',
+        'stock_final'
+    ];
+
     // Métodos para ejecutar la consulta
     public function getInventarioConValorTotal()
     {
@@ -21,6 +30,7 @@ class InventarioModel extends Model
             'a.id AS articulo_id',
             'a.nombre AS articulo_nombre',
             'a.marca AS articulo_marca',
+            'a.cod_institucional',
             'a.descripcion AS articulo_descripcion',
             'a.fecha_adquisicion AS articulo_fecha_adquisicion',
             'a.valor_unitario AS articulo_valor_unitario',
@@ -28,21 +38,34 @@ class InventarioModel extends Model
             'p.nombre AS procedencia_nombre',
             'c.nombre AS categoria_nombre',
             'u.nombre AS ubicacion_nombre',
+            's.nombre AS sede',
             'i.stock_inicio AS inventario_stock_inicio',
             'i.stock_final AS inventario_stock_final',
             'i.fecha AS inventario_fecha',
             '(a.valor_unitario * i.stock_inicio) AS precio_total'
         ]);
         $builder->join('articulos a', 'i.articulo_id = a.id');
-        $builder->join('estados e', 'a.estado_id = e.id');
-        $builder->join('procedencias p', 'a.procedencia_id = p.id');
+        $builder->join('estados e', 'i.estado_id = e.id');
+        $builder->join('procedencias p', 'i.procedencia_id = p.id');
         $builder->join('categorias c', 'a.categoria_id = c.id');
         $builder->join('ubicaciones u', 'i.ubicacion_id = u.id');
+        $builder->join('sedes s', 'u.sede_id = s.id');
 
         $builder->orderBy('a.nombre', 'ASC');
         $builder->orderBy('i.fecha', 'DESC');
 
+
         $query = $builder->get();
         return $query->getResult();
+    }
+
+    public function exists($articulo_id, $ubicacion_id, $estado_id, $procedencia_id)
+    {
+        return $this->where([
+                'articulo_id' => $articulo_id,
+                'ubicacion_id' => $ubicacion_id,
+                'estado_id' => $estado_id,
+                'procedencia_id' => $procedencia_id
+            ])->first() !== null;
     }
 }

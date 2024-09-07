@@ -33,8 +33,8 @@ class CgestionUsarios extends Controller
         // Definir las reglas de validación
 
         $rules = [
-            'nombres' => 'required|min_length[2]|max_length[20]',
-            'apellidos' => 'required|min_length[2]|max_length[100]',
+            'nombres' => 'required|min_length[2]|max_length[15]',
+            'apellidos' => 'required|min_length[2]|max_length[8]',
             'identidad' => 'required|numeric|min_length[5]',
             'email' => 'required|valid_email|max_length[100]',
             'telefono' => 'required|numeric|min_length[8]|max_length[15]',
@@ -83,23 +83,40 @@ class CgestionUsarios extends Controller
     public function updateusuario($id)
     {
         $model = new GestionUsuariosModel();
+        // Validación de datos
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'identidad' => 'required',
+            'correo' => 'required|valid_email',
+            'telefono' => 'required',
+            'direccion' => 'required',
+            'perfil_id' => 'required|integer',
+        ]);
+        if (!$this->validate($validation->getRules())) {
+          
+            log_message('info', 'Resultados de la consulta updateUsuario: ' . json_encode($data));
 
-        // Recoge los datos actualizados
+            return redirect()->back()->withInput()->with('errors-edit', $validation->getErrors());
+        }
+        // Recoge los datos actualizados, sin incluir la contraseña
         $data = [
             'nombres' => $this->request->getPost('nombre'),
-            'email' => $this->request->getPost('email'),
+            'apellidos' => $this->request->getPost('apellido'),
+            'identificacion' => $this->request->getPost('identidad'),
+            'correo' => $this->request->getPost('correo'),
+            'telefono' => $this->request->getPost('telefono'),
+            'direccion' => $this->request->getPost('direccion'),
             'perfil_id' => $this->request->getPost('perfil_id'),
-            // Solo actualiza la contraseña si se ha proporcionado una nueva
-            'password' => $this->request->getPost('password') ? password_hash($this->request->getPost('password'), PASSWORD_DEFAULT) : null,
         ];
-
-        // Filtra los campos vacíos (e.g., si no hay nueva contraseña)
-        $data = array_filter($data);
-
-        // Actualiza los datos del usuario
         $model->updateUsuario($id, $data);
-
-        return redirect()->to('/gestionUsuarios');
+        // Actualiza los datos del usuario sin modificar la contraseña
+        if ($model) {
+            return redirect()->to('/gestion-usuarios')->with('success', 'Usuario actualizado correctamente.');
+        } else {
+            return redirect()->back()->with('errors', 'No se pudo actualizar el usuario.');
+        }
     }
 
     public function deleteusuario($id)

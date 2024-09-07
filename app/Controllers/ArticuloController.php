@@ -1,5 +1,6 @@
 <?php namespace App\Controllers;
 
+use App\Helpers\helpers;
 use App\Models\ArticuloModel;
 use App\Models\ComboboxModel;
 
@@ -17,31 +18,56 @@ class ArticuloController extends BaseController
             $modelcombo = new ComboboxModel();
             $data['articulos'] = $model->getArticulos();
             $data['categorias'] = $modelcombo->getTableData('categorias');
-            $data['estados'] = $modelcombo->getTableData('estados');
 
             return view('gestion_de_extras/articulos', $data);
         }
     }
-
     public function store()
     {
         $model = new ArticuloModel();
+        $cod_instucional  = new helpers();
 
+        // Obtén el servicio de validación
+        $validation = \Config\Services::validation();
+
+        // Reglas de validación
+        $validation->setRules([
+            'nombre' => 'required|string|max_length[20]',
+            'marca' => 'required|string|max_length[7]',
+            'modelo' => 'required|string|max_length[20]',
+            'serial' => 'required|string|max_length[20]',
+            'descripcion' => 'required|string',
+            'fecha_adquisicion' => 'required|valid_date',
+            'valor_unitario' => 'required|decimal',
+            'categoria_id' => 'required|integer',
+        ]);
+
+        // Validar los datos del formulario
+        if (!$validation->withRequest($this->request)->run()) {
+            return redirect()->back()->withInput()->with('errors-insert', $validation->getErrors());
+        }
+
+        // Recoge los datos del formulario
         $data = [
             'nombre' => $this->request->getPost('nombre'),
             'marca' => $this->request->getPost('marca'),
+            'modelo' => $this->request->getPost('modelo'),
+            'serial' => $this->request->getPost('serial'),
             'descripcion' => $this->request->getPost('descripcion'),
             'fecha_adquisicion' => $this->request->getPost('fecha_adquisicion'),
             'valor_unitario' => $this->request->getPost('valor_unitario'),
-            'estado_id' => $this->request->getPost('estado_id'),
-            'procedencia_id' => $this->request->getPost('procedencia_id'),
             'categoria_id' => $this->request->getPost('categoria_id'),
+            'cod_institucional' => $cod_instucional->generateRandomString()
         ];
-
-        $model->save($data);
-
-        return redirect()->to('/articulos');
+        log_message('info', 'Datos del formulario: ' . print_r($data, true));
+        // Insertar el artículo en la base de datos
+        if ($model->save($data)) {
+            return redirect()->to('/articulos')->with('success', 'Artículo agregado con éxito.');
+        } else {
+            return redirect()->back()->withInput()->with('error', 'Hubo un problema al guardar el artículo.');
+        }
     }
+
 
     public function update($id)
     {
@@ -53,8 +79,6 @@ class ArticuloController extends BaseController
             'descripcion' => $this->request->getPost('descripcion'),
             'fecha_adquisicion' => $this->request->getPost('fecha_adquisicion'),
             'valor_unitario' => $this->request->getPost('valor_unitario'),
-            'estado_id' => $this->request->getPost('estado_id'),
-            'procedencia_id' => $this->request->getPost('procedencia_id'),
             'categoria_id' => $this->request->getPost('categoria_id'),
         ];
 
@@ -93,6 +117,53 @@ class ArticuloController extends BaseController
             // Otros errores
             return redirect()->to('/articulos')->with('error', 'Ocurrió un error al intentar eliminar el artículo.');
         }
+    }
+    public function ArticuloExcel()
+    {
+        $model = new ArticuloModel();
+        $articulos = $model->getArticulos(); // Usa tu método para obtener los datos
+
+        // Crear un nuevo Spreadsheet
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Añadir encabezados
+        $sheet->setCellValue('A1', 'ID');
+        $sheet->setCellValue('B1', 'Nombre');
+        $sheet->setCellValue('C1', 'Marca');
+        $sheet->setCellValue('D1', 'Serial');
+        $sheet->setCellValue('E1', 'Código Institucional');
+        $sheet->setCellValue('F1', 'Descripción');
+        $sheet->setCellValue('G1', 'Fecha de Adquisición');
+        $sheet->setCellValue('H1', 'Valor Unitario');
+        $sheet->setCellValue('I1', 'Categoría');
+
+        // Añadir datos
+        $row = 2;
+        foreach ($articulos as $articulo) {
+            $sheet->setCellValue('A' . $row, $articulo['id']);
+            $sheet->setCellValue('B' . $row, $articulo['nombre']);
+            $sheet->setCellValue('C' . $row, $articulo['marca']);
+            $sheet->setCellValue('D' . $row, $articulo['serial']);
+            $sheet->setCellValue('E' . $row, $articulo['cod_institucional']);
+            $sheet->setCellValue('F' . $row, $articulo['descripcion']);
+            $sheet->setCellValue('G' . $row, $articulo['fecha_adquisicion']);
+            $sheet->setCellValue('H' . $row, $articulo['valor_unitario']);
+            $sheet->setCellValue('I' . $row, $articulo['categoria']);
+            $row++;
+        }
+
+        // Crear un archivo Excel y enviar al navegador
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+        $filename = 'articulos_' . date('Y-m-d_H-i') . '.xlsx';
+
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+
+        $writer->save('php://output');
+        exit;
     }
 
 }

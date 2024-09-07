@@ -3,83 +3,85 @@
 <?= $this->section('content') ?>
 <style>
     .icon-image {
-        width: 60px; /* Tamaño de imagen ajustado para pantallas más pequeñas */
+        width: 60px;
         height: auto;
-        transition: transform 0.3s, filter 0.3s; /* Transición suave para efectos de hover */
+        transition: transform 0.3s, filter 0.3s;
     }
 
     .card {
         display: flex;
-        flex-direction: column; /* Disposición en columna en pantallas pequeñas */
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         padding: 15px;
-        border: 2px solid #ddd; /* Borde por defecto, un poco más grueso para destacar */
-        border-radius: 8px; /* Bordes redondeados */
-        background-color: #fff; /* Fondo blanco para las tarjetas */
-        transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s; /* Transición suave */
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Sombra suave por defecto */
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        background-color: #fff;
+        transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        text-decoration: none; /* Evita subrayados en el texto */
+        color: inherit; /* Mantén el color del texto por defecto */
     }
 
     .card:hover {
-        background-color: #f0f8ff; /* Color de fondo cuando se pasa el cursor */
-        box-shadow: 0 6px 12px rgba(0,0,0,0.3); /* Sombra más pronunciada al pasar el cursor */
-        border-color: #2A6322; /* Color del borde al pasar el cursor */
+        background-color: #f0f8ff;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        border-color: #2A6322;
     }
 
     .card:hover .icon-image {
-        transform: scale(1.1); /* Aumenta el tamaño de la imagen al pasar el cursor */
-        filter: brightness(1.2); /* Aumenta el brillo de la imagen al pasar el cursor */
+        transform: scale(1.1);
+        filter: brightness(1.2);
     }
 
     .card-content {
         display: flex;
-        flex-direction: row; /* Disposición en fila en pantallas grandes */
+        flex-direction: row;
         align-items: center;
         width: 100%;
-        justify-content: space-between; /* Asegura que el texto y la imagen estén separados */
+        justify-content: space-between;
     }
 
     .card-text {
-        font-size: 2rem; /* Tamaño de fuente aumentado para el texto */
-        font-weight: bold; /* Texto en negrita para destacar más */
-        color: #333; /* Color del texto, ajusta si es necesario */
-        margin-left: 20px; /* Desplaza el texto hacia la derecha */
-        text-align: left; /* Alinea el texto a la izquierda */
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+        margin-left: 20px;
+        text-align: left;
     }
 
     .card-image {
-        margin-left: 15px; /* Espacio entre el texto y la imagen */
+        margin-left: 15px;
     }
 
     @media (max-width: 768px) {
         .card {
-            flex-direction: column; /* Cambia a disposición en columna en pantallas pequeñas */
+            flex-direction: column;
         }
 
         .card-content {
-            flex-direction: column; /* Cambia la disposición interna a columna */
-            align-items: center; /* Centra los elementos dentro de la tarjeta */
+            flex-direction: column;
+            align-items: center;
         }
 
         .card-text {
-            margin-left: 0; /* Elimina el margen en pantallas pequeñas */
-            margin-bottom: 10px; /* Espacio debajo del texto */
-            text-align: center; /* Centra el texto en pantallas pequeñas */
+            margin-left: 0;
+            margin-bottom: 10px;
+            text-align: center;
         }
 
         .card-image {
-            margin-left: 0; /* Elimina el margen en pantallas pequeñas */
+            margin-left: 0;
         }
     }
 
     @media (max-width: 576px) {
         .icon-image {
-            width: 50px; /* Tamaño de imagen ajustado aún más para pantallas muy pequeñas */
+            width: 50px;
         }
 
         .card-text {
-            font-size: 1.5rem; /* Tamaño de fuente reducido para pantallas muy pequeñas */
+            font-size: 1.5rem;
         }
     }
 </style>
@@ -92,7 +94,7 @@
     <div class="row">
         <!-- Artículos -->
         <div class="col-12 col-md-4 mb-4">
-            <div class="card">
+            <a href="<?= base_url('articulos'); ?>" class="card">
                 <div class="card-content">
                     <div class="card-text">
                         <h5 class="mb-0">Artículos</h5>
@@ -101,12 +103,12 @@
                         <img src="<?= base_url('img/gestionextras/1.png'); ?>" alt="Artículos" class="icon-image">
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <!-- Categorías -->
         <div class="col-12 col-md-4 mb-4">
-            <div class="card">
+            <a href="<?= base_url('categorias'); ?>" class="card">
                 <div class="card-content">
                     <div class="card-text">
                         <h5 class="mb-0">Categorías</h5>
@@ -115,12 +117,12 @@
                         <img src="<?= base_url('img/gestionextras/2.png'); ?>" alt="Categorías" class="icon-image">
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <!-- Estados -->
         <div class="col-12 col-md-4 mb-4">
-            <div class="card">
+            <a href="<?= base_url('estados'); ?>" class="card">
                 <div class="card-content">
                     <div class="card-text">
                         <h5 class="mb-0">Estados</h5>
@@ -129,12 +131,12 @@
                         <img src="<?= base_url('img/gestionextras/3.png'); ?>" alt="Estados" class="icon-image">
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <!-- Sedes -->
         <div class="col-12 col-md-4 mb-4">
-            <div class="card">
+            <a href="<?= base_url('sedes'); ?>" class="card">
                 <div class="card-content">
                     <div class="card-text">
                         <h5 class="mb-0">Sedes</h5>
@@ -143,12 +145,12 @@
                         <img src="<?= base_url('img/gestionextras/4.png'); ?>" alt="Sedes" class="icon-image">
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <!-- Ubicación -->
         <div class="col-12 col-md-4 mb-4">
-            <div class="card">
+            <a href="<?= base_url('ubicaciones'); ?>" class="card">
                 <div class="card-content">
                     <div class="card-text">
                         <h5 class="mb-0">Ubicación</h5>
@@ -157,7 +159,20 @@
                         <img src="<?= base_url('img/gestionextras/5.png'); ?>" alt="Ubicación" class="icon-image">
                     </div>
                 </div>
-            </div>
+            </a>
+        </div>
+        <!-- Procedencias -->
+        <div class="col-12 col-md-4 mb-4">
+            <a href="<?= base_url('ubicaciones'); ?>" class="card">
+                <div class="card-content">
+                    <div class="card-text">
+                        <h5 class="mb-0">Procedencias</h5>
+                    </div>
+                    <div class="card-image">
+                        <img src="<?= base_url('img/gestionextras/6.png'); ?>" alt="Procedencias" class="icon-image">
+                    </div>
+                </div>
+            </a>
         </div>
     </div>
 </div>
