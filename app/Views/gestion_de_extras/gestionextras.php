@@ -163,7 +163,7 @@
         </div>
         <!-- Procedencias -->
         <div class="col-12 col-md-4 mb-4">
-            <a href="<?= base_url('ubicaciones'); ?>" class="card">
+            <a href="<?= base_url('procedencias'); ?>" class="card">
                 <div class="card-content">
                     <div class="card-text">
                         <h5 class="mb-0">Procedencias</h5>

@@ -67,25 +67,48 @@ class ArticuloController extends BaseController
             return redirect()->back()->withInput()->with('error', 'Hubo un problema al guardar el artículo.');
         }
     }
-
-
     public function update($id)
     {
-        $model = new ArticuloModel();
+        $model = new ProcedenciasModel();
+        $validation = \Config\Services::validation();
 
+        // Definir las reglas de validación
+        $validation->setRules([
+            'nombre' => 'required|string|max_length[100]',
+            'nit_o_cc' => 'required|string|max_length[20]',
+            'direccion' => 'required|string|max_length[255]',
+            'telefono' => 'required|string|max_length[20]',
+            'representante' => 'required|string|max_length[100]',
+            'correo' => 'required|valid_email|max_length[255]',
+        ]);
+
+        // Validar los datos del formulario
+        if (!$validation->withRequest($this->request)->run()) {
+            // Si la validación falla, redirige de vuelta con los errores
+            return redirect()->back()->withInput()->with('errors-edit', $validation->getErrors());
+        }
+
+        // Si la validación pasa, preparar los datos para actualizar
         $data = [
             'nombre' => $this->request->getPost('nombre'),
-            'marca' => $this->request->getPost('marca'),
-            'descripcion' => $this->request->getPost('descripcion'),
-            'fecha_adquisicion' => $this->request->getPost('fecha_adquisicion'),
-            'valor_unitario' => $this->request->getPost('valor_unitario'),
-            'categoria_id' => $this->request->getPost('categoria_id'),
+            'nit_o_cc' => $this->request->getPost('nit_o_cc'),
+            'direccion' => $this->request->getPost('direccion'),
+            'telefono' => $this->request->getPost('telefono'),
+            'representante' => $this->request->getPost('representante'),
+            'correo' => $this->request->getPost('correo'),
         ];
 
-        $model->update($id, $data);
-
-        return redirect()->to('/articulos');
+        // Actualizar la procedencia
+        if ($model->update($id, $data)) {
+            // Redirigir con un mensaje de éxito
+            return redirect()->to('/procedencias')->with('success', 'Procedencia actualizada con éxito.');
+        } else {
+            // Redirigir con un mensaje de error
+            return redirect()->back()->with('error', 'Hubo un problema al actualizar la procedencia.');
+        }
     }
+
+
     public function delete($id)
     {
         $model = new ArticuloModel();

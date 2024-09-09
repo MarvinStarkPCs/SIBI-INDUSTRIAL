@@ -162,7 +162,6 @@
         </div>
     </div>
 </div>
-<?=var_dump($articulos) ?>
 <!-- Modal de Detalles de Artículo -->
 <?php foreach ($articulos as $articulo): ?>
     <div class="modal fade" id="detailsModal-<?= $articulo['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel-<?= $articulo['id'] ?>" aria-hidden="true">

@@ -54,8 +54,14 @@ $routes->get('/estados/delete/(:num)', 'EstadosController::delete/$1');
 $routes->get('/sedes', 'SedesController::index');
 
 ///Ubicacion
-    $routes->get('/ubicaciones', 'UbicacionesController::index');
+$routes->get('/ubicaciones', 'UbicacionesController::index');
 $routes->post('/ubicaciones/add', 'UbicacionesController::store');
 $routes->post('/ubicaciones/update/(:num)', 'UbicacionesController::update/$1');
 $routes->get('/ubicaciones/delete/(:num)', 'UbicacionesController::delete/$1');
 $routes->get('/ubicaciones/ubicaciones-excel', 'UbicacionesController::ubicacioneExcel');
+///procedencias
+$routes->get('/procedencias', 'ProcedenciasController::index');
+$routes->post('/procedencias/add', 'ProcedenciasController::store');
+$routes->post('/procedencias/update/(:num)', 'ProcedenciasController::update/$1');
+$routes->get('/procedencias/delete/(:num)', 'ProcedenciasController::delete/$1');
+$routes->get('/procedencias/procedencias-excel', 'ProcedenciasController::procedenciasExcel');
