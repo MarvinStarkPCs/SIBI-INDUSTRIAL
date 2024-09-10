@@ -11,15 +11,20 @@
     </div>
     <div class="card-body">
         <div class="d-flex justify-content-between mb-2">
-            <!-- Grupo de botones alineados a la izquierda -->
+            <!-- Botón de Atrás -->
+            <div>
+                <a href="<?= base_url('gestion-extras') ?>" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Atrás
+                </a>
+            </div>
+
+            <!-- Grupo de botones alineados a la derecha -->
             <div>
                 <!-- Botón para descargar Excel -->
                 <a href="<?= base_url('/articulos/articulos-excel') ?>" class="btn btn-success">
                     <i class="fas fa-file-excel"></i> Descargar Excel
                 </a>
-            </div>
-            <!-- Grupo de botones alineados a la derecha -->
-            <div>
+                <!-- Botón de Agregar Artículo -->
                 <button type="button" id="openModalButtonArticle" class="btn btn-primary" data-toggle="modal" data-target="#addArticleModal">
                     <i class="fas fa-plus"></i> Agregar Artículo
                 </button>

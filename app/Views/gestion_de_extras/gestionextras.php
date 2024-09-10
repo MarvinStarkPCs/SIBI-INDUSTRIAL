@@ -19,8 +19,8 @@
         background-color: #fff;
         transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        text-decoration: none; /* Evita subrayados en el texto */
-        color: inherit; /* Mantén el color del texto por defecto */
+        text-decoration: none;
+        color: inherit;
     }
 
     .card:hover {
@@ -52,6 +52,29 @@
 
     .card-image {
         margin-left: 15px;
+    }
+
+    .back-button {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .back-button i {
+        margin-right: 10px;
+        font-size: 1.5rem;
+    }
+
+    .container-box {
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        background-color: #fff;
     }
 
     @media (max-width: 768px) {
@@ -87,92 +110,100 @@
 </style>
 
 <div class="container">
+    <!-- Botón de regreso -->
+    <a href="javascript:history.back()" class="back-button">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+
     <div class="header mb-4">
         <h1 class="h3 text-gray-800">Gestión de Extras</h1>
     </div>
 
-    <div class="row">
-        <!-- Artículos -->
-        <div class="col-12 col-md-4 mb-4">
-            <a href="<?= base_url('articulos'); ?>" class="card">
-                <div class="card-content">
-                    <div class="card-text">
-                        <h5 class="mb-0">Artículos</h5>
+    <div class="container-box">
+        <div class="row">
+            <!-- Artículos -->
+            <div class="col-12 col-md-4 mb-4">
+                <a href="<?= base_url('articulos'); ?>" class="card">
+                    <div class="card-content">
+                        <div class="card-text">
+                            <h5 class="mb-0">Artículos</h5>
+                        </div>
+                        <div class="card-image">
+                            <img src="<?= base_url('img/gestionextras/1.png'); ?>" alt="Artículos" class="icon-image">
+                        </div>
                     </div>
-                    <div class="card-image">
-                        <img src="<?= base_url('img/gestionextras/1.png'); ?>" alt="Artículos" class="icon-image">
-                    </div>
-                </div>
-            </a>
-        </div>
+                </a>
+            </div>
 
-        <!-- Categorías -->
-        <div class="col-12 col-md-4 mb-4">
-            <a href="<?= base_url('categorias'); ?>" class="card">
-                <div class="card-content">
-                    <div class="card-text">
-                        <h5 class="mb-0">Categorías</h5>
+            <!-- Categorías -->
+            <div class="col-12 col-md-4 mb-4">
+                <a href="<?= base_url('categorias'); ?>" class="card">
+                    <div class="card-content">
+                        <div class="card-text">
+                            <h5 class="mb-0">Categorías</h5>
+                        </div>
+                        <div class="card-image">
+                            <img src="<?= base_url('img/gestionextras/2.png'); ?>" alt="Categorías" class="icon-image">
+                        </div>
                     </div>
-                    <div class="card-image">
-                        <img src="<?= base_url('img/gestionextras/2.png'); ?>" alt="Categorías" class="icon-image">
-                    </div>
-                </div>
-            </a>
-        </div>
+                </a>
+            </div>
 
-        <!-- Estados -->
-        <div class="col-12 col-md-4 mb-4">
-            <a href="<?= base_url('estados'); ?>" class="card">
-                <div class="card-content">
-                    <div class="card-text">
-                        <h5 class="mb-0">Estados</h5>
+            <!-- Estados -->
+            <div class="col-12 col-md-4 mb-4">
+                <a href="<?= base_url('estados'); ?>" class="card">
+                    <div class="card-content">
+                        <div class="card-text">
+                            <h5 class="mb-0">Estados</h5>
+                        </div>
+                        <div class="card-image">
+                            <img src="<?= base_url('img/gestionextras/3.png'); ?>" alt="Estados" class="icon-image">
+                        </div>
                     </div>
-                    <div class="card-image">
-                        <img src="<?= base_url('img/gestionextras/3.png'); ?>" alt="Estados" class="icon-image">
-                    </div>
-                </div>
-            </a>
-        </div>
+                </a>
+            </div>
 
-        <!-- Sedes -->
-        <div class="col-12 col-md-4 mb-4">
-            <a href="<?= base_url('sedes'); ?>" class="card">
-                <div class="card-content">
-                    <div class="card-text">
-                        <h5 class="mb-0">Sedes</h5>
+            <!-- Sedes -->
+            <div class="col-12 col-md-4 mb-4">
+                <a href="<?= base_url('sedes'); ?>" class="card">
+                    <div class="card-content">
+                        <div class="card-text">
+                            <h5 class="mb-0">Sedes</h5>
+                        </div>
+                        <div class="card-image">
+                            <img src="<?= base_url('img/gestionextras/4.png'); ?>" alt="Sedes" class="icon-image">
+                        </div>
                     </div>
-                    <div class="card-image">
-                        <img src="<?= base_url('img/gestionextras/4.png'); ?>" alt="Sedes" class="icon-image">
-                    </div>
-                </div>
-            </a>
-        </div>
+                </a>
+            </div>
 
-        <!-- Ubicación -->
-        <div class="col-12 col-md-4 mb-4">
-            <a href="<?= base_url('ubicaciones'); ?>" class="card">
-                <div class="card-content">
-                    <div class="card-text">
-                        <h5 class="mb-0">Ubicación</h5>
+            <!-- Ubicación -->
+            <div class="col-12 col-md-4 mb-4">
+                <a href="<?= base_url('ubicaciones'); ?>" class="card">
+                    <div class="card-content">
+                        <div class="card-text">
+                            <h5 class="mb-0">Ubicación</h5>
+                        </div>
+                        <div class="card-image">
+                            <img src="<?= base_url('img/gestionextras/5.png'); ?>" alt="Ubicación" class="icon-image">
+                        </div>
                     </div>
-                    <div class="card-image">
-                        <img src="<?= base_url('img/gestionextras/5.png'); ?>" alt="Ubicación" class="icon-image">
+                </a>
+            </div>
+
+            <!-- Procedencias -->
+            <div class="col-12 col-md-4 mb-4">
+                <a href="<?= base_url('procedencias'); ?>" class="card">
+                    <div class="card-content">
+                        <div class="card-text">
+                            <h5 class="mb-0">Procedencias</h5>
+                        </div>
+                        <div class="card-image">
+                            <img src="<?= base_url('img/gestionextras/6.png'); ?>" alt="Procedencias" class="icon-image">
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-        <!-- Procedencias -->
-        <div class="col-12 col-md-4 mb-4">
-            <a href="<?= base_url('procedencias'); ?>" class="card">
-                <div class="card-content">
-                    <div class="card-text">
-                        <h5 class="mb-0">Procedencias</h5>
-                    </div>
-                    <div class="card-image">
-                        <img src="<?= base_url('img/gestionextras/6.png'); ?>" alt="Procedencias" class="icon-image">
-                    </div>
-                </div>
-            </a>
+                </a>
+            </div>
         </div>
     </div>
 </div>

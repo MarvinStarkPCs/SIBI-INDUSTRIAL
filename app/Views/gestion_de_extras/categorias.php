@@ -11,6 +11,12 @@
     </div>
     <div class="card-body">
         <div class="d-flex justify-content-end mb-2">
+            <!-- Botón de Atrás -->
+            <div>
+                <a href="<?= base_url('gestion-extras') ?>" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Atrás
+                </a>
+            </div>
             <button type="button" id="openModalButtonCategory" class="btn btn-primary" data-toggle="modal"
                     data-target="#addCategoryModal">
                 <i class="fas fa-plus-circle"></i> Agregar Categoría

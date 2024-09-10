@@ -121,35 +121,77 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-cog"></i>
+                <i class="fas fa-fw fa-cog"></i> <!-- Icono de sistema -->
                 <span>Sistema</span>
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Gestión del Sistema</h6>
-                    <a class="collapse-item" href="<?= base_url('inventario'); ?>">Inventario</a>
-                    <a class="collapse-item" href="<?= base_url('mover-articulo'); ?>">Mover Artículo</a>
-                    <a class="collapse-item" href="<?= base_url('gestion-extras'); ?>">Asignar Artículo</a>
-                    <a class="collapse-item" href="<?= base_url('gestion-extras'); ?>">Gestion de Extras</a>
+                    <a class="collapse-item" href="<?= base_url('inventario'); ?>">
+                        <i class="fas fa-box"></i> <!-- Icono de inventario -->
+                        Inventario
+                    </a>
+                    <a class="collapse-item" href="<?= base_url('mover-articulo'); ?>">
+                        <i class="fas fa-arrows-alt"></i> <!-- Icono de mover artículo -->
+                        Mover Artículo
+                    </a>
+                    <a class="collapse-item" href="<?= base_url('gestion-extras'); ?>">
+                        <i class="fas fa-plus-circle"></i> <!-- Icono de asignar artículo -->
+                        Asignar Artículo
+                    </a>
+                    <a class="collapse-item" href="<?= base_url('gestion-extras'); ?>">
+                        <i class="fas fa-boxes"></i> <!-- Icono de gestión de extras -->
+                        Gestión de Extras
+                    </a>
                 </div>
             </div>
         </li>
+
         <!-- Nav Item - Seguridad -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-wrench"></i>
+                <i class="fas fa-fw fa-shield-alt"></i> <!-- Icono de seguridad -->
                 <span>Seguridad</span>
             </a>
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Configura seguridad:</h6>
-                    <a class="collapse-item" href="<?= base_url('gestion-usuarios'); ?>">Gestión de Usuarios</a>
-                    <a class="collapse-item" href="<?= base_url('cambiar-contrasena'); ?>">Cambiar Contraseña</a>
+                    <a class="collapse-item" href="<?= base_url('gestion-usuarios'); ?>">
+                        <i class="fas fa-users-cog"></i> <!-- Icono de gestión de usuarios -->
+                        Gestión de Usuarios
+                    </a>
+                    <a class="collapse-item" href="<?= base_url('cambiar-contrasena'); ?>">
+                        <i class="fas fa-key"></i> <!-- Icono de cambiar contraseña -->
+                        Cambiar Contraseña
+                    </a>
                 </div>
             </div>
         </li>
+
+        <!-- Nav Item - Historia (nueva sección) -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHistory"
+               aria-expanded="true" aria-controls="collapseHistory">
+                <i class="fas fa-fw fa-history"></i> <!-- Icono de historia -->
+                <span>Historia</span>
+            </a>
+            <div id="collapseHistory" class="collapse" aria-labelledby="headingHistory" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Historial del Sistema:</h6>
+                    <a class="collapse-item" href="<?= base_url('historial-actividades'); ?>">
+                        <i class="fas fa-tasks"></i> <!-- Icono de historial de actividades -->
+                        Historial de Actividades
+                    </a>
+                    <a class="collapse-item" href="<?= base_url('registro-eventos'); ?>">
+                        <i class="fas fa-calendar-alt"></i> <!-- Icono de registro de eventos -->
+                        Registro de Eventos
+                    </a>
+                </div>
+            </div>
+        </li>
+
         <!-- Divider -->
         <hr class="sidebar-divider">
         <!-- Sidebar Toggler (Sidebar) -->
