@@ -10,17 +10,20 @@
         <h6 class="m-0 font-weight-bold text-primary">Lista de Categorías</h6>
     </div>
     <div class="card-body">
-        <div class="d-flex justify-content-end mb-2">
+        <div class="d-flex justify-content-between mb-2">
             <!-- Botón de Atrás -->
             <div>
                 <a href="<?= base_url('gestion-extras') ?>" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Atrás
                 </a>
             </div>
-            <button type="button" id="openModalButtonCategory" class="btn btn-primary" data-toggle="modal"
-                    data-target="#addCategoryModal">
-                <i class="fas fa-plus-circle"></i> Agregar Categoría
-            </button>
+            <div>
+                <!-- Botón para agregar una categoría -->
+                <button type="button" id="openModalButtonCategory" class="btn btn-primary" data-toggle="modal"
+                        data-target="#addCategoryModal">
+                    <i class="fas fa-plus-circle"></i> Agregar Categoría
+                </button>
+            </div>
         </div>
 
         <div class="table-responsive">

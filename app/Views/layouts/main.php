@@ -181,14 +181,19 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Historial del Sistema:</h6>
                     <a class="collapse-item" href="<?= base_url('historial-actividades'); ?>">
-                        <i class="fas fa-tasks"></i> <!-- Icono de historial de actividades -->
-                        Historial de Actividades
+                        <i class="fas fa-tasks"></i> Historial de Inventario
                     </a>
                     <a class="collapse-item" href="<?= base_url('registro-eventos'); ?>">
-                        <i class="fas fa-calendar-alt"></i> <!-- Icono de registro de eventos -->
-                        Registro de Eventos
+                        <i class="fas fa-calendar-alt"></i> Historial de Prestamos
+                    </a>
+                    <a class="collapse-item" href="<?= base_url('historial-movimientos'); ?>">
+                        <i class="fas fa-exchange-alt"></i> Historial de Movimientos
+                    </a>
+                    <a class="collapse-item" href="<?= base_url('historial-dados-baja'); ?>">
+                        <i class="fas fa-trash-alt"></i> Historial Dados de Baja
                     </a>
                 </div>
+
             </div>
         </li>
 

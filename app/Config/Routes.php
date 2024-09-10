@@ -21,6 +21,9 @@ $routes->get('dashboard', 'chome::index');
 $routes->get('inventario', 'cinventario::index');
 $routes->post('inventario/open', 'cinventario::insertinventario');
 $routes->get('inventario/inventario-excel', 'cinventario::descargarInventarioExcel');
+//Asignar Articulo
+$routes->get('asignar-articulo', 'AsignarArticuloController::index');
+$routes->post('asignar-articulo/save', 'AsignarArticuloController::asignar');
 
 //seguridad
 ///Gestion de usuarios

@@ -2,7 +2,7 @@
 
 <?= $this->section('content') ?>
 <h1 class="h3 mb-2 text-gray-800">Gestión de Estados</h1>
-<p class="mb-4">Aquí puedes gestionar las Estados del sistema.</p>
+<p class="mb-4">Aquí puedes gestionar los Estados del sistema.</p>
 
 <!-- DataTable -->
 <div class="card shadow mb-4">
@@ -10,11 +10,19 @@
         <h6 class="m-0 font-weight-bold text-primary">Lista de Estados</h6>
     </div>
     <div class="card-body">
-        <div class="d-flex justify-content-end mb-2">
-            <button type="button" id="openModalButtonCategory" class="btn btn-primary" data-toggle="modal"
-                    data-target="#addCategoryModal">
-                <i class="fas fa-plus-circle"></i> Agregar Estado
-            </button>
+        <div class="d-flex justify-content-between mb-2">
+            <div>
+                <a href="<?= base_url('gestion-extras') ?>" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Atrás
+                </a>
+            </div>
+
+            <div>
+                <button type="button" id="openModalButtonCategory" class="btn btn-primary" data-toggle="modal"
+                        data-target="#addCategoryModal">
+                    <i class="fas fa-plus-circle"></i> Agregar Estado
+                </button>
+            </div>
         </div>
 
         <div class="table-responsive">
@@ -117,7 +125,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Estás seguro de que deseas eliminar esta Estado?</p>
+                    <p>¿Estás seguro de que deseas eliminar este estado?</p>
                     <p><strong><?= esc($estado['nombre']) ?></strong></p>
                 </div>
                 <div class="modal-footer">
@@ -133,8 +141,6 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        document.getElementById('editButton').style.display = 'none';
-
         // Verifica si hay un input con la clase específica dentro del formulario
         let form = document.getElementById('addCategoryForm');
         let input = form.querySelector('input.errors-insert');

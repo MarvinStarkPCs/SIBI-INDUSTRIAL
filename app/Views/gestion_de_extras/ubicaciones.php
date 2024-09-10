@@ -13,8 +13,12 @@
         <div class="d-flex justify-content-between mb-2">
             <!-- Grupo de botones alineados a la izquierda -->
             <div>
+                <!-- Botón de Atrás -->
+                <a href="<?= base_url('gestion-extras') ?>" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Atrás
+                </a>
                 <!-- Botón para descargar Excel -->
-                <a href="<?= base_url('/ubicaciones/ubicaciones-excel') ?>" class="btn btn-success">
+                <a href="<?= base_url('/ubicaciones/ubicaciones-excel') ?>" class="btn btn-success ml-2">
                     <i class="fas fa-file-excel"></i> Descargar Excel
                 </a>
             </div>
