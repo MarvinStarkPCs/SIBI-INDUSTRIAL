@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-08-2024 a las 22:15:03
+-- Tiempo de generación: 10-09-2024 a las 05:08:03
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -31,24 +31,22 @@ CREATE TABLE `articulos` (
   `id` bigint(20) NOT NULL,
   `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `marca` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `modelo` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `serial` varchar(80) DEFAULT NULL,
+  `cod_institucional` varchar(100) DEFAULT NULL,
   `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `fecha_adquisicion` date NOT NULL,
   `valor_unitario` decimal(10,2) NOT NULL,
-  `procedencia_id` bigint(20) DEFAULT NULL,
-  `categoria_id` bigint(20) DEFAULT NULL,
-  `ubicacion_id` bigint(20) DEFAULT NULL
+  `categoria_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_general_ci;
 
 --
 -- Volcado de datos para la tabla `articulos`
 --
 
-INSERT INTO `articulos` (`id`, `nombre`, `marca`, `descripcion`, `fecha_adquisicion`, `valor_unitario`, `estado_id`, `procedencia_id`, `categoria_id`, `ubicacion_id`) VALUES
-(1, 'Laptop', 'HP', 'Laptop con 8GB RAM', '2024-01-15', 800.00, 1, 1, 1, 1),
-(2, 'Escritorio', 'IKEA', 'Escritorio de madera', '2024-03-20', 150.00, 1, 2, 2, 2),
-(3, 'Teclado', 'Logitech', 'Teclado mecánico', '2024-07-10', 50.00, 1, 1, 1, 1),
-(4, 'Monitor', 'Dell', 'Monitor 24 pulgadas', '2024-06-25', 200.00, 2, 2, 1, 2),
-(5, 'Silla', 'Herman Miller', 'Silla ergonómica', '2024-05-30', 300.00, 1, 2, 2, 1);
+INSERT INTO `articulos` (`id`, `nombre`, `marca`, `modelo`, `serial`, `cod_institucional`, `descripcion`, `fecha_adquisicion`, `valor_unitario`, `categoria_id`) VALUES
+(1, 'Computadora', 'HP', NULL, NULL, NULL, 'Modelo Z200', '2024-01-10', 1500.00, 1),
+(2, 'Silla de Oficina', 'ErgoChair', NULL, NULL, NULL, 'Silla ergonómica', '2024-02-15', 200.00, 2);
 
 -- --------------------------------------------------------
 
@@ -70,9 +68,8 @@ CREATE TABLE `asignaciones` (
 --
 
 INSERT INTO `asignaciones` (`id`, `articulo_id`, `de_usuario_id`, `a_usuario_id`, `cantidad_otorgada`, `asignado_en`) VALUES
-(1, 1, 1, 2, 1, '2024-08-15 13:56:21'),
-(2, 2, 1, 2, 1, '2024-08-18 16:30:00'),
-(3, 3, 2, 1, 2, '2024-08-19 21:00:00');
+(1, 1, 1, 2, 2, '2024-09-01 15:00:00'),
+(2, 2, 2, 1, 1, '2024-09-01 16:00:00');
 
 -- --------------------------------------------------------
 
@@ -90,10 +87,9 @@ CREATE TABLE `categorias` (
 --
 
 INSERT INTO `categorias` (`id`, `nombre`) VALUES
-(1, 'Electronica'),
+(1, 'Electrónica'),
 (2, 'Mobiliario'),
-(3, 'Oficina'),
-(4, 'Electrodomésticos');
+(3, 'Papelería');
 
 -- --------------------------------------------------------
 
@@ -111,11 +107,11 @@ CREATE TABLE `estados` (
 --
 
 INSERT INTO `estados` (`id`, `nombre`) VALUES
-(1, 'Nuevo'),
-(2, 'Usado'),
-(3, 'Obsoleto'),
-(4, 'En reparación'),
-(5, 'Reciclaje');
+(1, 'BUENO'),
+(2, 'REGULAR'),
+(3, 'MAL'),
+(4, 'DADO DE BAJA'),
+(5, 'EXATRAVIADO');
 
 -- --------------------------------------------------------
 
@@ -125,22 +121,22 @@ INSERT INTO `estados` (`id`, `nombre`) VALUES
 
 CREATE TABLE `inventario_anual` (
   `id` bigint(20) NOT NULL,
+  `articulo_id` bigint(20) NOT NULL,
   `ubicacion_id` bigint(20) NOT NULL,
-  `id_estado` bigint(20) NOT NULL
-  `ano` year(4) NOT NULL,
+  `estado_id` bigint(20) NOT NULL,
+  `procedencia_id` bigint(20) NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
   `stock_inicio` int(11) NOT NULL,
-  `stock_final` int(11) NOT NULL
+  `stock_final` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `inventario_anual`
 --
 
-INSERT INTO `inventario_anual` (`id`, `ubicacion_id`, `ano`, `stock_inicio`, `stock_final`) VALUES
-(1, 1, '2024', 10, 8),
-(2, 2, '2024', 5, 4),
-(3, 3, '2024', 15, 12),
-(4, 4, '2024', 8, 6);
+INSERT INTO `inventario_anual` (`id`, `articulo_id`, `ubicacion_id`, `estado_id`, `procedencia_id`, `fecha`, `stock_inicio`, `stock_final`) VALUES
+(1, 1, 1, 1, 1, '2024-09-01 05:00:00', 10, 8),
+(2, 2, 2, 2, 2, '2024-09-01 05:00:00', 5, 5);
 
 -- --------------------------------------------------------
 
@@ -155,14 +151,6 @@ CREATE TABLE `movimientos` (
   `cantidad` int(11) NOT NULL,
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `movimientos`
---
-
-INSERT INTO `movimientos` (`id`, `articulo_id`, `tipo`, `cantidad`, `fecha`) VALUES
-(2, 5, 'entrada', 3, '2024-08-15 09:00:00'),
-(3, 4, 'salida', 1, '2024-08-16 11:30:00');
 
 -- --------------------------------------------------------
 
@@ -181,9 +169,7 @@ CREATE TABLE `perfiles` (
 
 INSERT INTO `perfiles` (`id`, `nombre`) VALUES
 (1, 'Administrador'),
-(2, 'Usuario'),
-(3, 'Supervisor'),
-(4, 'Técnico');
+(2, 'Usuario');
 
 -- --------------------------------------------------------
 
@@ -197,7 +183,7 @@ CREATE TABLE `procedencias` (
   `nit_o_cc` varchar(60) DEFAULT NULL,
   `direccion` varchar(60) DEFAULT NULL,
   `telefono` varchar(60) DEFAULT NULL,
-  `resentante` varchar(60) DEFAULT NULL,
+  `representante` varchar(60) DEFAULT NULL,
   `correo` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -205,11 +191,17 @@ CREATE TABLE `procedencias` (
 -- Volcado de datos para la tabla `procedencias`
 --
 
-INSERT INTO `procedencias` (`id`, `nombre`, `nit_o_cc`, `direccion`, `telefono`, `resentante`, `correo`) VALUES
-(1, 'Compra directa', NULL, NULL, NULL, NULL, NULL),
-(2, 'Donacion', NULL, NULL, NULL, NULL, NULL),
-(3, 'Herencia', NULL, NULL, NULL, NULL, NULL),
-(4, 'Compra en línea', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `procedencias` (`id`, `nombre`, `nit_o_cc`, `direccion`, `telefono`, `representante`, `correo`) VALUES
+(1, 'Universidad UFPSO', '121414714-5', 'Vía Universidad Francisco de Paula Santander', '32215154445', 'GERMAN ALONSO OSORIO ALVAREZ', 'german.osorio@ufpso.edu.co'),
+(2, 'Universidad Nacional', '221546789-3', 'Carrera 45 #26-85, Bogotá', '3106541234', 'JUAN PEREZ GOMEZ', 'juan.perez@unal.edu.co'),
+(3, 'Universidad de los Andes', '331547891-4', 'Carrera 1 #18A-12, Bogotá', '3201234567', 'MARTA LOPEZ GARCIA', 'marvin.lopez@uniandes.edu.co'),
+(4, 'Universidad Javeriana', '451265987-2', 'Carrera 7 #40-62, Bogotá', '3119876543', 'CARLOS RAMIREZ TORRES', 'carlos.ramirez@javeriana.edu.co'),
+(5, 'Universidad del Rosario', '512487963-9', 'Calle 12C #6-25, Bogotá', '3007654321', 'ANA MARIA RODRIGUEZ', 'ana.rodriguez@urosario.edu.co'),
+(6, 'Universidad del Norte', '614798563-1', 'Km 5 Vía Puerto Colombia, Barranquilla', '3119871234', 'PEDRO GUTIERREZ PEREZ', 'pedro.gutierrez@uninorte.edu.co'),
+(7, 'Universidad Pontificia Bolivariana', '745698745-6', 'Circular 1 #70-01, Medellín', '3017894561', 'LUCIA MORALES DIAZ', 'lucia.morales@upb.edu.co'),
+(9, 'Universidad Industrial de Santander', '951236478-4', 'Carrera 27 Calle 9, Bucaramanga', '3156789543', 'PABLO CASTRO RIVERA', 'pablo.castro@uis.edu.co'),
+(10, 'Universidad del Valle', '103216547-9', 'Calle 13 #100-00, Cali', '3224567890', 'DIANA RUIZ MARTINEZ', 'diana.ruiz@univalle.edu.co'),
+(11, 'MARVIN', '452354345-3', 'kdx 286-300 av circunvalar', '3132311084', 'marivn', 'admin@aetghae.cpm');
 
 -- --------------------------------------------------------
 
@@ -227,10 +219,10 @@ CREATE TABLE `sedes` (
 --
 
 INSERT INTO `sedes` (`id`, `nombre`) VALUES
-(1, 'Sede Central'),
-(2, 'Sede Norte'),
-(3, 'Sede Este'),
-(4, 'Sede Sur');
+(1, 'Sede Cristo Rey'),
+(2, 'Sede Marabel'),
+(3, 'Sede El Carmen'),
+(4, 'Sede La Primavera');
 
 -- --------------------------------------------------------
 
@@ -252,9 +244,8 @@ CREATE TABLE `traslados` (
 --
 
 INSERT INTO `traslados` (`id`, `articulo_id`, `de_ubicacion_id`, `a_ubicacion_id`, `trasladado_por`, `trasladado_en`) VALUES
-(1, 1, 1, 2, 1, '2024-08-15 13:56:21'),
-(2, 4, 2, 1, 2, '2024-08-17 20:45:00'),
-(3, 5, 1, 2, 1, '2024-08-18 22:30:00');
+(1, 1, 1, 2, 1, '2024-09-02 14:00:00'),
+(2, 2, 2, 1, 2, '2024-09-02 15:00:00');
 
 -- --------------------------------------------------------
 
@@ -273,10 +264,18 @@ CREATE TABLE `ubicaciones` (
 --
 
 INSERT INTO `ubicaciones` (`id`, `nombre`, `sede_id`) VALUES
-(1, 'Almacen 1', 1),
-(2, 'Almacen 2', 2),
-(3, 'Almacen 3', 3),
-(4, 'Oficina Principal', 4);
+(1, 'Salon 101', 1),
+(2, 'Salon 102', 1),
+(3, 'Laboratorio de Fisica', 1),
+(4, 'Salon 201', 2),
+(5, 'Salon 202', 2),
+(6, 'Taller de Ebanisteria', 2),
+(7, 'Salon 301', 3),
+(8, 'Salon 302', 3),
+(9, 'Laboratorio de Electronica', 3),
+(10, 'Salon 401', 4),
+(11, 'Salon 402', 4),
+(12, 'Laboratorio de Sistemas', 4);
 
 -- --------------------------------------------------------
 
@@ -286,8 +285,11 @@ INSERT INTO `ubicaciones` (`id`, `nombre`, `sede_id`) VALUES
 
 CREATE TABLE `usuarios` (
   `id` bigint(20) NOT NULL,
-  `nombre` varchar(255) NOT NULL,
+  `nombres` varchar(100) NOT NULL,
+  `apellidos` varchar(100) NOT NULL,
   `identificacion` varchar(100) NOT NULL,
+  `telefono` varchar(20) NOT NULL,
+  `direccion` varchar(20) NOT NULL,
   `correo` varchar(255) NOT NULL,
   `contrasena` varchar(255) NOT NULL,
   `perfil_id` bigint(20) DEFAULT NULL
@@ -297,11 +299,9 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `identificacion`, `correo`, `contrasena`, `perfil_id`) VALUES
-(1, 'Juan Perez', '123456789', 'admin@admin.com', 'admin', 1),
-(2, 'Ana Gomez', '987654321', 'ana.gomez@example.com', 'password456', 2),
-(3, 'Luis Martinez', '321654987', 'luis.martinez@example.com', 'luispass', 2),
-(4, 'Marta Fernandez', '159753486', 'marta.fernandez@example.com', 'martapass', 3);
+INSERT INTO `usuarios` (`id`, `nombres`, `apellidos`, `identificacion`, `telefono`, `direccion`, `correo`, `contrasena`, `perfil_id`) VALUES
+(1, 'Juan', 'Pérez', '12345678', '555-1234', 'Calle 123', 'admin@admin.com', '$2y$10$xdHFXhYoOaUbqjip72qvj.3489G7unuXyD7gHL/XTwcUsDTFyMj6G', 1),
+(2, 'Ana', 'Gómez', '87654321', '555-5678', 'Avenida 456', 'ana@example.com', 'password_hash', 1);
 
 --
 -- Índices para tablas volcadas
@@ -312,10 +312,8 @@ INSERT INTO `usuarios` (`id`, `nombre`, `identificacion`, `correo`, `contrasena`
 --
 ALTER TABLE `articulos`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `estado_id` (`estado_id`),
-  ADD KEY `procedencia_id` (`procedencia_id`),
-  ADD KEY `categoria_id` (`categoria_id`),
-  ADD KEY `ubicacion_id` (`ubicacion_id`);
+  ADD UNIQUE KEY `cod_institucional` (`cod_institucional`),
+  ADD KEY `categoria_id` (`categoria_id`);
 
 --
 -- Indices de la tabla `asignaciones`
@@ -343,7 +341,10 @@ ALTER TABLE `estados`
 --
 ALTER TABLE `inventario_anual`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unique_articulo_ano` (`ubicacion_id`,`ano`);
+  ADD KEY `articulo_id` (`articulo_id`),
+  ADD KEY `procedencia_id` (`procedencia_id`),
+  ADD KEY `estado_id` (`estado_id`),
+  ADD KEY `ubicacion_id` (`ubicacion_id`);
 
 --
 -- Indices de la tabla `movimientos`
@@ -404,19 +405,19 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `asignaciones`
 --
 ALTER TABLE `asignaciones`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `estados`
@@ -425,16 +426,28 @@ ALTER TABLE `estados`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT de la tabla `inventario_anual`
+--
+ALTER TABLE `inventario_anual`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `movimientos`
+--
+ALTER TABLE `movimientos`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `perfiles`
 --
 ALTER TABLE `perfiles`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `procedencias`
 --
 ALTER TABLE `procedencias`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `sedes`
@@ -446,19 +459,19 @@ ALTER TABLE `sedes`
 -- AUTO_INCREMENT de la tabla `traslados`
 --
 ALTER TABLE `traslados`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `ubicaciones`
 --
 ALTER TABLE `ubicaciones`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
@@ -468,10 +481,7 @@ ALTER TABLE `usuarios`
 -- Filtros para la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  ADD CONSTRAINT `articulos_ibfk_1` FOREIGN KEY (`estado_id`) REFERENCES `estados` (`id`),
-  ADD CONSTRAINT `articulos_ibfk_2` FOREIGN KEY (`procedencia_id`) REFERENCES `procedencias` (`id`),
-  ADD CONSTRAINT `articulos_ibfk_3` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`),
-  ADD CONSTRAINT `articulos_ibfk_4` FOREIGN KEY (`ubicacion_id`) REFERENCES `ubicaciones` (`id`);
+  ADD CONSTRAINT `articulos_ibfk_1` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`);
 
 --
 -- Filtros para la tabla `asignaciones`
@@ -485,7 +495,10 @@ ALTER TABLE `asignaciones`
 -- Filtros para la tabla `inventario_anual`
 --
 ALTER TABLE `inventario_anual`
-  ADD CONSTRAINT `inventario_anual_ibfk_1` FOREIGN KEY (`ubicacion_id`) REFERENCES `ubicaciones` (`id`);
+  ADD CONSTRAINT `inventario_anual_ibfk_1` FOREIGN KEY (`ubicacion_id`) REFERENCES `ubicaciones` (`id`),
+  ADD CONSTRAINT `inventario_anual_ibfk_2` FOREIGN KEY (`articulo_id`) REFERENCES `articulos` (`id`),
+  ADD CONSTRAINT `inventario_anual_ibfk_3` FOREIGN KEY (`estado_id`) REFERENCES `estados` (`id`),
+  ADD CONSTRAINT `inventario_anual_ibfk_4` FOREIGN KEY (`procedencia_id`) REFERENCES `procedencias` (`id`);
 
 --
 -- Filtros para la tabla `movimientos`
