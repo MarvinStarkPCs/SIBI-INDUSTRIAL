@@ -131,7 +131,10 @@
                         <i class="fas fa-box"></i> <!-- Icono de inventario -->
                         Inventario
                     </a>
-
+                    <a class="collapse-item" href="<?= base_url('mover-articulo'); ?>">
+                        <i class="fas fa-arrows-alt"></i> <!-- Icono de mover artículo -->
+                        Mover Artículo
+                    </a>
                     <a class="collapse-item" href="<?= base_url('gestion-extras'); ?>">
                         <i class="fas fa-plus-circle"></i> <!-- Icono de asignar artículo -->
                         Asignar Artículo
@@ -159,12 +162,40 @@
                         <i class="fas fa-users-cog"></i> <!-- Icono de gestión de usuarios -->
                         Gestión de Usuarios
                     </a>
-
+                    <a class="collapse-item" href="<?= base_url('cambiar-contrasena'); ?>">
+                        <i class="fas fa-key"></i> <!-- Icono de cambiar contraseña -->
+                        Cambiar Contraseña
+                    </a>
                 </div>
             </div>
         </li>
 
-     
+        <!-- Nav Item - Historia (nueva sección) -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHistory"
+               aria-expanded="true" aria-controls="collapseHistory">
+                <i class="fas fa-fw fa-history"></i> <!-- Icono de historia -->
+                <span>Historia</span>
+            </a>
+            <div id="collapseHistory" class="collapse" aria-labelledby="headingHistory" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Historial del Sistema:</h6>
+                    <a class="collapse-item" href="<?= base_url('historial-actividades'); ?>">
+                        <i class="fas fa-tasks"></i> Historial de Inventario
+                    </a>
+                    <a class="collapse-item" href="<?= base_url('registro-eventos'); ?>">
+                        <i class="fas fa-calendar-alt"></i> Historial de Prestamos
+                    </a>
+                    <a class="collapse-item" href="<?= base_url('historial-movimientos'); ?>">
+                        <i class="fas fa-exchange-alt"></i> Historial de Movimientos
+                    </a>
+                    <a class="collapse-item" href="<?= base_url('historial-dados-baja'); ?>">
+                        <i class="fas fa-trash-alt"></i> Historial Dados de Baja
+                    </a>
+                </div>
+
+            </div>
+        </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">

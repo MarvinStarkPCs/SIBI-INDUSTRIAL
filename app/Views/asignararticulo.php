@@ -33,7 +33,7 @@
                         <option value="">Seleccione un artículo</option>
                         <?php foreach ($articulos as $articulo): ?>
                             <option value="<?= esc($articulo['id']) ?>" <?= old('articulo_id') == $articulo['id'] ? 'selected' : '' ?>>
-                                <?= esc($articulo['nombre']) ?> (<?= esc($articulo['marca']) ?>)
+                                <?= esc($articulo['nombre']) ?> (<?= esc($articulo['marca']) ?>) <?= esc($articulo['cod_institucional']) ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
