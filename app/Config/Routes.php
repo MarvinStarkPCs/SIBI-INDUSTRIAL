@@ -24,6 +24,7 @@ $routes->get('inventario/inventario-excel', 'cinventario::descargarInventarioExc
 //Asignar Articulo
 $routes->get('asignar-articulo', 'AsignarArticuloController::index');
 $routes->post('asignar-articulo/save', 'AsignarArticuloController::asignar');
+$routes->post('asignar-articulo/obtener-estado-ubicacion', 'AjaxAsignarController::obtenerEstadoUbicacion');
 
 //seguridad
 ///Gestion de usuarios

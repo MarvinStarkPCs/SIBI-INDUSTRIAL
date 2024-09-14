@@ -1,6 +1,8 @@
 
     document.addEventListener("DOMContentLoaded", function() {
-    let alertBoxes = document.querySelectorAll('.alert');
+
+
+        let alertBoxes = document.querySelectorAll('.alert');
 
     alertBoxes.forEach(function(alertBox) {
     let progressBar = alertBox.querySelector('.progress-bar');
@@ -19,7 +21,17 @@
 }, 5000);
 }
 });
-});
+        // function toggleLoader(show) {
+        //     var loader = document.getElementById('loader');
+        //     if (show) {
+        //         loader.style.display = 'block';  // Mostrar el loader
+        //     } else {
+        //         loader.style.display = 'none';   // Ocultar el loader
+        //     }
+        // }
+
+
+    });
 
 
 

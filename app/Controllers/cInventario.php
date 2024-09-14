@@ -39,7 +39,7 @@ class CInventario extends Controller
 // Obtener los datos
             $data['inventarios'] = $modelInventario->getInventarioConValorTotal();
             $data['articulos'] = $modelArticulo->getArticulos(); // Asumiendo que estás obteniendo todos los artículos
-            $data['estados'] = $modelEstados->getTableData('estados'); // Asumiendo que getTableData obtiene datos de la tabla
+            $data['estados'] = $modelEstados->getTableData('estados', ['id'=>[4,5]]); // Asumiendo que getTableData obtiene datos de la tabla
             $data['procedencias'] = $modelProcedencias->getTableData('procedencias'); // Obtener datos de procedencias
             $data['ubicaciones'] = $modelUbicaciones->getTableData('ubicaciones'); // Obtener datos de ubicaciones
             $data['sedes'] = $modelSedes->getTableData('sedes'); // Obtener datos de sedes

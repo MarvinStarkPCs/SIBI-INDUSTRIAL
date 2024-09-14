@@ -89,11 +89,106 @@
         .alert-danger .progress-bar {
             background-color: #dc3545; /* Rojo para error */
         }
+        /*///*/
+        /* Asegurarse de que el cuerpo ocupe toda la ventana */
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        /* Ajustes del wrapper */
+        #wrapper {
+            width: 100%;
+            height: 100%;
+            background-color: #f0f0f0; /* Fondo gris */
+            position: relative; /* Para que el contenido del wrapper se mantenga independiente del loader */
+        }
+
+        /* Loader superpuesto */
+        .loader-overlay {
+            position: fixed; /* Fijo para que siempre esté visible y centrado en la pantalla */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente oscuro */
+            z-index: 9999; /* Asegura que esté encima de todo */
+        }
+
+        .loader {
+            transform: rotateZ(45deg);
+            perspective: 1000px;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            color: #fff;
+            position: relative;
+        }
+
+        .loader:before,
+        .loader:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: inherit;
+            height: inherit;
+            border-radius: 50%;
+            transform: rotateX(70deg);
+            animation: 1s spin linear infinite;
+        }
+
+        .loader:after {
+            color: #2A6322;
+            transform: rotateY(70deg);
+            animation-delay: .4s;
+        }
+
+        /* Animaciones */
+        @keyframes spin {
+            0%,
+            100% {
+                box-shadow: .2em 0px 0 0px currentcolor;
+            }
+            12% {
+                box-shadow: .2em .2em 0 0 currentcolor;
+            }
+            25% {
+                box-shadow: 0 .2em 0 0px currentcolor;
+            }
+            37% {
+                box-shadow: -.2em .2em 0 0 currentcolor;
+            }
+            50% {
+                box-shadow: -.2em 0 0 0 currentcolor;
+            }
+            62% {
+                box-shadow: -.2em -.2em 0 0 currentcolor;
+            }
+            75% {
+                box-shadow: 0px -.2em 0 0 currentcolor;
+            }
+            87% {
+                box-shadow: .2em -.2em 0 0 currentcolor;
+            }
+        }
+
+
+
+
     </style>
 </head>
 
 <body id="page-top">
+<div id="loader-overlay" class="loader-overlay" style="display: none;">
+    <div class="loader"></div>
+</div>
 <div id="wrapper">
+
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
         <!-- Sidebar - Brand -->
@@ -295,7 +390,27 @@
     </div>
     <!-- End of Content Wrapper -->
 </div>
-<!-- End of Page Wrapper -->
+<!-- Loader superpuesto -->
+
+
+<script>
+    function toggleLoader(show) {
+        const loaderOverlay = document.getElementById('loader-overlay');
+
+        if (show) {
+            loaderOverlay.style.display = 'flex'; // Mostrar el loader
+        } else {
+            loaderOverlay.style.display = 'none'; // Ocultar el loader
+        }
+    }
+
+    // Ejemplo de uso:
+    // // Mostrar el loader
+    // setTimeout(() => toggleLoader(true), 1000); // Mostrar el loader después de 1 segundo
+    //
+    // // Ocultar el loader
+    // setTimeout(() => toggleLoader(false), 5000); // Ocultar el loader después de 5 segundos
+</script><!-- End of Page Wrapper -->
 
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
@@ -322,7 +437,9 @@
     </div>
 </div>
 
-<!-- Scripts -->
+<!-- Scripts --><script src="<?= base_url('js/toggleloader.js') ?>"></script>
+
+
 <!-- jQuery -->
 <script src="<?= base_url('assets/jquery/jquery.min.js') ?>"></script>
 

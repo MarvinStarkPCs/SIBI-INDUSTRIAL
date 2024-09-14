@@ -4,6 +4,8 @@ use App\Models\AsignarArticuloModel;
 use App\Models\ComboboxModel;
 use App\Models\InventarioModel;
 use App\Models\TrasladoModel;
+use App\Models\GestionUsuariosModel;
+
 use CodeIgniter\Controller;
 
 class AsignarArticuloController extends Controller
@@ -16,15 +18,14 @@ class AsignarArticuloController extends Controller
         }
 
         // Cargar los datos necesarios para el formulario
-        $articulosModel = new ComboboxModel();
-        $usuariosModel = new ComboboxModel();
+        $articulosModel = new InventarioModel();
+        $usuariosModel = new GestionUsuariosModel();
         $estadosModel = new ComboboxModel();
         $ubicacionesModel = new ComboboxModel(); // Carga para las ubicaciones de destino
-
         $data = [
-            'articulos' => $articulosModel->getTableData('articulos'),
-            'usuarios'  => $usuariosModel->getTableData('usuarios'),
-            'estados'   => $estadosModel->getTableData('estados'),
+            'articulos' => $articulosModel-> getInventarioConValorTotal(),
+            'usuarios'  => $usuariosModel->getUsuariosConPerfiles(),
+            'estados'   => $estadosModel->getTableData('estados', ['id'=>[3,4,5]]),
             'ubicaciones' => $ubicacionesModel->getTableData('ubicaciones'), // Agrega al formulario las ubicaciones
         ];
 
@@ -37,12 +38,10 @@ class AsignarArticuloController extends Controller
 
         $validation->setRules([
             'articulo_id' => 'required|is_not_unique[articulos.id]',
-            'de_usuario_id' => 'required|is_not_unique[usuarios.id]',
-            'a_usuario_id' => 'required|is_not_unique[usuarios.id]',
+            'usuario_id' => 'required|is_not_unique[usuarios.id]',
             'cantidad_otorgada' => 'required|integer',
             'estado_id' => 'required|is_not_unique[estados.id]',
             'a_ubicacion_id' => 'required|is_not_unique[ubicaciones.id]', // Agrega validación para la ubicación de destino
-            'asignado_en' => 'required|valid_date[Y-m-d]',
         ]);
 
         if (!$this->validate($validation->getRules())) {
