@@ -9,8 +9,4 @@ class AsignarArticuloModel extends Model
 
     protected $allowedFields = ['articulo_id', 'de_usuario_id', 'a_usuario_id', 'cantidad_otorgada', 'asignado_en'];
 
-    protected $useTimestamps = true;
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
 }

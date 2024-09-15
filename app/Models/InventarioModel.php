@@ -64,6 +64,7 @@ class InventarioModel extends Model
 
         $builder = $this->db->table('inventario_anual i');
         $builder->select([
+            'i.id AS id_inventario_anual',
             'a.id AS articulo_id',
             'a.nombre AS articulo_nombre',
             'a.marca AS articulo_marca',

@@ -34,12 +34,11 @@
                     <select class="form-control <?= session('errors.articulo_id') ? 'is-invalid' : '' ?>" id="selectArticulo" name="articulo_id">
                         <option value="">Seleccione un artículo</option>
                         <?php foreach ($articulos as $articulo): ?>
-                            <option value="<?= esc($articulo->articulo_id) ?>" <?= old('articulo_id') == $articulo->articulo_id ? 'selected' : '' ?>>
-                                <?= esc($articulo->articulo_nombre) ?> (<?= esc($articulo->articulo_marca) ?>) <?= esc($articulo->cod_institucional) ?>
+                            <option value="<?= esc($articulo['id']) ?>" <?= old('articulo_id') == $articulo['id'] ? 'selected' : '' ?>>
+                                <?= esc($articulo['nombre']) ?> (<?= esc($articulo['marca']) ?>) <?= esc($articulo['cod_institucional']) ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
-
                     <div class="invalid-feedback">
                         <?= session('errors.articulo_id') ?>
                     </div>
@@ -54,15 +53,16 @@
                         <?= session('errors.estado_id') ?>
                     </div>
                 </div>
+
                 <div class="form-group col-md-4">
                     <label for="inputCantidadInventario">Cantidad en Inventario</label>
                     <input type="text" class="form-control" id="inputCantidadInventario" name="inputCantidadInventario" placeholder="Cantidad inventario" readonly>
                 </div>
 
-
                 <div class="form-group col-md-4">
                     <label for="inputUbicacion">Ubicación de Préstamo</label>
                     <input type="text" class="form-control" id="inputUbicacion" name="ubicacion" placeholder="Ubicación" readonly>
+                    <input type="hidden" id="hiddenIdUbicacion" name="id_ubicacion">
                 </div>
 
                 <div class="form-group col-md-4">
@@ -81,11 +81,17 @@
         </form>
     </div>
 </div>
+<script src="<?= base_url('assets/jquery/jquery.min.js') ?>"></script>
 
 <!-- Script para manejar AJAX -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
+        $('#selectArticulo, #selectUsuario').select2({
+            width: '100%',
+            placeholder: "Seleccione una opción",
+            allowClear: true
+        });
+
         $('#selectArticulo').change(function() {
             var articuloId = $(this).val();
 
@@ -95,7 +101,7 @@
                     type: 'POST',
                     data: { articulo_id: articuloId },
                     success: function(response) {
-                        console.log(response)
+                        console.log(response);
                         // Mostrar el loader
                         toggleLoader(true);
 
@@ -104,9 +110,11 @@
                         selectEstado.empty();
                         selectEstado.append('<option value="">Seleccione un estado</option>');
                         $.each(response, function(index, value) {
-                            selectEstado.append('<option value="' + value.id_estado + '">' + value.estado + '</option>');
+                            if (value.ubicacion !== 'En Prestamo') {
+                                selectEstado.append('<option value="' + value.id_estado + '">' + value.estado + '</option>');
+                            }
                         });
-////////////////
+
                         $('#selectEstado').change(function() {
                             var estadoId = $(this).val();
                             var articuloId = $('#selectArticulo').val();
@@ -114,28 +122,33 @@
                             if (estadoId && articuloId) {
                                 // Encuentra el estado y la ubicación correspondiente del JSON
                                 let ubicacion = '';
-                                let cantidadinventario = '';
+                                let cantidadInventario = '';
+                                let idUbicacion = '';
 
                                 $.each(response, function(index, estado) {
                                     if (estado.id_estado == estadoId) {
-                                        ubicacion = estado.ubicacion+' ('+estado.sede+')'; // Obtén la ubicación asociada
-                                        cantidadinventario = estado.stock_inicio;
+                                        ubicacion = estado.ubicacion + ' (' + estado.sede + ')'; // Obtén la ubicación asociada
+                                        cantidadInventario = estado.stock_inicio;
+                                        idUbicacion = estado.id_ubicacion; // Obtener el id_ubicacion
                                         return false; // Salir del bucle
                                     }
                                 });
-                                $('#inputCantidadInventario').val(cantidadinventario);
 
-                                // Actualiza el campo de ubicación
+                                // Actualiza los campos de ubicación y cantidad
+                                $('#inputCantidadInventario').val(cantidadInventario);
                                 $('#inputUbicacion').val(ubicacion);
-                                console.log(ubicacion)
-                                console.log(cantidadinventario)
+                                $('#hiddenIdUbicacion').val(idUbicacion); // Establecer el id_ubicacion en el campo oculto
                             } else {
                                 $('#inputUbicacion').val('');
+                                $('#inputCantidadInventario').val('');
+                                $('#hiddenIdUbicacion').val(''); // Limpiar el campo oculto
                             }
                         });
 
                         // Limpiar el campo de ubicación
                         $('#inputUbicacion').val('');
+                        $('#inputCantidadInventario').val('');
+                        $('#hiddenIdUbicacion').val(''); // Limpiar el campo oculto
 
                         // Ocultar el loader
                         setTimeout(() => toggleLoader(false), 1000);
@@ -147,11 +160,33 @@
             } else {
                 $('#selectEstado').empty().append('<option value="">Seleccione un estado</option>');
                 $('#inputUbicacion').val('');
+                $('#inputCantidadInventario').val('');
+                $('#hiddenIdUbicacion').val(''); // Limpiar el campo oculto
             }
         });
 
+        // Mantener el valor del campo de estado, cantidad y ubicación cuando haya errores
+        //function mantenerValores() {
+        //    var estadoId = '<?php //= old('estado_id') ?>//';
+        //    var articuloId = '<?php //= old('articulo_id') ?>//';
+        //    var cantidadInventario = '<?php //= old('inputCantidadInventario') ?>//';
+        //    var ubicacion = '<?php //= old('inputUbicacion') ?>//';
+        //    var idUbicacion = '<?php //= old('id_ubicacion') ?>//';
+        //
+        //    if (articuloId) {
+        //        $('#selectArticulo').val(articuloId).trigger('change');
+        //    }
+        //
+        //    if (estadoId && articuloId) {
+        //        $('#selectEstado').val(estadoId).trigger('change');
+        //    }
+        //
+        //    $('#inputCantidadInventario').val(cantidadInventario);
+        //    $('#inputUbicacion').val(ubicacion);
+        //    $('#hiddenIdUbicacion').val(idUbicacion);
+        //}
+        //
+        //mantenerValores();
     });
-
-
 </script>
 <?= $this->endSection() ?>

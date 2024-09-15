@@ -41,7 +41,7 @@ class CInventario extends Controller
             $data['articulos'] = $modelArticulo->getArticulos(); // Asumiendo que estás obteniendo todos los artículos
             $data['estados'] = $modelEstados->getTableData('estados', ['id'=>[4,5]]); // Asumiendo que getTableData obtiene datos de la tabla
             $data['procedencias'] = $modelProcedencias->getTableData('procedencias'); // Obtener datos de procedencias
-            $data['ubicaciones'] = $modelUbicaciones->getTableData('ubicaciones'); // Obtener datos de ubicaciones
+            $data['ubicaciones'] = $modelUbicaciones->getTableData('ubicaciones',['id'=>[1,3]]); // Obtener datos de ubicaciones
             $data['sedes'] = $modelSedes->getTableData('sedes'); // Obtener datos de sedes
             // Pasar los datos a la vista
             return view('inventario', $data);
@@ -73,7 +73,10 @@ class CInventario extends Controller
 
         // Verificar si el registro ya existe
         if ($model->exists($articulo_id, $ubicacion_id, $estado_id, $procedencia_id)) {
+            log_message('info', 'Datos del inventario: ');
+
             return redirect()->back()->withInput()->with('error', 'El registro con los datos proporcionados ya existe.');
+
         }
 
         $data = [

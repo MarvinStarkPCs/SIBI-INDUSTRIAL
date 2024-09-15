@@ -69,3 +69,6 @@ $routes->post('/procedencias/add', 'ProcedenciasController::store');
 $routes->post('/procedencias/update/(:num)', 'ProcedenciasController::update/$1');
 $routes->get('/procedencias/delete/(:num)', 'ProcedenciasController::delete/$1');
 $routes->get('/procedencias/procedencias-excel', 'ProcedenciasController::procedenciasExcel');
+
+//historial
+$routes->get('/')

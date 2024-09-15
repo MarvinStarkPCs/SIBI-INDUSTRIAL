@@ -89,9 +89,11 @@
                             <button class="btn btn-icon btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal-<?= $inventario->articulo_id ?>" title="Dar de baja">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
-                            <button class="btn btn-icon btn-secondary btn-sm" data-toggle="modal" data-target="#detailsModal-<?= $inventario->articulo_id ?>" title="Ver detalles">
+
+                            <button class="btn btn-icon btn-secondary btn-sm" data-toggle="modal" data-target="#detailsModal-<?= $inventario->id_inventario_anual ?>" title="Ver detalles">
                                 <i class="fas fa-info-circle"></i>
                             </button>
+
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -323,10 +325,10 @@
         </div>
     </div>
 <?php endforeach; ?>
-
+<?php var_dump($inventarios);?>
 <!-- Modal de Detalles del Inventario -->
 <?php foreach ($inventarios as $inventario): ?>
-    <div class="modal fade" id="detailsModal-<?= $inventario->articulo_id ?>" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel-<?= $inventario->articulo_id ?>" aria-hidden="true">
+    <div class="modal fade" id="detailsModal-<?= $inventario->id_inventario_anual ?>" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel-<?= $inventario->id_inventario_anual ?>" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
