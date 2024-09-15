@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class InventarioModel extends Model
+class HistorialInventariomodel extends Model
 {
     protected $table = 'inventario_anual'; // Aunque no se usa directamente, sigue siendo importante definirla
     protected $primaryKey = 'id'; // Cambia esto si tienes una clave primaria en la tabla `inventario_anual`
@@ -21,6 +21,7 @@ class InventarioModel extends Model
         'stock_inicio',
         'stock_final'
     ];
+
 
     public function getInventarioConValorTotal()
     {
@@ -53,8 +54,8 @@ class InventarioModel extends Model
         $builder->join('ubicaciones u', 'i.ubicacion_id = u.id');
         $builder->join('sedes s', 'u.sede_id = s.id');
 
-        // Filtra los resultados por el año actual
-        $builder->where('YEAR(i.fecha)', $currentYear);
+        // Filtra los resultados por años anteriores al actual
+        $builder->where('YEAR(i.fecha) <', $currentYear);
 
         // Excluye artículos con estado "DADO DE BAJA"
         $builder->where('e.nombre !=', 'DADO DE BAJA');

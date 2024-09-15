@@ -21,6 +21,9 @@ $routes->get('dashboard', 'chome::index');
 $routes->get('inventario', 'cinventario::index');
 $routes->post('inventario/open', 'cinventario::insertinventario');
 $routes->get('inventario/inventario-excel', 'cinventario::descargarInventarioExcel');
+$routes->post('/inventario/dar debaj/(:num)', 'EstadosController::update/$1');
+ 
+
 //Asignar Articulo
 $routes->get('asignar-articulo', 'AsignarArticuloController::index');
 $routes->post('asignar-articulo/save', 'AsignarArticuloController::asignar');
@@ -71,4 +74,9 @@ $routes->get('/procedencias/delete/(:num)', 'ProcedenciasController::delete/$1')
 $routes->get('/procedencias/procedencias-excel', 'ProcedenciasController::procedenciasExcel');
 
 //historial
-$routes->get('/')
+///Histroial dado de baja
+$routes->get('/asignaciones', 'DadodebajaController::index');
+
+//historial inventario
+$routes->get('/inventarios-anteriores', 'HistorialInventarioController::index');
+$routes->get('/inventarios-anteriores/inventario-excel', 'HistorialInventarioController::descargarInventarioExcel');

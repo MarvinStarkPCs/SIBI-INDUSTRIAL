@@ -239,6 +239,30 @@
             </div>
         </li>
 
+        <!-- Nav Item - Historia (nueva sección) -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHistory"
+               aria-expanded="true" aria-controls="collapseHistory">
+                <i class="fas fa-fw fa-history"></i> <!-- Icono de historia -->
+                <span>Historia</span>
+            </a>
+            <div id="collapseHistory" class="collapse" aria-labelledby="headingHistory" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Historial del Sistema:</h6>
+                    <a class="collapse-item" href="<?= base_url('inventarios-anteriores'); ?>">
+                        <i class="fas fa-tasks"></i> Historial de Inventario
+                    </a>
+                    <a class="collapse-item" href="<?= base_url('asignaciones'); ?>">
+                        <i class="fas fa-calendar-alt"></i> Historial de asignaciones
+                    </a>
+
+                    <a class="collapse-item" href="<?= base_url('historial-dados-baja'); ?>">
+                        <i class="fas fa-trash-alt"></i> Historial Dados de Baja
+                    </a>
+                </div>
+
+            </div>
+        </li>
         <!-- Nav Item - Seguridad -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
