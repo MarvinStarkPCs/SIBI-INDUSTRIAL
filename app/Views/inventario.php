@@ -65,7 +65,6 @@
                     <th>Estado</th>
                     <th>procedencia</th>
                     <th>Sede</th>
-
                     <th>Ubicación</th>
                     <th>Precio Total</th>
                     <th>Cantidad</th>
@@ -270,19 +269,21 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="<?= base_url('gestion-inventario/update/'.$inventario->articulo_id) ?>" method="post" id="updateInventoryForm-<?= $inventario->articulo_id ?>">
+                    <form action="<?= base_url('inventario/actualizar/'.$inventario->id_inventario_anual) ?>" method="post" id="updateInventoryForm-<?= $inventario->id_inventario_anual ?>">
                         <?= csrf_field() ?>
                         <div class="form-group">
-                            <label for="updateQuantity-<?= $inventario->articulo_id ?>">Cantidad</label>
-                            <input type="number" class="form-control <?= session('errors-update.cantidad') ? 'is-invalid errors-insert-inventory' : '' ?>" id="updateQuantity-<?= $inventario->articulo_id ?>" name="cantidad" placeholder="Cantidad" value="<?= old('cantidad') ?>">
+                            <label for="updateQuantity-<?= $inventario->id_inventario_anual ?>">Cantidad</label>
+                            <input type="number" class="form-control <?= session('errors-update.cantidad') ? 'is-invalid errors-insert-inventory' : '' ?>" id="updateQuantity-<?= $inventario->id_inventario_anual ?>" name="cantidad" placeholder="Cantidad" value="<?= old('cantidad') ?>">
                             <div class="invalid-feedback">
                                 <?= session('errors-update.cantidad') ?>
                             </div>
                         </div>
-                        <div class="alert alert-info" role="alert">
-                            <strong>Información:</strong> Asegúrate de ingresar la cantidad correcta antes de actualizar el inventario.
-                        </div>
-                        <div class="modal-footer">
+                <div style="border: 1px solid #ffc107; padding: 10px; background-color: #fff3cd; border-radius: 5px; margin-bottom: 15px;">
+                    <strong>Advertencia:</strong> Esta acción no se puede deshacer. Asegúrate de ingresar la cantidad correcta antes de actualizar el inventario.
+                    <strong>Información:</strong> Esta cantidad se sumará a la que ya existe en el inventario.
+                </div>
+
+                <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary">Actualizar Cantidad</button>
                         </div>

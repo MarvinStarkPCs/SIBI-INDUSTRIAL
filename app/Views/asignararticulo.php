@@ -111,7 +111,7 @@
                         selectEstado.append('<option value="">Seleccione un estado</option>');
                         $.each(response, function(index, value) {
                             if (value.ubicacion !== 'En Prestamo') {
-                                selectEstado.append('<option value="' + value.id_estado + '">' + value.estado + '</option>');
+                                selectEstado.append('<option value="' + value.id_estado + '">' + value.estado + ' (' + value.sede + ')</option>');
                             }
                         });
 
@@ -165,28 +165,7 @@
             }
         });
 
-        // Mantener el valor del campo de estado, cantidad y ubicación cuando haya errores
-        //function mantenerValores() {
-        //    var estadoId = '<?php //= old('estado_id') ?>//';
-        //    var articuloId = '<?php //= old('articulo_id') ?>//';
-        //    var cantidadInventario = '<?php //= old('inputCantidadInventario') ?>//';
-        //    var ubicacion = '<?php //= old('inputUbicacion') ?>//';
-        //    var idUbicacion = '<?php //= old('id_ubicacion') ?>//';
-        //
-        //    if (articuloId) {
-        //        $('#selectArticulo').val(articuloId).trigger('change');
-        //    }
-        //
-        //    if (estadoId && articuloId) {
-        //        $('#selectEstado').val(estadoId).trigger('change');
-        //    }
-        //
-        //    $('#inputCantidadInventario').val(cantidadInventario);
-        //    $('#inputUbicacion').val(ubicacion);
-        //    $('#hiddenIdUbicacion').val(idUbicacion);
-        //}
-        //
-        //mantenerValores();
+
     });
 </script>
 <?= $this->endSection() ?>

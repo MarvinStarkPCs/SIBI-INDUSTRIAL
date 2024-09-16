@@ -119,7 +119,7 @@ $usuario=$this->request->getVar('usuario_id');
 
         log_message('info', 'Artículo con ID ' . $articulo_id . ' asignado con éxito a usuario con ID ' . $this->request->getPost('a_usuario_id'));
 
-        return redirect()->to('/asignar-articulo')->with('message', 'Artículo asignado con éxito.');
+        return redirect()->to('/asignar-articulo')->with('success', 'Artículo asignado con éxito.');
     }
 
 }

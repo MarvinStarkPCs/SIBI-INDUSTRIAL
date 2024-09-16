@@ -237,6 +237,40 @@ class CInventario extends Controller
         return redirect()->back()->with('success', 'El artículo se ha dado de baja correctamente.');
     }
 
+    public function actualizar($id)
+    {
+        $model = new InventarioModel();
+        $cantidad = $this->request->getPost('cantidad');
+
+        // Obtener el registro por ID
+        $result = $model->where('id', $id)->first();
+
+        // Validar que el registro exista
+        if (!$result) {
+            return redirect()->back()->with('error', 'No se encontró el inventario.');
+        }
+
+        // Sumar la cantidad ingresada a la cantidad actual en la base de datos
+        $cantidad_actual = $result['stock_inicio'];
+        $nueva_cantidad = $cantidad_actual + $cantidad;
+
+        // Validar si el nuevo stock es negativo
+        if ($nueva_cantidad < 0) {
+            return redirect()->back()->withInput()->with('error', 'El inventario no puede quedar en negativo.');
+        }
+
+        // Actualizar el stock en la base de datos
+        $data = [
+            'stock_inicio' => $nueva_cantidad,
+            // Otros campos si es necesario
+        ];
+
+        $model->update($id, $data);
+
+        return redirect()->back()->with('success', 'Inventario actualizado correctamente.');
+    }
+
+
 
 
 

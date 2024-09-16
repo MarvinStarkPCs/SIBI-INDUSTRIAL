@@ -22,7 +22,8 @@ $routes->get('inventario', 'cinventario::index');
 $routes->post('inventario/open', 'cinventario::insertinventario');
 $routes->get('inventario/inventario-excel', 'cinventario::descargarInventarioExcel');
 $routes->post('/inventario/dardebaja/(:num)', 'CInventario::dardebaja/$1');
- 
+$routes->post('/inventario/actualizar/(:num)', 'CInventario::actualizar/$1');
+
 
 //Asignar Articulo
 $routes->get('asignar-articulo', 'AsignarArticuloController::index');

@@ -20,7 +20,8 @@ class AjaxAsignarModel extends Model
             ->where('u.nombre !=', 'En Prestamo') // Excluir ubicaciones con el nombre 'préstamo'
             ->where('u.nombre !=', 'Dados de Bajas') // Excluir ubicaciones con el nombre 'préstamo'
 
-            ->where('e.nombre !=', 'DADO DE BAJA') // Excluir artículos en estado 'dado de baja'
+            ->where('e.nombre !=', 'DADO DE BAJA')
+            ->where('YEAR(inventario_anual.fecha) = YEAR(CURDATE());')// Excluir artículos en estado 'dado de baja'
             ->get()
             ->getResultArray();
     }
