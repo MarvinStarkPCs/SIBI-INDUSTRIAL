@@ -1,38 +1,29 @@
 <?php
 
 namespace App\Controllers;
+use App\Models\DadosdebajaModel;
 use App\Models\HistorialInventariomodel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class HistorialInventarioController extends BaseController
+
+class DadosdebajaController extends BaseController
 {
-    public function index()
-    {
-        $session = session();
+public function index(){
+$session = session();
+if(!$session->get('login')){
+    return redirect('/');
+}
+$model=new DadosdebajaModel();
+$data['inventarios']= $model->getInventarioConValorTotal();
+return view('historialdadosdebaja',$data);
 
-        // Log de datos de la sesión
-        log_message('debug', 'Session Data: ' . print_r($session->get(), true));
+}
 
-        if (!$session->get('login')) {
-            log_message('debug', 'Redirecting to login because session is not set.');
-            return redirect()->to('/'); // Asegúrate de usar la ruta correcta para el login
-        } else {
-            log_message('debug', 'User is logged in, loading INVENTARIO view.');
-
-            // Cargar los modelos
-            $modelInventario = new HistorialInventariomodel();
-
-
-            $data['inventarios'] = $modelInventario->getInventarioConValorTotal();
-
-            return view('historialInventario', $data);
-        }
-    }
     public function descargarInventarioExcel(){
 
         // Crear una instancia del modelo
-        $inventarioModel = new HistorialInventariomodel();
+        $inventarioModel = new DadosdebajaModel();
 
         // Obtener los datos del inventario
         $inventarios = $inventarioModel->getInventarioConValorTotal(); // Asegúrate de que este método exista en el modelo
@@ -54,7 +45,7 @@ class HistorialInventarioController extends BaseController
         $sheet->setCellValue('J1', 'Ubicación');
         $sheet->setCellValue('K1', 'Stock Inicio');
         $sheet->setCellValue('L1', 'Stock Final');
-        $sheet->setCellValue('M1', 'Fecha de registro inventario');
+        $sheet->setCellValue('M1', 'Fecha');
         $sheet->setCellValue('N1', 'Precio Total');
 
         // Rellenar los datos en la hoja de cálculo
@@ -81,7 +72,7 @@ class HistorialInventarioController extends BaseController
         $writer = new Xlsx($spreadsheet);
 
         // Preparar la respuesta para la descarga
-        $filename = 'historial_inventario_' . date('Y-m-d_H-i') . '.xlsx';
+        $filename = 'inventario_dado_de_baja' . date('Y-m-d_H-i') . '.xlsx';
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');

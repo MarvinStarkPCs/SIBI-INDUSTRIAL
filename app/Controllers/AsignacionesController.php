@@ -2,22 +2,22 @@
 
 namespace App\Controllers;
 
-use App\Models\DadodebajaModel;
+use App\Models\AsignacionesModel;
 
-class DadodebajaController extends BaseController
+class AsignacionesController extends BaseController
 {
     public function index(){
         $session = session();
         if(!$session->has('login')){
             return redirect()->route('/');
         }else {
-            $dadodebajaModel = new DadodebajaModel();
+            $dadodebajaModel = new AsignacionesModel();
 
             // Obtener los datos
             $data['asignaciones'] = $dadodebajaModel->obtenerAsignaciones();
 
             // Cargar la vista con los datos
-            return view('historialdadasdebaja', $data);
+            return view('historialasignaciones', $data);
 
         }
     }

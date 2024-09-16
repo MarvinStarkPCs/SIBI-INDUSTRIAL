@@ -51,9 +51,9 @@
                     <i class="fas fa-box-open"></i> Abrir Inventario
                 </button>
                 <!-- Botón para cerrar inventario -->
-                <button type="button" id="closeInventoryButton" class="btn btn-secondary" data-toggle="modal" data-target="#closeInventoryModal">
-                    <i class="fas fa-box-closed"></i> Cerrar Inventario
-                </button>
+<!--                <button type="button" id="closeInventoryButton" class="btn btn-secondary" data-toggle="modal" data-target="#closeInventoryModal">-->
+<!--                    <i class="fas fa-box-closed"></i> Cerrar Inventario-->
+<!--                </button>-->
             </div>
         </div>
         <div class="table-responsive">
@@ -86,7 +86,7 @@
                             <button class="btn btn-icon btn-info btn-sm" data-toggle="modal" data-target="#updateModal-<?= $inventario->articulo_id ?>" title="Actualizar cantidad">
                                 <i class="fas fa-sync-alt"></i>
                             </button>
-                            <button class="btn btn-icon btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal-<?= $inventario->articulo_id ?>" title="Dar de baja">
+                            <button class="btn btn-icon btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal-<?= $inventario->id_inventario_anual ?>" title="Dar de baja">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
 
@@ -293,28 +293,29 @@
 
 <!-- Modales para Dar de Baja Inventario -->
 <?php foreach ($inventarios as $inventario): ?>
-    <div class="modal fade" id="deleteModal-<?= $inventario->articulo_id ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-<?= $inventario->articulo_id ?>" aria-hidden="true">
+    <div class="modal fade" id="deleteModal-<?= $inventario->id_inventario_anual ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-<?= $inventario->id_inventario_anual ?>" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel-<?= $inventario->articulo_id ?>">Dar de Baja Inventario</h5>
+                    <h5 class="modal-title" id="deleteModalLabel-<?= $inventario->id_inventario_anual ?>">Dar de Baja Inventario</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="<?= base_url('gestion-inventario/delete/'.$inventario->articulo_id) ?>" method="post" id="deleteInventoryForm-<?= $inventario->articulo_id ?>">
+                    <form action="<?= base_url('inventario/dardebaja/'.$inventario->id_inventario_anual) ?>" method="post" id="deleteInventoryForm-<?= $inventario->id_inventario_anual ?>">
                         <?= csrf_field() ?>
                         <div class="form-group">
-                            <label for="deleteQuantity-<?= $inventario->articulo_id ?>">Cantidad a Dar de Baja</label>
-                            <input type="number" class="form-control <?= session('errors-delete.cantidad') ? 'is-invalid errors-insert-inventory' : '' ?>" id="deleteQuantity-<?= $inventario->articulo_id ?>" name="cantidad" placeholder="Cantidad" value="<?= old('cantidad') ?>">
+                            <label for="deleteQuantity-<?= $inventario->id_inventario_anual ?>">Cantidad a Dar de Baja</label>
+                            <input type="number" class="form-control <?= session('errors-delete.cantidad') ? 'is-invalid errors-insert-inventory' : '' ?>" id="deleteQuantity-<?= $inventario->id_inventario_anual ?>" name="cantidad" placeholder="Cantidad" value="<?= old('cantidad') ?>">
                             <div class="invalid-feedback">
                                 <?= session('errors-delete.cantidad') ?>
                             </div>
                         </div>
-                        <div class="alert alert-warning" role="alert">
+                        <div style="border: 1px solid #ffc107; padding: 10px; background-color: #fff3cd; border-radius: 5px; margin-bottom: 15px;">
                             <strong>Advertencia:</strong> Esta acción no se puede deshacer. Asegúrate de ingresar la cantidad correcta antes de dar de baja el inventario.
                         </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-danger">Dar de Baja</button>

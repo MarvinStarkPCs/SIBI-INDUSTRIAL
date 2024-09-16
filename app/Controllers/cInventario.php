@@ -7,6 +7,7 @@ use App\Models\ComboboxModel;
 use App\Models\GestionUsuariosModel;
 use App\Models\InventarioModel;
 use CodeIgniter\Controller;
+
 require_once APPPATH . '../vendor/autoload.php'; // Nota: ../ mueve un directorio hacia arriba
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -39,9 +40,9 @@ class CInventario extends Controller
 // Obtener los datos
             $data['inventarios'] = $modelInventario->getInventarioConValorTotal();
             $data['articulos'] = $modelArticulo->getArticulos(); // Asumiendo que estás obteniendo todos los artículos
-            $data['estados'] = $modelEstados->getTableData('estados', ['id'=>[4,5]]); // Asumiendo que getTableData obtiene datos de la tabla
+            $data['estados'] = $modelEstados->getTableData('estados', ['id' => [4, 5]]); // Asumiendo que getTableData obtiene datos de la tabla
             $data['procedencias'] = $modelProcedencias->getTableData('procedencias'); // Obtener datos de procedencias
-            $data['ubicaciones'] = $modelUbicaciones->getTableData('ubicaciones',['id'=>[1,3]]); // Obtener datos de ubicaciones
+            $data['ubicaciones'] = $modelUbicaciones->getTableData('ubicaciones', ['id' => [1, 3]]); // Obtener datos de ubicaciones
             $data['sedes'] = $modelSedes->getTableData('sedes'); // Obtener datos de sedes
             // Pasar los datos a la vista
             return view('inventario', $data);
@@ -71,13 +72,23 @@ class CInventario extends Controller
         $estado_id = $this->request->getPost('estado_id');
         $procedencia_id = $this->request->getPost('procedencia_id');
 
-        // Verificar si el registro ya existe
-        if ($model->exists($articulo_id, $ubicacion_id, $estado_id, $procedencia_id)) {
-            log_message('info', 'Datos del inventario: ');
+        $añoActual = date('Y'); // Obtener el año actual
 
-            return redirect()->back()->withInput()->with('error', 'El registro con los datos proporcionados ya existe.');
+        // Verificar si ya existe un registro con los mismos datos y del año presente
+        $registroExistente = $model->where('articulo_id', $articulo_id)
+            ->where('ubicacion_id', $ubicacion_id)
+            ->where('estado_id', $estado_id)
+            ->where('procedencia_id', $procedencia_id)
+            ->where('YEAR(fecha)', $añoActual)  // Extraer el año del TIMESTAMP
+            ->first();
 
+        // Si el registro ya existe en el año actual
+        if ($registroExistente) {
+            log_message('info', 'Datos del inventario: El registro ya existe.');
+
+            return redirect()->back()->withInput()->with('error', 'El registro con los datos proporcionados ya existe para el año presente.');
         }
+
 
         $data = [
             'articulo_id' => $articulo_id,
@@ -95,7 +106,8 @@ class CInventario extends Controller
     }
 
 
-    public function descargarInventarioExcel(){
+    public function descargarInventarioExcel()
+    {
 
         // Crear una instancia del modelo
         $inventarioModel = new InventarioModel();
@@ -156,5 +168,39 @@ class CInventario extends Controller
         $writer->save('php://output');
         exit();
     }
+
+    public function dardebaja($id)
+    {
+        $model = new InventarioModel();
+        $cantidad = $this->request->getPost('cantidad');
+        $ubicacion_dado_de_baja = '1';  // Nueva ubicación para dado de baja
+        $estado_dado_de_baja = '4';     // Nuevo estado para dado de baja
+        log_message('info', 'Datos del inventario: ' . $id . ' cantidad ' . $cantidad);
+        // Obtener el registro por ID
+        $result = $model->where('id', $id)->first();
+        // Validar que el registro exista
+        if (!$result) {
+            return redirect()->back()->with('error', 'No se encontró el inventario.');
+        }
+        // Validar si la cantidad solicitada es mayor al stock inicial
+        if ($result['stock_inicio'] < $cantidad) {
+            return redirect()->back()->withInput()->with('error', 'Stock insuficiente.');
+        }
+        // Si el stock final es igual a la cantidad, actualizamos ubicación y estado
+        if ($result['stock_inicio'] == $cantidad) {
+            $data = [
+                'ubicacion_id' => $ubicacion_dado_de_baja,
+                'estado_id'    => $estado_dado_de_baja
+            ];
+            // Actualizar el registro del inventario
+            $model->update($id, $data);
+            return redirect()->back()->with('success', 'El artículo se ha dado de baja correctamente.');
+        }
+
+        // Aquí puedes agregar lógica adicional si es necesario
+    }
+
+
+
 
 }

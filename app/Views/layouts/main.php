@@ -256,7 +256,7 @@
                         <i class="fas fa-calendar-alt"></i> Historial de asignaciones
                     </a>
 
-                    <a class="collapse-item" href="<?= base_url('historial-dados-baja'); ?>">
+                    <a class="collapse-item" href="<?= base_url('dados-de-baja'); ?>">
                         <i class="fas fa-trash-alt"></i> Historial Dados de Baja
                     </a>
                 </div>

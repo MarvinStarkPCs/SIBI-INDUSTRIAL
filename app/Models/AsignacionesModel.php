@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class DadodebajaModel extends Model
+class AsignacionesModel extends Model
 {
     protected $table = 'asignaciones'; // Define la tabla principal
     protected $primaryKey = 'id'; // Llave primaria de la tabla
