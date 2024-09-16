@@ -17,12 +17,7 @@
                 </a>
             </div>
 
-            <div>
-                <button type="button" id="openModalButtonCategory" class="btn btn-primary" data-toggle="modal"
-                        data-target="#addCategoryModal">
-                    <i class="fas fa-plus-circle"></i> Agregar Estado
-                </button>
-            </div>
+
         </div>
 
         <div class="table-responsive">
