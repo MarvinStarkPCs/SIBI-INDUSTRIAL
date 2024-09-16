@@ -55,7 +55,7 @@ $routes->post('/categorias/update/(:num)', 'CategoriaController::update/$1');
 $routes->get('/categorias/delete/(:num)', 'CategoriaController::delete/$1');
 ///estados.
 $routes->get('/estados', 'EstadosController::index');
-$routes->post('/estados/add', 'EstadosController::store');
+$routes->post('/estados/create', 'EstadosController::store');
 $routes->post('/estados/update/(:num)', 'EstadosController::update/$1');
 $routes->get('/estados/delete/(:num)', 'EstadosController::delete/$1');
 ///sedes
@@ -63,7 +63,7 @@ $routes->get('/sedes', 'SedesController::index');
 
 ///Ubicacion
 $routes->get('/ubicaciones', 'UbicacionesController::index');
-$routes->post('/ubicaciones/add', 'UbicacionesController::store');
+$routes->post('/ubicaciones/store', 'UbicacionesController::store');
 $routes->post('/ubicaciones/update/(:num)', 'UbicacionesController::update/$1');
 $routes->get('/ubicaciones/delete/(:num)', 'UbicacionesController::delete/$1');
 $routes->get('/ubicaciones/ubicaciones-excel', 'UbicacionesController::ubicacioneExcel');

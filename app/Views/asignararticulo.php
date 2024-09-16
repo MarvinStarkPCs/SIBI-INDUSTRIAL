@@ -166,6 +166,28 @@
         });
 
 
+        function mantenerValores() {
+            var estadoId = '<?= old('estado_id') ?>';
+            var articuloId = '<?= old('articulo_id') ?>';
+            var cantidadInventario = '<?= old('inputCantidadInventario') ?>';
+            var ubicacion = '<?= old('inputUbicacion') ?>';
+            var idUbicacion = '<?= old('id_ubicacion') ?>';
+
+            if (articuloId) {
+                $('#selectArticulo').val(articuloId).trigger('change');
+            }
+
+            if (estadoId && articuloId) {
+                $('#selectEstado').val(estadoId).trigger('change');
+            }
+
+            $('#inputCantidadInventario').val(cantidadInventario);
+            $('#inputUbicacion').val(ubicacion);
+            $('#hiddenIdUbicacion').val(idUbicacion);
+        }
+
+        mantenerValores();
+
     });
 </script>
 <?= $this->endSection() ?>

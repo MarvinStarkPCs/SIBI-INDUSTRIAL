@@ -2,9 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Models\ArticuloModel;
-use App\Models\ComboboxModel;
 use App\Models\UbicacionModel;
+use App\Models\ComboboxModel;
 
 class UbicacionesController extends BaseController
 {
@@ -15,7 +14,7 @@ class UbicacionesController extends BaseController
         if (!$session->get('login')) {
             return redirect()->to('/'); // Redirige al login si no está logueado
         } else {
-            $model = new ubicacionModel();
+            $model = new UbicacionModel();
             $modelcombo = new ComboboxModel();
             $data['ubicaciones'] = $model->getUbicacionesOrdenadasPorSede();
             $data['sedes'] = $modelcombo->getTableData('sedes');
@@ -26,42 +25,54 @@ class UbicacionesController extends BaseController
         }
     }
 
-    public function create()
-    {
-        return view('ubicacion_create');
-    }
+
 
     public function store()
     {
         $ubicacionModel = new UbicacionModel();
         $ubicacionModel->save([
-            'nombre' => $this->request->getPost('nombre'),
+            'nombre' => $this->request->getPost('nombre_ubicacion'),
             'sede_id' => $this->request->getPost('sede_id')
         ]);
-        return redirect()->to('/ubicaciones');
+            return redirect()->to('/ubicaciones')->with('success', 'Ubicación agregada con éxito.');
     }
 
-    public function edit($id)
-    {
-        $ubicacionModel = new UbicacionModel();
-        $data['ubicacion'] = $ubicacionModel->find($id);
-        return view('ubicacion_edit', $data);
-    }
 
     public function update($id)
     {
         $ubicacionModel = new UbicacionModel();
         $ubicacionModel->update($id, [
-            'nombre' => $this->request->getPost('nombre'),
+            'nombre' => $this->request->getPost('nombre_ubicacion'),
             'sede_id' => $this->request->getPost('sede_id')
         ]);
-        return redirect()->to('/ubicaciones');
+        return redirect()->to('/ubicaciones')->with('success', 'Ubicación actualizada con éxito.');
     }
 
     public function delete($id)
     {
         $ubicacionModel = new UbicacionModel();
-        $ubicacionModel->delete($id);
-        return redirect()->to('/ubicaciones');
+
+        // Validar si el ID es válido
+        if (!is_numeric($id) || $id <= 0) {
+            return redirect()->to('/ubicaciones')->with('error', 'ID de ubicación inválido.');
+        }
+
+        try {
+            // Verificar si la ubicación existe antes de intentar eliminarla
+            if (!$ubicacionModel->find($id)) {
+                return redirect()->to('/ubicaciones')->with('error', 'La ubicación no existe.');
+            }
+
+            $ubicacionModel->delete($id);
+            return redirect()->to('/ubicaciones')->with('success', 'Ubicación eliminada correctamente.');
+        } catch (\CodeIgniter\Database\Exceptions\DatabaseException $e) {
+            // Manejo del error específico
+            if (strpos($e->getMessage(), 'Cannot delete or update a parent row: a foreign key constraint fails') !== false) {
+                return redirect()->to('/ubicaciones')->with('error', 'No se puede eliminar la ubicación porque está asociada a otros registros.');
+            }
+
+            // Otros errores
+            return redirect()->to('/ubicaciones')->with('error', 'Ocurrió un error al intentar eliminar la ubicación.');
+        }
     }
 }
