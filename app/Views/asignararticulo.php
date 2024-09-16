@@ -111,7 +111,7 @@
                         selectEstado.append('<option value="">Seleccione un estado</option>');
                         $.each(response, function(index, value) {
                             if (value.ubicacion !== 'En Prestamo') {
-                                selectEstado.append('<option value="' + value.id_estado + '">' + value.estado + ' (' + value.sede + ')</option>');
+                                selectEstado.append('<option value="' + value.id_estado + '">' + value.estado + ' (' + value.procedencia + ')</option>');
                             }
                         });
 
