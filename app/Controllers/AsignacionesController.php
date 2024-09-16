@@ -8,14 +8,12 @@ class AsignacionesController extends BaseController
 {
     public function index(){
         $session = session();
-        if(!$session->has('login')){
+        if(!$session->get('login')){
             return redirect()->route('/');
         }else {
             $dadodebajaModel = new AsignacionesModel();
-
             // Obtener los datos
             $data['asignaciones'] = $dadodebajaModel->obtenerAsignaciones();
-
             // Cargar la vista con los datos
             return view('historialasignaciones', $data);
 

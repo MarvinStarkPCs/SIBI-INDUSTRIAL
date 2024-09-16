@@ -68,6 +68,8 @@
 
                     <th>Ubicación</th>
                     <th>Precio Total</th>
+                    <th>Cantidad</th>
+
                     <th>Acciones</th>
                 </tr>
 
@@ -79,9 +81,9 @@
                         <td><?= esc($inventario->estado_nombre) ?></td>
                         <td><?= esc($inventario->procedencia_nombre) ?></td>
                         <td><?= esc($inventario->sede) ?></td>
-
                         <td><?= esc($inventario->ubicacion_nombre) ?></td>
                         <td><?= esc($inventario->precio_total) ?></td>
+                        <td><?= esc($inventario->inventario_stock_inicio) ?></td>
                         <td class="text-center">
                             <button class="btn btn-icon btn-info btn-sm" data-toggle="modal" data-target="#updateModal-<?= $inventario->articulo_id ?>" title="Actualizar cantidad">
                                 <i class="fas fa-sync-alt"></i>

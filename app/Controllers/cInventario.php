@@ -6,6 +6,7 @@ use App\Models\ArticuloModel;
 use App\Models\ComboboxModel;
 use App\Models\GestionUsuariosModel;
 use App\Models\InventarioModel;
+use App\Models\TrasladoModel;
 use CodeIgniter\Controller;
 
 require_once APPPATH . '../vendor/autoload.php'; // Nota: ../ mueve un directorio hacia arriba
@@ -171,22 +172,29 @@ class CInventario extends Controller
 
     public function dardebaja($id)
     {
+        $trasladoModel = new TrasladoModel();
         $model = new InventarioModel();
+        $asignado_en = date('Y-m-d'); // Fecha actual
         $cantidad = $this->request->getPost('cantidad');
         $ubicacion_dado_de_baja = '1';  // Nueva ubicación para dado de baja
         $estado_dado_de_baja = '4';     // Nuevo estado para dado de baja
+
         log_message('info', 'Datos del inventario: ' . $id . ' cantidad ' . $cantidad);
-        // Obtener el registro por ID
+
+        // Obtener el registro del inventario por ID
         $result = $model->where('id', $id)->first();
+
         // Validar que el registro exista
         if (!$result) {
             return redirect()->back()->with('error', 'No se encontró el inventario.');
         }
+
         // Validar si la cantidad solicitada es mayor al stock inicial
         if ($result['stock_inicio'] < $cantidad) {
             return redirect()->back()->withInput()->with('error', 'Stock insuficiente.');
         }
-        // Si el stock final es igual a la cantidad, actualizamos ubicación y estado
+
+        // Si la cantidad es igual al stock inicial, actualizamos la ubicación y el estado
         if ($result['stock_inicio'] == $cantidad) {
             $data = [
                 'ubicacion_id' => $ubicacion_dado_de_baja,
@@ -194,10 +202,39 @@ class CInventario extends Controller
             ];
             // Actualizar el registro del inventario
             $model->update($id, $data);
-            return redirect()->back()->with('success', 'El artículo se ha dado de baja correctamente.');
+        } else {
+            // Si no es igual, actualizamos el stock final y creamos un nuevo registro para la ubicación "préstamo"
+            $nuevo_stock_inicial = $result['stock_inicio'] - $cantidad;
+
+            // Actualizar el stock del registro existente
+            $model->update($id, ['stock_inicio' => $nuevo_stock_inicial]);
+
+            // Crear un nuevo registro de inventario con la cantidad dada de baja en la nueva ubicación
+            $nuevoInventario = [
+                'articulo_id'    => $result['articulo_id'],
+                'ubicacion_id'   => $ubicacion_dado_de_baja,
+                'estado_id'      => $estado_dado_de_baja,
+                'procedencia_id' => $result['procedencia_id'],
+                'stock_inicio'   => $cantidad,
+                'fecha'          => $asignado_en,
+            ];
+
+            // Guardar el nuevo registro en el inventario
+            $model->save($nuevoInventario);
         }
 
-        // Aquí puedes agregar lógica adicional si es necesario
+        // Registrar el traslado
+        $session = session();
+        $trasladoData = [
+            'articulo_id'    => $result['articulo_id'],
+            'de_ubicacion_id'=> $result['ubicacion_id'],
+            'a_ubicacion_id' => $ubicacion_dado_de_baja,
+            'trasladado_por' => $session->get('id_user'),
+            'trasladado_en'  => $asignado_en,
+        ];
+        $trasladoModel->save($trasladoData);
+
+        return redirect()->back()->with('success', 'El artículo se ha dado de baja correctamente.');
     }
 
 
