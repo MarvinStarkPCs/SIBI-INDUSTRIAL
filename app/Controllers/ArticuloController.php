@@ -69,45 +69,54 @@ class ArticuloController extends BaseController
     }
     public function update($id)
     {
-        $model = new ProcedenciasModel();
+        $model = new ArticuloModel();
         $validation = \Config\Services::validation();
-
-        // Definir las reglas de validación
+    
+        log_message('info', 'Entrando en la función update');
+    
+        // Reglas de validación para actualizar un artículo
         $validation->setRules([
             'nombre' => 'required|string|max_length[100]',
-            'nit_o_cc' => 'required|string|max_length[20]',
-            'direccion' => 'required|string|max_length[255]',
-            'telefono' => 'required|string|max_length[20]',
-            'representante' => 'required|string|max_length[100]',
-            'correo' => 'required|valid_email|max_length[255]',
+            'marca' => 'required|string|max_length[50]',
+            'descripcion' => 'required|string',
+            'fecha_adquisicion' => 'required|valid_date',
+            'valor_unitario' => 'required|decimal',
+            'categoria_id' => 'required|integer',
         ]);
-
+    
         // Validar los datos del formulario
         if (!$validation->withRequest($this->request)->run()) {
+            log_message('error', 'Errores de validación: ' . print_r($validation->getErrors(), true));
             // Si la validación falla, redirige de vuelta con los errores
             return redirect()->back()->withInput()->with('errors-edit', $validation->getErrors());
         }
-
-        // Si la validación pasa, preparar los datos para actualizar
+    
+        log_message('info', 'Validación pasada con éxito');
+    
+        // Si la validación pasa, preparar los datos para actualizar el artículo
         $data = [
             'nombre' => $this->request->getPost('nombre'),
-            'nit_o_cc' => $this->request->getPost('nit_o_cc'),
-            'direccion' => $this->request->getPost('direccion'),
-            'telefono' => $this->request->getPost('telefono'),
-            'representante' => $this->request->getPost('representante'),
-            'correo' => $this->request->getPost('correo'),
+            'marca' => $this->request->getPost('marca'),
+            'descripcion' => $this->request->getPost('descripcion'),
+            'fecha_adquisicion' => $this->request->getPost('fecha_adquisicion'),
+            'valor_unitario' => $this->request->getPost('valor_unitario'),
+            'categoria_id' => $this->request->getPost('categoria_id'),
         ];
-
-        // Actualizar la procedencia
+    
+        log_message('info', 'Datos para actualizar: ' . print_r($data, true));
+    
+        // Actualizar el artículo
         if ($model->update($id, $data)) {
+            log_message('info', 'Artículo actualizado con éxito');
             // Redirigir con un mensaje de éxito
-            return redirect()->to('/procedencias')->with('success', 'Procedencia actualizada con éxito.');
+            return redirect()->to('/articulos')->with('success', 'Artículo actualizado con éxito.');
         } else {
+            log_message('error', 'Error al actualizar el artículo');
             // Redirigir con un mensaje de error
-            return redirect()->back()->with('error', 'Hubo un problema al actualizar la procedencia.');
+            return redirect()->back()->with('error', 'Hubo un problema al actualizar el artículo.');
         }
     }
-
+    
 
     public function delete($id)
     {

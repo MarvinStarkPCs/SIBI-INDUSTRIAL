@@ -240,48 +240,64 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="<?= base_url('articulos/addusuarios/'.$articulo['id']) ?>" method="post" id="editArticleForm-<?= $articulo['id'] ?>">
+                    <form action="<?= base_url('articulos/update/'.$articulo['id']) ?>" method="post" id="editArticleForm-<?= $articulo['id'] ?>">
                         <?= csrf_field() ?>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="editName-<?= $articulo['id'] ?>">Nombre</label>
-                                <input type="text" class="form-control <?= session('errors-update.nombre') ? 'is-invalid errors-update' : '' ?>" id="editName-<?= $articulo['id'] ?>" name="nombre" placeholder="Nombre" value="<?= esc($articulo['nombre']) ?>">
+                                <input type="text" class="form-control <?= session('errors-edit.nombre') ? 'is-invalid errors-edit' : '' ?>" 
+                                       id="editName-<?= $articulo['id'] ?>" name="nombre" 
+                                       placeholder="Nombre" value="<?= esc($articulo['nombre']) ?>">
                                 <div class="invalid-feedback">
-                                    <?= session('errors-update.nombre') ?>
+                                    <?= session('errors-edit.nombre') ?>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="editBrand-<?= $articulo['id'] ?>">Marca</label>
-                                <input type="text" class="form-control <?= session('errors-update.marca') ? 'is-invalid errors-update' : '' ?>" id="editBrand-<?= $articulo['id'] ?>" name="marca" placeholder="Marca" value="<?= esc($articulo['marca']) ?>">
+                                <input type="text" class="form-control <?= session('errors-edit.marca') ? 'is-invalid errors-edit' : '' ?>" 
+                                       id="editBrand-<?= $articulo['id'] ?>" name="marca" 
+                                       placeholder="Marca" value="<?= esc($articulo['marca']) ?>">
                                 <div class="invalid-feedback">
-                                    <?= session('errors-update.marca') ?>
+                                    <?= session('errors-edit.marca') ?>
                                 </div>
                             </div>
+                        </div>
+                       
+                        <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label for="editDescription-<?= $articulo['id'] ?>">Descripción</label>
-                                <textarea class="form-control <?= session('errors-update.descripcion') ? 'is-invalid errors-update' : '' ?>" id="editDescription-<?= $articulo['id'] ?>" name="descripcion" rows="3" placeholder="Descripción"><?= esc($articulo['descripcion']) ?></textarea>
+                                <textarea class="form-control <?= session('errors-edit.descripcion') ? 'is-invalid errors-edit' : '' ?>" 
+                                          id="editDescription-<?= $articulo['id'] ?>" name="descripcion" 
+                                          rows="3" placeholder="Descripción"><?= esc($articulo['descripcion']) ?></textarea>
                                 <div class="invalid-feedback">
-                                    <?= session('errors-update.descripcion') ?>
+                                    <?= session('errors-edit.descripcion') ?>
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="editAcquisitionDate-<?= $articulo['id'] ?>">Fecha de Adquisición</label>
-                                <input type="date" class="form-control <?= session('errors-update.fecha_adquisicion') ? 'is-invalid errors-update' : '' ?>" id="editAcquisitionDate-<?= $articulo['id'] ?>" name="fecha_adquisicion" value="<?= esc($articulo['fecha_adquisicion']) ?>">
+                                <input type="date" class="form-control <?= session('errors-edit.fecha_adquisicion') ? 'is-invalid errors-edit' : '' ?>" 
+                                       id="editAcquisitionDate-<?= $articulo['id'] ?>" name="fecha_adquisicion" 
+                                       value="<?= esc($articulo['fecha_adquisicion']) ?>">
                                 <div class="invalid-feedback">
-                                    <?= session('errors-update.fecha_adquisicion') ?>
+                                    <?= session('errors-edit.fecha_adquisicion') ?>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="editUnitValue-<?= $articulo['id'] ?>">Valor Unitario</label>
-                                <input type="number" class="form-control <?= session('errors-update.valor_unitario') ? 'is-invalid errors-update' : '' ?>" id="editUnitValue-<?= $articulo['id'] ?>" name="valor_unitario" placeholder="Valor Unitario" value="<?= esc($articulo['valor_unitario']) ?>">
+                                <input type="number" class="form-control <?= session('errors-edit.valor_unitario') ? 'is-invalid errors-edit' : '' ?>" 
+                                       id="editUnitValue-<?= $articulo['id'] ?>" name="valor_unitario" 
+                                       placeholder="Valor Unitario" value="<?= esc($articulo['valor_unitario']) ?>">
                                 <div class="invalid-feedback">
-                                    <?= session('errors-update.valor_unitario') ?>
+                                    <?= session('errors-edit.valor_unitario') ?>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="editCategory-<?= $articulo['id'] ?>">Categoría</label>
-                            <select class="form-control <?= session('errors-update.categoria_id') ? 'is-invalid errors-update' : '' ?>" id="editCategory-<?= $articulo['id'] ?>" name="categoria_id">
+                            <select class="form-control <?= session('errors-edit.categoria_id') ? 'is-invalid errors-edit' : '' ?>" 
+                                    id="editCategory-<?= $articulo['id'] ?>" name="categoria_id">
                                 <?php foreach ($categorias as $categoria): ?>
                                     <option value="<?= esc($categoria['id']) ?>" <?= $articulo['categoria_id'] == $categoria['id'] ? 'selected' : '' ?>>
                                         <?= esc($categoria['nombre']) ?>
@@ -289,7 +305,7 @@
                                 <?php endforeach; ?>
                             </select>
                             <div class="invalid-feedback">
-                                <?= session('errors-update.categoria_id') ?>
+                                <?= session('errors-edit.categoria_id') ?>
                             </div>
                         </div>
                         <div style="border: 1px solid #17a2b8; padding: 10px; background-color: #e9f7fc; border-radius: 5px; margin-bottom: 15px;">
@@ -305,6 +321,7 @@
         </div>
     </div>
 <?php endforeach; ?>
+
 
 <!-- Modal de Eliminar Artículo -->
 <?php foreach ($articulos as $articulo): ?>

@@ -30,13 +30,13 @@ class Clogin extends BaseController
                     'valid_email' => 'Debe ingresar un correo electrónico válido.',
                 ],
             ],
-            // 'password' => [
-            //     'rules' => 'required|min_length[8]',
-            //     'errors' => [
-            //         'required' => 'El campo de contraseña es obligatorio.',
-            //         'min_length' => 'La contraseña debe tener al menos 8 caracteres.',
-            //     ],
-            // ],
+             'password' => [
+                 'rules' => 'required|min_length[8]',
+                 'errors' => [
+                     'required' => 'El campo de contraseña es obligatorio.',
+                   'min_length' => 'La contraseña debe tener al menos 8 caracteres.',
+             ],
+            ],
         ];
 
         // Validación
@@ -57,7 +57,6 @@ class Clogin extends BaseController
                 'id_user' => $user['id'],
                 'nombres' => $user['nombres'],
                 'apellidos' => $user['apellidos'],
-
                 'correo' => $user['correo']
             ]);
             return redirect()->to('/dashboard'); // Redirige a la página principal
