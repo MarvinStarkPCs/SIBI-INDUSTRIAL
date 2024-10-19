@@ -11,17 +11,46 @@
     <title>SIBI - Dashboard</title>
 
     <!-- Custom fonts for this template -->
-    <link href="<?= base_url('assets/fontawesome-free/css/all.min.css'); ?>" rel="stylesheet" type="text/css">
+    <link href="./assets/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
 
     <!-- CSS de Select2 (si lo usas) -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <link href="./assets/select2/dist/css/select2.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="<?= base_url('assets/datatables/dataTables.bootstrap4.min.css'); ?>" rel="stylesheet">
-    <link href="<?= base_url('css/sb-admin-2.min.css'); ?>" rel="stylesheet">
+    <link href="./assets/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="./css/sb-admin-2.min.css" rel="stylesheet">
+
     <style>
+        .table thead th {
+            background-color: #296221; /* Color de fondo para las celdas del encabezado */
+            color: white; /* Color del texto para contraste */
+        }
+        /* Style for the scrollbar track */
+        ::-webkit-scrollbar {
+            width: 12px;              /* Set width for vertical scrollbar */
+            height: 12px;             /* Set height for horizontal scrollbar */
+        }
+
+        /* Style for the scrollbar thumb */
+        ::-webkit-scrollbar-thumb {
+            background-color: #888;    /* Color of the scrollbar thumb */
+            border-radius: 6px;        /* Roundness of the scrollbar thumb */
+            border: 3px solid transparent; /* Add padding around thumb for spacing */
+        }
+
+        /* Hover effect for the scrollbar thumb */
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #555;    /* Darken color when hovering */
+        }
+
+        /* Optional: Style for the scrollbar track (background) */
+        ::-webkit-scrollbar-track {
+            background-color: #f1f1f1; /* Color of the scrollbar track */
+            border-radius: 6px;        /* Roundness of the scrollbar track */
+        }
+
         .sidebar-brand {
             display: flex;
             align-items: center;
@@ -222,17 +251,24 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Gestión del Sistema</h6>
-                    <a class="collapse-item" href="<?= base_url('inventario'); ?>">
-                        <i class="fas fa-box"></i> <!-- Icono de inventario -->
+
+                    <a class="collapse-item" href='inventario'>
+                        <i class="fas fa-clipboard-list"></i> <!-- Icono de inventario -->
                         Inventario
                     </a>
 
-                    <a class="collapse-item" href="<?= base_url('asignar-articulo'); ?>">
-                        <i class="fas fa-plus-circle"></i> <!-- Icono de asignar artículo -->
-                        Asignar Artículo
+                    <a class="collapse-item" href='asignar-articulo'>
+                        <i class="fas fa-exchange-alt"></i> <!-- Icono de préstamos -->
+                        Préstamos
                     </a>
+
+                    <a class="collapse-item" href='asignar-articulo'>
+                        <i class="fas fa-hand-holding"></i> <!-- Icono de asignar artículos -->
+                        Asignar Artículos
+                    </a>
+
                     <a class="collapse-item" href="<?= base_url('gestion-extras'); ?>">
-                        <i class="fas fa-boxes"></i> <!-- Icono de gestión de extras -->
+                        <i class="fas fa-tools"></i> <!-- Icono de gestión de extras -->
                         Gestión de Extras
                     </a>
                 </div>
@@ -357,6 +393,16 @@
                     </div>
                 <?php endif; ?>
 
+                <!-- Mostrar mensajes largos -->
+                <?php if (session()->get('mensaje')): ?>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>Atención!</strong> <?= session()->get('mensaje') ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php endif; ?>
+
                 <!-- Page content here -->
                 <?= $this->renderSection('content') ?>
             </div>
@@ -423,42 +469,49 @@
     </div>
 </div>
 
-<!-- Scripts --><script src="<?= base_url('js/toggleloader.js') ?>"></script>
+<!-- Scripts -->
+<script src="./js/toggleloader.js"></script>
 
 
 <!-- jQuery -->
-<script src="<?= base_url('assets/jquery/jquery.min.js') ?>"></script>
+<script src="./assets/jquery/jquery.min.js"></script>
+
+<script src="./assets/sweetalert2/dist/sweetalert2.all.min.js" ></script>
+
+<script src="./assets/select2/dist/js/select2.min.js" ></script>
 
 <!-- Select2 JavaScript (si lo usas) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-<script src="<?= base_url('js/selectInventario.js') ?>"></script>
 
-<!--select inventario-->
-<script src="<?= base_url('js/selectInventario.js') ?>"></script>
 
 <!-- Bootstrap core JavaScript -->
-<script src="<?= base_url('assets/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+<script src="./assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript -->
-<script src="<?= base_url('assets/jquery-easing/jquery.easing.min.js') ?>"></script>
+<script src="./assets/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for all pages -->
-<script src="<?= base_url('js/sb-admin-2.min.js') ?>"></script>
+<script src="./js/sb-admin-2.min.js"></script>
 
 <!-- Page level plugins -->
-<script src="<?= base_url('assets/chart.js/Chart.min.js') ?>"></script>
+<script src="./assets/chart.js/Chart.min.js"></script>
 
 <!-- Page level custom scripts -->
-<script src="<?= base_url('js/demo/chart-area-demo.js') ?>"></script>
-<script src="<?= base_url('js/demo/chart-pie-demo.js') ?>"></script>
+<script src="./js/demo/chart-area-demo.js"></script>
+<script src="./js/demo/chart-pie-demo.js"></script>
 
 <!-- DataTables -->
-<script src="<?= base_url('assets/datatables/jquery.dataTables.min.js') ?>"></script>
-<script src="<?= base_url('assets/datatables/dataTables.bootstrap4.min.js') ?>"></script>
-<script src="<?= base_url('js/demo/datatables-demo.js') ?>"></script>
+<script src="./assets/datatables/jquery.dataTables.min.js"></script>
+<script src="./assets/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="./js/demo/datatables-demo.js"></script>
+
+<script src="./js/selectInventario.js"></script>
+<script src="./js/AsignarArticulo.js"></script>
+
+<script src="./js/AsignarxSerial.js"></script>
+
 
 <!-- Custom alerts -->
-<script src="<?= base_url('js/demo/alert_custom.js') ?>"></script>
+<script src="./js/demo/alert_custom.js"></script>
 
 </body>
 

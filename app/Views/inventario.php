@@ -3,26 +3,6 @@
 <?= $this->section('content') ?>
 
 <style>
-    .sedes-container {
-    display: flex;
-    flex-direction: column;
-    }
-
-    .sedes-list {
-    margin-top: 10px;
-    }
-
-    /* Ajustar el tamaño de los campos select2 */
-    .select2-container .select2-selection--single {
-        height: calc(2.25rem + 2px); /* Ajusta la altura para que coincida con los inputs */
-    }
-    .select2-container .select2-selection--single .select2-selection__rendered {
-        line-height: 1.5; /* Ajusta la alineación vertical del texto */
-    }
-    .select2-container--default .select2-selection--single .select2-selection__arrow {
-        height: calc(2.25rem + 2px); /* Asegura que la flecha tenga el mismo tamaño */
-    }
-
 
 </style>
 <h1 class="h3 mb-2 text-gray-800">Gestión de Inventario</h1>
@@ -46,9 +26,9 @@
 
             <!-- Grupo de botones alineados a la derecha -->
             <div>
-                <!-- Botón para abrir inventario -->
+                <!-- Botón para Agregar inventario -->
                 <button type="button" id="openInventoryButton" class="btn btn-primary mr-2" data-toggle="modal" data-target="#openInventoryModal">
-                    <i class="fas fa-box-open"></i> Abrir Inventario
+                    <i class="fas fa-box-open"></i> Agregar inventario
                 </button>
                 <!-- Botón para cerrar inventario -->
 <!--                <button type="button" id="closeInventoryButton" class="btn btn-secondary" data-toggle="modal" data-target="#closeInventoryModal">-->
@@ -75,23 +55,26 @@
                 <tbody>
                 <?php foreach ($inventarios as $inventario): ?>
                     <tr>
-                        <td><?= esc($inventario->articulo_nombre) ?></td>
-                        <td><?= esc($inventario->articulo_marca) ?></td>
-                        <td><?= esc($inventario->estado_nombre) ?></td>
-                        <td><?= esc($inventario->procedencia_nombre) ?></td>
-                        <td><?= esc($inventario->sede) ?></td>
-                        <td><?= esc($inventario->ubicacion_nombre) ?></td>
-                        <td><?= esc($inventario->precio_total) ?></td>
-                        <td><?= esc($inventario->inventario_stock_inicio) ?></td>
+                        <td><?= esc($inventario->nombre_articulo) ?></td>
+                        <td><?= esc($inventario->nombre_marca) ?></td>
+                        <td><?= esc($inventario->nombre_estado) ?></td>
+                        <td><?= esc($inventario->nombre_procedencia) ?></td>
+                        <td><?= esc($inventario->nombre_sede) ?></td>
+                        <td><?= esc($inventario->nombre_ubicacion) ?></td>
+                        <td><?= esc($inventario->valor_total) ?></td>
+                        <td><?= esc($inventario->stock_inicio) ?></td>
                         <td class="text-center">
-                            <button class="btn btn-icon btn-info btn-sm" data-toggle="modal" data-target="#updateModal-<?= $inventario->articulo_id ?>" title="Actualizar cantidad">
-                                <i class="fas fa-sync-alt"></i>
-                            </button>
-                            <button class="btn btn-icon btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal-<?= $inventario->id_inventario_anual ?>" title="Dar de baja">
+                            <?php if ($inventario->serial == 'NO APLICA'): ?>
+                                <button class="btn btn-icon btn-info btn-sm" data-toggle="modal" data-target="#updateModal-<?= $inventario->id_inventario ?>" title="Actualizar cantidad">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            <?php endif; ?>
+
+                            <button class="btn btn-icon btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal-<?= $inventario->id_inventario ?>" title="Dar de baja">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
 
-                            <button class="btn btn-icon btn-secondary btn-sm" data-toggle="modal" data-target="#detailsModal-<?= $inventario->id_inventario_anual ?>" title="Ver detalles">
+                            <button class="btn btn-icon btn-secondary btn-sm" data-toggle="modal" data-target="#detailsModal-<?= $inventario->id_inventario ?>" title="Ver detalles">
                                 <i class="fas fa-info-circle"></i>
                             </button>
 
@@ -104,12 +87,13 @@
     </div>
 </div>
 
-<!-- Modal para Abrir Inventario -->
+
+<!-- Modal para Agregar inventario -->
 <div class="modal fade" id="openInventoryModal" tabindex="-1" role="dialog" aria-labelledby="openInventoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog" role="document" style="max-width: 900px;"> <!-- Increased custom width -->
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="openInventoryModalLabel">Abrir Inventario</h5>
+                <h5 class="modal-title" id="openInventoryModalLabel">Agregar inventario</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -117,38 +101,33 @@
             <div class="modal-body">
                 <form action="<?= base_url('inventario/open') ?>" method="post" id="openInventoryForm">
                     <?= csrf_field() ?>
+                    <div class="d-flex flex-wrap">
 
-                    <div class="form-row">
-                        <!-- Cantidad -->
-                        <div class="form-group col-md-6">
-                            <label for="openQuantity">Cantidad</label>
-                            <input type="number" class="form-control <?= session('errors-open.quantity') ? 'is-invalid errors-open' : '' ?>" id="openQuantity" name="quantity" placeholder="Cantidad" value="<?= old('quantity') ?>">
-                            <div class="invalid-feedback">
-                                <?= session('errors-open.quantity') ?>
-                            </div>
-                        </div>
                         <!-- Artículo -->
                         <div class="form-group col-md-6">
                             <label for="openArticulo">Artículo</label>
-                            <select class="form-control select2 <?= session('errors-open.articulo_id') ? 'is-invalid errors-open' : '' ?>" id="openArticulo" name="articulo_id">
+                            <select class="form-control select2 <?= session('errors-open.id_articulo') ? 'is-invalid' : '' ?>" id="openArticulo" name="id_articulo" required>
                                 <option value="" selected disabled>Seleccione un artículo</option>
                                 <?php foreach ($articulos as $articulo): ?>
-                                    <option value="<?= $articulo['id'] ?>" <?= old('articulo_id') == $articulo['id'] ? 'selected' : '' ?>>
-                                        <?= $articulo['nombre'].'_'.$articulo['cod_institucional']?>
+                                    <option value="<?= $articulo['id_articulo'] ?>" data-tiene-serial="<?= isset($articulo['tiene_serial']) ? $articulo['tiene_serial'] : '0' ?>" <?= old('id_articulo') == $articulo['id_articulo'] ? 'selected' : '' ?>>
+                                        <?= $articulo['nombre'] . '_' . (!empty($articulo['modelo']) ? $articulo['modelo'] : $articulo['nombre_marca']) ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
-                            <div class="invalid-feedback">
-                                <?= session('errors-open.articulo_id') ?>
-                            </div>
+                            <div class="invalid-feedback"><?= session('errors-open.id_articulo') ?></div>
                         </div>
-                    </div>
 
-                    <div class="form-row">
+                        <!-- Cantidad (Ocultable) -->
+                        <div class="form-group col-md-6" id="quantityContainer">
+                            <label for="openQuantity">Cantidad</label>
+                            <input type="number" class="form-control <?= session('errors-open.quantity') ? 'is-invalid' : '' ?>" id="openQuantity" name="quantity" placeholder="Cantidad" value="<?= old('quantity') ?>" required>
+                            <div class="invalid-feedback"><?= session('errors-open.quantity') ?></div>
+                        </div>
+
                         <!-- Estado -->
                         <div class="form-group col-md-6">
                             <label for="openEstado">Estado</label>
-                            <select class="form-control select2 <?= session('errors-open.estado_id') ? 'is-invalid errors-open' : '' ?>" id="openEstado" name="estado_id">
+                            <select class="form-control select2 <?= session('errors-open.estado_id') ? 'is-invalid' : '' ?>" id="openEstado" name="estado_id" required>
                                 <option value="" selected disabled>Seleccione un estado</option>
                                 <?php foreach ($estados as $estado): ?>
                                     <option value="<?= $estado['id'] ?>" <?= old('estado_id') == $estado['id'] ? 'selected' : '' ?>>
@@ -156,15 +135,13 @@
                                     </option>
                                 <?php endforeach; ?>
                             </select>
-                            <div class="invalid-feedback">
-                                <?= session('errors-open.estado_id') ?>
-                            </div>
+                            <div class="invalid-feedback"><?= session('errors-open.estado_id') ?></div>
                         </div>
 
                         <!-- Procedencia -->
                         <div class="form-group col-md-6">
                             <label for="openProcedencia">Procedencia</label>
-                            <select class="form-control select2 <?= session('errors-open.procedencia_id') ? 'is-invalid errors-open' : '' ?>" id="openProcedencia" name="procedencia_id">
+                            <select class="form-control select2 <?= session('errors-open.procedencia_id') ? 'is-invalid' : '' ?>" id="openProcedencia" name="procedencia_id" required>
                                 <option value="" selected disabled>Seleccione una procedencia</option>
                                 <?php foreach ($procedencias as $procedencia): ?>
                                     <option value="<?= $procedencia['id'] ?>" <?= old('procedencia_id') == $procedencia['id'] ? 'selected' : '' ?>>
@@ -172,57 +149,38 @@
                                     </option>
                                 <?php endforeach; ?>
                             </select>
-                            <div class="invalid-feedback">
-                                <?= session('errors-open.procedencia_id') ?>
-                            </div>
+                            <div class="invalid-feedback"><?= session('errors-open.procedencia_id') ?></div>
                         </div>
+
+                        <!-- Fecha de Adquisición -->
+                        <div class="form-group col-md-6">
+                            <label for="openFechaAdquisicion">Fecha de Adquisición</label>
+                            <input type="date" class="form-control <?= session('errors-open.fecha_adquisicion') ? 'is-invalid' : '' ?>" id="openFechaAdquisicion" name="fecha_adquisicion" value="<?= old('fecha_adquisicion') ?>" required>
+                            <div class="invalid-feedback"><?= session('errors-open.fecha_adquisicion') ?></div>
+                        </div>
+
                     </div>
 
-                    <div class="form-row">
-                        <!-- Ubicación -->
-                        <div class="form-group col-md-6">
-                            <label for="openUbicacion">Ubicación</label>
-                            <select class="form-control select2 <?= session('errors-open.ubicacion_id') ? 'is-invalid errors-open' : '' ?>" id="openUbicacion" name="ubicacion_id">
-                                <option value="" selected disabled>Seleccione una ubicación</option>
-                                <!-- Opciones dinámicas de ubicaciones se cargarán aquí -->
-                            </select>
-                            <div class="invalid-feedback">
-                                <?= session('errors-open.ubicacion_id') ?>
-                            </div>
+                    <!-- Contenedor de Seriales -->
+                    <div id="serialContainer" style="display: none;">
+                        <label for="openSeriales">Seriales</label>
+                        <div id="serialList" class="border p-2 mb-3">
+                            <!-- Aquí se añadirán los seriales -->
                         </div>
-
-                        <!-- Sedes -->
-                        <div class="form-group col-md-6">
-                            <label>Sedes:</label>
-                            <div class="sedes-container">
-                                <div class="sedes-list">
-                                    <?php foreach ($sedes as $sede): ?>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input sede-checkbox" type="checkbox" id="sede<?= $sede['id'] ?>" name="sedes[]" value="<?= $sede['id'] ?>">
-                                            <label class="form-check-label" for="sede<?= $sede['id'] ?>">
-                                                <?= $sede['nombre'] ?>
-                                            </label>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Mensaje de carga -->
-                    <div id="loadingMessage" style="display: none;">
-                        <p>Cargando ubicaciones, por favor espere...</p>
+                        <button type="button" class="btn btn-outline-secondary mt-2" id="addSerialButton">
+                            <i class="fa fa-plus"></i> Agregar Serial
+                        </button>
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Abrir Inventario</button>
+                        <button type="submit" class="btn btn-primary">Agregar inventario</button>
                     </div>
                 </form>
-            </div> <!-- cierre de modal-body -->
-        </div> <!-- cierre de modal-content -->
-    </div> <!-- cierre de modal-dialog -->
-</div> <!-- cierre de modal -->
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Modal para Cerrar Inventario -->
 <div class="modal fade" id="closeInventoryModal" tabindex="-1" role="dialog" aria-labelledby="closeInventoryModalLabel" aria-hidden="true">
@@ -259,31 +217,33 @@
 
 <!-- Modales para Actualizar Inventario -->
 <?php foreach ($inventarios as $inventario): ?>
-    <div class="modal fade" id="updateModal-<?= $inventario->articulo_id ?>" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel-<?= $inventario->articulo_id ?>" aria-hidden="true">
+    <div class="modal fade" id="updateModal-<?= $inventario->id_inventario ?>" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel-<?= $inventario->id_inventario ?>" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="updateModalLabel-<?= $inventario->articulo_id ?>">Actualizar Cantidad de Inventario</h5>
+                    <h5 class="modal-title" id="updateModalLabel-<?= $inventario->id_articulo ?>">Actualizar Cantidad de Inventario</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="<?= base_url('inventario/actualizar/'.$inventario->id_inventario_anual) ?>" method="post" id="updateInventoryForm-<?= $inventario->id_inventario_anual ?>">
+                    <form action="<?= base_url('inventario/actualizar/'.$inventario->id_inventario) ?>" method="post" id="updateInventoryForm-<?= $inventario->id_inventario ?>">
                         <?= csrf_field() ?>
-                        <div class="form-group">
-                            <label for="updateQuantity-<?= $inventario->id_inventario_anual ?>">Cantidad</label>
-                            <input type="number" class="form-control <?= session('errors-update.cantidad') ? 'is-invalid errors-insert-inventory' : '' ?>" id="updateQuantity-<?= $inventario->id_inventario_anual ?>" name="cantidad" placeholder="Cantidad" value="<?= old('cantidad') ?>">
+                        <div class="form-group" style="margin-bottom: 1.5rem;"> <!-- Margin for spacing -->
+                            <label for="updateQuantity-<?= $inventario->id_inventario ?>" style="font-weight: bold; color: #007bff; font-size: 1.1rem;">Cantidad A Sumar</label>
+                            <input type="number" class="form-control <?= session('errors-update.cantidad') ? 'is-invalid errors-insert-inventory' : '' ?>" id="updateQuantity-<?= $inventario->id_inventario ?>" name="cantidad" placeholder="Cantidad" style="margin-top: 5px;"> <!-- Space above input -->
                             <div class="invalid-feedback">
                                 <?= session('errors-update.cantidad') ?>
                             </div>
+                            <div class="mt-1"> <!-- Margin top for current quantity -->
+                                <label for="currentQuantity-<?= $inventario->id_inventario ?>" style="color: #6c757d; font-size: 0.9rem;">Cantidad Actual: <?= $inventario->stock_inicio ?></label>
+                            </div>
                         </div>
-                <div style="border: 1px solid #ffc107; padding: 10px; background-color: #fff3cd; border-radius: 5px; margin-bottom: 15px;">
-                    <strong>Advertencia:</strong> Esta acción no se puede deshacer. Asegúrate de ingresar la cantidad correcta antes de actualizar el inventario.
-                    <strong>Información:</strong> Esta cantidad se sumará a la que ya existe en el inventario.
-                </div>
-
-                <div class="modal-footer">
+                        <div style="border: 1px solid #ffc107; padding: 10px; background-color: #fff3cd; border-radius: 5px; margin-bottom: 15px;">
+                            <strong>Advertencia:</strong> Esta acción no se puede deshacer. Asegúrate de ingresar la cantidad correcta antes de actualizar el inventario.
+                            <strong>Información:</strong> Esta cantidad se sumará a la que ya existe en el inventario.
+                        </div>
+                        <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary">Actualizar Cantidad</button>
                         </div>
@@ -296,23 +256,27 @@
 
 <!-- Modales para Dar de Baja Inventario -->
 <?php foreach ($inventarios as $inventario): ?>
-    <div class="modal fade" id="deleteModal-<?= $inventario->id_inventario_anual ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-<?= $inventario->id_inventario_anual ?>" aria-hidden="true">
+    <div class="modal fade" id="deleteModal-<?= $inventario->id_inventario ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-<?= $inventario->id_inventario ?>" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel-<?= $inventario->id_inventario_anual ?>">Dar de Baja Inventario</h5>
+                    <h5 class="modal-title" id="deleteModalLabel-<?= $inventario->id_inventario ?>">Dar de Baja Inventario</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="<?= base_url('inventario/dardebaja/'.$inventario->id_inventario_anual) ?>" method="post" id="deleteInventoryForm-<?= $inventario->id_inventario_anual ?>">
+                    <form action="<?= base_url('inventario/dardebaja/'.$inventario->id_inventario) ?>" method="post" id="deleteInventoryForm-<?= $inventario->id_inventario ?>">
                         <?= csrf_field() ?>
                         <div class="form-group">
-                            <label for="deleteQuantity-<?= $inventario->id_inventario_anual ?>">Cantidad a Dar de Baja</label>
-                            <input type="number" class="form-control <?= session('errors-delete.cantidad') ? 'is-invalid errors-insert-inventory' : '' ?>" id="deleteQuantity-<?= $inventario->id_inventario_anual ?>" name="cantidad" placeholder="Cantidad" value="<?= old('cantidad') ?>">
+                            <label for="deleteQuantity-<?= $inventario->id_inventario ?>">Cantidad a Dar de Baja</label>
+
+                            <input type="number" class="form-control <?= session('errors-delete.cantidad') ? 'is-invalid errors-insert-inventory' : '' ?>" id="deleteQuantity-<?= $inventario->id_inventario ?>" name="cantidad" placeholder="Cantidad" value="<?= $inventario->stock_inicio > 1 ? '' : $inventario->stock_inicio ?>">
                             <div class="invalid-feedback">
                                 <?= session('errors-delete.cantidad') ?>
+                            </div>
+                            <div class="mt-1"> <!-- Margin top for current quantity -->
+                                <label for="currentQuantity-<?= $inventario->id_inventario ?>" style="color: #6c757d; font-size: 0.9rem;">Cantidad Actual: <?= $inventario->stock_inicio ?></label>
                             </div>
                         </div>
                         <div style="border: 1px solid #ffc107; padding: 10px; background-color: #fff3cd; border-radius: 5px; margin-bottom: 15px;">
@@ -329,14 +293,13 @@
         </div>
     </div>
 <?php endforeach; ?>
-<?php var_dump($inventarios);?>
 <!-- Modal de Detalles del Inventario -->
 <?php foreach ($inventarios as $inventario): ?>
-    <div class="modal fade" id="detailsModal-<?= $inventario->id_inventario_anual ?>" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel-<?= $inventario->id_inventario_anual ?>" aria-hidden="true">
+    <div class="modal fade" id="detailsModal-<?= $inventario->id_inventario ?>" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel-<?= $inventario->id_inventario ?>" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="detailsModalLabel-<?= $inventario->articulo_id ?>">Detalles del Artículo</h5>
+                    <h5 class="modal-title" id="detailsModalLabel-<?= $inventario->id_articulo ?>">Detalles del Artículo</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -345,56 +308,61 @@
                     <form>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="detailsName-<?= $inventario->articulo_id ?>">Nombre</label>
-                                <input type="text" class="form-control" id="detailsName-<?= $inventario->articulo_id ?>" value="<?= esc($inventario->articulo_nombre) ?>" readonly>
+                                <label for="detailsName-<?= $inventario->id_articulo ?>">Nombre</label>
+                                <input type="text" class="form-control" id="detailsName-<?= $inventario->id_articulo ?>" value="<?= esc($inventario->nombre_articulo) ?>" readonly>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="detailsBrand-<?= $inventario->id_articulo ?>">Marca</label>
+                                <input type="text" class="form-control" id="detailsBrand-<?= $inventario->id_articulo ?>" value="<?= esc($inventario->nombre_marca) ?>" readonly>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="detailsBrand-<?= $inventario->articulo_id ?>">Marca</label>
-                                <input type="text" class="form-control" id="detailsBrand-<?= $inventario->articulo_id ?>" value="<?= esc($inventario->articulo_marca) ?>" readonly>
+                                <label for="detailsSerial-<?= $inventario->id_articulo ?>">serial</label>
+                                <input type="text" class="form-control" id="detailsSerial-<?= $inventario->id_articulo ?>" value="<?= esc($inventario->serial) ?>" readonly>
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="detailsDescription-<?= $inventario->articulo_id ?>">Descripción</label>
-                                <textarea class="form-control" id="detailsDescription-<?= $inventario->articulo_id ?>" rows="3" readonly><?= esc($inventario->articulo_descripcion) ?></textarea>
+                                <label for="detailsDescription-<?= $inventario->id_articulo ?>">Descripción</label>
+                                <textarea class="form-control" id="detailsDescription-<?= $inventario->id_articulo ?>" rows="3" readonly><?= esc($inventario->descripcion_articulo) ?></textarea>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="detailsAcquisitionDate-<?= $inventario->articulo_id ?>">Fecha de Adquisición</label>
-                                <input type="text" class="form-control" id="detailsAcquisitionDate-<?= $inventario->articulo_id ?>" value="<?= esc($inventario->articulo_fecha_adquisicion) ?>" readonly>
+                                <label for="detailsAcquisitionDate-<?= $inventario->id_articulo ?>">Fecha de Adquisición</label>
+                                <input type="text" class="form-control" id="detailsAcquisitionDate-<?= $inventario->id_articulo ?>" value="<?= esc($inventario->fecha_adquisicion) ?>" readonly>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="detailsUnitValue-<?= $inventario->articulo_id ?>">Valor Unitario</label>
-                                <input type="text" class="form-control" id="detailsUnitValue-<?= $inventario->articulo_id ?>" value="<?= esc($inventario->articulo_valor_unitario) ?>" readonly>
+                                <label for="detailsUnitValue-<?= $inventario->id_articulo ?>">Valor Unitario</label>
+                                <input type="text" class="form-control" id="detailsUnitValue-<?= $inventario->id_articulo ?>" value="<?= esc($inventario->valor_unitario) ?>" readonly>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="detailsState-<?= $inventario->articulo_id ?>">Estado</label>
-                                <input type="text" class="form-control" id="detailsState-<?= $inventario->articulo_id ?>" value="<?= esc($inventario->estado_nombre) ?>" readonly>
+                                <label for="detailsState-<?= $inventario->id_articulo ?>">Estado</label>
+                                <input type="text" class="form-control" id="detailsState-<?= $inventario->id_articulo ?>" value="<?= esc($inventario->nombre_estado) ?>" readonly>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="detailsCategory-<?= $inventario->articulo_id ?>">Categoría</label>
-                                <input type="text" class="form-control" id="detailsCategory-<?= $inventario->articulo_id ?>" value="<?= esc($inventario->categoria_nombre) ?>" readonly>
+                                <label for="detailsCategory-<?= $inventario->id_articulo ?>">Categoría</label>
+                                <input type="text" class="form-control" id="detailsCategory-<?= $inventario->id_articulo ?>" value="<?= esc($inventario->categoria) ?>" readonly>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="detailsProcedure-<?= $inventario->articulo_id ?>">Procedencia</label>
-                                <input type="text" class="form-control" id="detailsProcedure-<?= $inventario->articulo_id ?>" value="<?= esc($inventario->procedencia_nombre) ?>" readonly>
+                                <label for="detailsProcedure-<?= $inventario->id_articulo ?>">Procedencia</label>
+                                <input type="text" class="form-control" id="detailsProcedure-<?= $inventario->id_articulo ?>" value="<?= esc($inventario->nombre_procedencia) ?>" readonly>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="detailsLocation-<?= $inventario->articulo_id ?>">Ubicación</label>
-                                <input type="text" class="form-control" id="detailsLocation-<?= $inventario->articulo_id ?>" value="<?= esc($inventario->ubicacion_nombre) ?>" readonly>
+                                <label for="detailsLocation-<?= $inventario->id_articulo ?>">Ubicación</label>
+                                <input type="text" class="form-control" id="detailsLocation-<?= $inventario->id_articulo ?>" value="<?= esc($inventario->nombre_ubicacion) ?>" readonly>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="detailsStockStart-<?= $inventario->articulo_id ?>">Stock Inicial</label>
-                                <input type="text" class="form-control" id="detailsStockStart-<?= $inventario->articulo_id ?>" value="<?= esc($inventario->inventario_stock_inicio) ?>" readonly>
+                                <label for="detailsStockStart-<?= $inventario->id_articulo ?>">Stock Inicial</label>
+                                <input type="text" class="form-control" id="detailsStockStart-<?= $inventario->id_articulo ?>" value="<?= esc($inventario->stock_inicio) ?>" readonly>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="detailsStockEnd-<?= $inventario->articulo_id ?>">Stock Final</label>
-                                <input type="text" class="form-control" id="detailsStockEnd-<?= $inventario->articulo_id ?>" value="<?= esc($inventario->inventario_stock_final) ?>" readonly>
+                                <label for="detailsStockEnd-<?= $inventario->id_articulo ?>">Stock Final</label>
+                                <input type="text" class="form-control" id="detailsStockEnd-<?= $inventario->id_articulo ?>" value="<?= esc($inventario->stock_final) ?>" readonly>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="detailsInventoryDate-<?= $inventario->articulo_id ?>">Fecha del Inventario</label>
-                                <input type="text" class="form-control" id="detailsInventoryDate-<?= $inventario->articulo_id ?>" value="<?= esc($inventario->inventario_fecha) ?>" readonly>
+                                <label for="detailsInventoryDate-<?= $inventario->id_articulo ?>">Fecha del Inventario</label>
+                                <input type="text" class="form-control" id="detailsInventoryDate-<?= $inventario->id_articulo ?>" value="<?= esc($inventario->fecha_ingreso) ?>" readonly>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="detailsTotalPrice-<?= $inventario->articulo_id ?>">Precio Total</label>
-                                <input type="text" class="form-control" id="detailsTotalPrice-<?= $inventario->articulo_id ?>" value="<?= esc(number_format($inventario->precio_total, 2)) ?>" readonly>
+                                <label for="detailsTotalPrice-<?= $inventario->id_articulo ?>">Precio Total</label>
+                                <input type="text" class="form-control" id="detailsTotalPrice-<?= $inventario->id_articulo ?>" value="<?= esc(number_format($inventario->valor_total, 2)) ?>" readonly>
                             </div>
                         </div>
                     </form>
@@ -407,35 +375,4 @@
     </div>
 <?php endforeach; ?>
 
-<script>
-    const ubicaciones = <?= json_encode($ubicaciones) ?>;
-    console.log(ubicaciones)
-    document.addEventListener('DOMContentLoaded', function () {
-        // Verifica si hay un input con la clase específica dentro del formulario
-        let form = document.getElementById('openInventoryForm');
-        let input = form.querySelector('input.errors-open');
-        if (input) {
-            // Si existe, hace clic en el botón
-            document.getElementById('openInventoryButton').click();
-        }
-        let formUpdate = document.getElementById('editForm');
-        let inputUpdate = formUpdate ? formUpdate.querySelector('input.errors-update') : null;
-        if (inputUpdate){
-            let target = localStorage.getItem("data_target");
-            const elements = document.querySelectorAll(`[data-target="${target}"]`);
-            elements.forEach(element => {
-                element.click();
-            });
-        }
-        document.querySelectorAll('#editButton').forEach(button => {
-            button.addEventListener('click', function () {
-                const dataTargetValue = this.getAttribute('data-target');
-                localStorage.setItem("data_target", dataTargetValue);
-            });
-        });
-
-
-    });
-
-</script>
 <?= $this->endSection() ?>

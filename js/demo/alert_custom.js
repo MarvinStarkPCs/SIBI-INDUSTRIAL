@@ -31,7 +31,19 @@
         // }
 
 
+        const inputs = document.querySelectorAll('input[type="text"]');
+
+        // Para cada input, agregar un evento 'input'
+        inputs.forEach(function(input) {
+            input.addEventListener('input', function() {
+                // Cambiar el valor del input a mayúsculas mientras escribe
+                input.value = input.value.toUpperCase();
+            });
+        });
+
+
     });
+
 
 
 

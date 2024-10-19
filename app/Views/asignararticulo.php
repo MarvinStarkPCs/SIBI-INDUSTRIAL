@@ -1,193 +1,185 @@
 <?= $this->extend('layouts/main') ?>
-
 <?= $this->section('content') ?>
+<style>
+    /* Estilo para el fondo de las celdas de las tablas */
+    .table thead th {
+        background-color: #296221; /* Color de fondo para las celdas del encabezado */
+        color: white; /* Color del texto para contraste */
+    }
+    /* Estilo para las pestañas */
+    .nav-tabs .nav-link {
+        border: none; /* Eliminar borde */
+    }
+    .nav-tabs .nav-link.active {
+        background-color: #296221; /* Color de fondo para pestaña activa */
+        color: white; /* Color de texto para pestaña activa */
+    }
+    /* Ajustar el tamaño de los campos de entrada */
+    .form-control {
+        font-size: 0.9rem; /* Tamaño de fuente más pequeño */
+    }
+    /* Ajustar el tamaño del botón de agregar */
+    #btnAgregarSerial, #btnAgregarUbicacion {
+        font-size: 0.9rem; /* Tamaño de fuente más pequeño */
+    }
+</style>
 
-<h1 class="h3 mb-2 text-gray-800">Asignación de Artículos</h1>
-<p class="mb-4">Aquí puedes asignar un artículo a un usuario.</p>
+<div class="container mt-5">
+    <h2>ASIGNAR A UBICACIONES</h2>
 
-<!-- Formulario de Asignación -->
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Asignar Artículo</h6>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="origen">Origen</label>
+                <select class="form-control" id="origen">
+                    <option value="">Seleccione una opción</option>
+                    <!-- Llenar las opciones de origen -->
+                    <?php foreach ($ubicaciones as $ubicacion): ?>
+                        <option value="<?= $ubicacion->id_ubicacion ?>">
+                            <?= $ubicacion->nombre_ubicacion . ' - ' . $ubicacion->nombre_sede ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="destino">Destino</label>
+                <select class="form-control" id="destino">
+                    <option value="">Seleccione una opción</option>
+                    <!-- Llenar las opciones de destino -->
+                    <?php foreach ($ubicaciones as $ubicacion): ?>
+                        <option value="<?= $ubicacion->id_ubicacion ?>">
+                            <?= $ubicacion->nombre_ubicacion . ' - ' . $ubicacion->nombre_sede ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-        <form action="<?= base_url('asignar-articulo/save') ?>" method="post">
-            <?= csrf_field() ?>
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="selectUsuario">Seleccionar Usuario</label>
-                    <select class="form-control <?= session('errors.usuario_id') ? 'is-invalid' : '' ?>" id="selectUsuario" name="usuario_id">
-                        <option value="">Seleccione un usuario</option>
-                        <?php foreach ($usuarios as $usuario): ?>
-                            <option value="<?= esc($usuario['id']) ?>" <?= old('usuario_id') == $usuario['id'] ? 'selected' : '' ?>>
-                                <?= esc($usuario['nombres'] . ' ' . $usuario['apellidos'].' '.'('.$usuario['nombre_perfil']).')' ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                    <div class="invalid-feedback">
-                        <?= session('errors.usuario_id') ?>
-                    </div>
-                </div>
 
-                <div class="form-group col-md-4">
-                    <label for="selectArticulo">Seleccionar Artículo</label>
-                    <select class="form-control <?= session('errors.articulo_id') ? 'is-invalid' : '' ?>" id="selectArticulo" name="articulo_id">
+    <!-- Pestañas -->
+    <ul class="nav nav-tabs justify-content-center mb-3">
+        <li class="nav-item">
+            <a class="nav-link active" id="btnSerial">
+                <i class="fas fa-barcode"></i> <!-- Ícono para Serial -->
+                Por Serial
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="btnUbicacion">
+                <i class="fas fa-map-marker-alt"></i> <!-- Ícono para Ubicación -->
+                Por Ubicación
+            </a>
+        </li>
+    </ul>
+
+    <!-- Contenido para "Por Serial" -->
+    <div id="serialForm">
+        <div class="mb-3">
+            <div class="input-group" style="width: 200px;"> <!-- Ajusta el ancho aquí -->
+                <input type="text" class="form-control" id="inputSerial" placeholder="Ingrese Serial">
+                <div class="input-group-append">
+                    <button class="btn btn-secondary" id="btnAgregarSerial" type="button">
+                        <i class="fas fa-list"></i> <!-- Ícono sin texto -->
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <table class="table" id="tablaSerial">
+            <thead>
+            <tr>
+                <th>Serial</th>
+                <th>Nombre</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Estado</th>
+                <th>Eliminar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="6" class="text-center">Lista vacía</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Contenido para "Por Ubicación" -->
+    <div id="ubicacionForm" style="display: none;">
+        <div class="row mb-3">
+            <div class="col-md-3 col-sm-6">
+                <div class="form-group">
+                    <label for="articulo">Artículo</label>
+                    <select class="form-control form-control-sm" id="articulo">
                         <option value="">Seleccione un artículo</option>
-                        <?php foreach ($articulos as $articulo): ?>
-                            <option value="<?= esc($articulo['id']) ?>" <?= old('articulo_id') == $articulo['id'] ? 'selected' : '' ?>>
-                                <?= esc($articulo['nombre']) ?> (<?= esc($articulo['marca']) ?>) <?= esc($articulo['cod_institucional']) ?>
-                            </option>
-                        <?php endforeach; ?>
+                        <!-- Opciones adicionales -->
                     </select>
-                    <div class="invalid-feedback">
-                        <?= session('errors.articulo_id') ?>
-                    </div>
                 </div>
-
-                <div class="form-group col-md-4">
-                    <label for="selectEstado">Estado del Artículo</label>
-                    <select class="form-control <?= session('errors.estado_id') ? 'is-invalid' : '' ?>" id="selectEstado" name="estado_id">
+            </div>
+            <div class="col-md-2 col-sm-6">
+                <div class="form-group">
+                    <label for="estadoUbicacion1">Estado</label>
+                    <select class="form-control form-control-sm" id="estadoUbicacion1">
                         <option value="">Seleccione un estado</option>
+                        <option value="Nuevo">Nuevo</option>
+                        <option value="Usado">Usado</option>
+                        <!-- Otras opciones -->
                     </select>
-                    <div class="invalid-feedback">
-                        <?= session('errors.estado_id') ?>
-                    </div>
                 </div>
-
-                <div class="form-group col-md-4">
-                    <label for="inputCantidadInventario">Cantidad en Inventario</label>
-                    <input type="text" class="form-control" id="inputCantidadInventario" name="inputCantidadInventario" placeholder="Cantidad inventario" readonly>
-                </div>
-
-                <div class="form-group col-md-4">
-                    <label for="inputUbicacion">Ubicación de Préstamo</label>
-                    <input type="text" class="form-control" id="inputUbicacion" name="ubicacion" placeholder="Ubicación" readonly>
-                    <input type="hidden" id="hiddenIdUbicacion" name="id_ubicacion">
-                </div>
-
-                <div class="form-group col-md-4">
-                    <label for="inputCantidad">Cantidad Otorgada</label>
-                    <input type="number" class="form-control <?= session('errors.cantidad_otorgada') ? 'is-invalid' : '' ?>" id="inputCantidad" name="cantidad_otorgada" placeholder="Cantidad" value="<?= old('cantidad_otorgada') ?>">
-                    <div class="invalid-feedback">
-                        <?= session('errors.cantidad_otorgada') ?>
-                    </div>
-                </div>
-
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="window.history.back()">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Guardar Asignación</button>
+            <div class="col-md-2 col-sm-6">
+                <div class="form-group">
+                    <label for="cantidad">Cantidad</label>
+                    <input type="number" class="form-control form-control-sm" id="cantidad" placeholder="Ingrese cantidad" min="1">
+                </div>
             </div>
-        </form>
+            <div class="col-md-2 col-sm-6">
+                <div class="form-group">
+                    <label for="estadoUbicacion2">Estado</label>
+                    <select class="form-control form-control-sm" id="estadoUbicacion2">
+                        <option value="">Seleccione un estado</option>
+                        <option value="Nuevo">Nuevo</option>
+                        <option value="Usado">Usado</option>
+                        <!-- Otras opciones -->
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-1 col-sm-6">
+                <div class="form-group">
+                    <label>&nbsp;</label> <!-- Esto agrega un espacio para alinear el botón -->
+                    <button class="btn btn-secondary form-control" id="btnAgregarUbicacion">
+                        <i class="fas fa-list"></i> <!-- Ícono sin texto -->
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <table class="table" id="tablaUbicacion">
+            <thead>
+            <tr>
+                <th>Código</th>
+                <th>Accesorio</th>
+                <th>Estado Actual</th>
+                <th>Cantidad</th>
+                <th>Eliminar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="5" class="text-center">Lista vacía</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
+
+    <button class="btn btn-primary float-right">Cambiar ubicación</button>
 </div>
-<script src="<?= base_url('assets/jquery/jquery.min.js') ?>"></script>
 
-<!-- Script para manejar AJAX -->
+
 <script>
-    $(document).ready(function() {
-        $('#selectArticulo, #selectUsuario').select2({
-            width: '100%',
-            placeholder: "Seleccione una opción",
-            allowClear: true
-        });
-
-        $('#selectArticulo').change(function() {
-            var articuloId = $(this).val();
-
-            if (articuloId) {
-                $.ajax({
-                    url: '<?= base_url('asignar-articulo/obtener-estado-ubicacion') ?>',
-                    type: 'POST',
-                    data: { articulo_id: articuloId },
-                    success: function(response) {
-                        console.log(response);
-                        // Mostrar el loader
-                        toggleLoader(true);
-
-                        // Llenar el select de estados
-                        var selectEstado = $('#selectEstado');
-                        selectEstado.empty();
-                        selectEstado.append('<option value="">Seleccione un estado</option>');
-                        $.each(response, function(index, value) {
-                            if (value.ubicacion !== 'En Prestamo') {
-                                selectEstado.append('<option value="' + value.id_estado + '">' + value.estado + ' (' + value.procedencia + ')</option>');
-                            }
-                        });
-
-                        $('#selectEstado').change(function() {
-                            var estadoId = $(this).val();
-                            var articuloId = $('#selectArticulo').val();
-                            console.log(articuloId);
-                            if (estadoId && articuloId) {
-                                // Encuentra el estado y la ubicación correspondiente del JSON
-                                let ubicacion = '';
-                                let cantidadInventario = '';
-                                let idUbicacion = '';
-
-                                $.each(response, function(index, estado) {
-                                    if (estado.id_estado == estadoId) {
-                                        ubicacion = estado.ubicacion + ' (' + estado.sede + ')'; // Obtén la ubicación asociada
-                                        cantidadInventario = estado.stock_inicio;
-                                        idUbicacion = estado.id_ubicacion; // Obtener el id_ubicacion
-                                        return false; // Salir del bucle
-                                    }
-                                });
-
-                                // Actualiza los campos de ubicación y cantidad
-                                $('#inputCantidadInventario').val(cantidadInventario);
-                                $('#inputUbicacion').val(ubicacion);
-                                $('#hiddenIdUbicacion').val(idUbicacion); // Establecer el id_ubicacion en el campo oculto
-                            } else {
-                                $('#inputUbicacion').val('');
-                                $('#inputCantidadInventario').val('');
-                                $('#hiddenIdUbicacion').val(''); // Limpiar el campo oculto
-                            }
-                        });
-
-                        // Limpiar el campo de ubicación
-                        $('#inputUbicacion').val('');
-                        $('#inputCantidadInventario').val('');
-                        $('#hiddenIdUbicacion').val(''); // Limpiar el campo oculto
-
-                        // Ocultar el loader
-                        setTimeout(() => toggleLoader(false), 1000);
-                    },
-                    error: function() {
-                        alert('Error al obtener los estados.');
-                    }
-                });
-            } else {
-                $('#selectEstado').empty().append('<option value="">Seleccione un estado</option>');
-                $('#inputUbicacion').val('');
-                $('#inputCantidadInventario').val('');
-                $('#hiddenIdUbicacion').val(''); // Limpiar el campo oculto
-            }
-        });
-
-
-        function mantenerValores() {
-            var estadoId = '<?= old('estado_id') ?>';
-            var articuloId = '<?= old('articulo_id') ?>';
-            var cantidadInventario = '<?= old('inputCantidadInventario') ?>';
-            var ubicacion = '<?= old('inputUbicacion') ?>';
-            var idUbicacion = '<?= old('id_ubicacion') ?>';
-
-            if (articuloId) {
-                $('#selectArticulo').val(articuloId).trigger('change');
-            }
-
-            if (estadoId && articuloId) {
-                $('#selectEstado').val(estadoId).trigger('change');
-            }
-
-            $('#inputCantidadInventario').val(cantidadInventario);
-            $('#inputUbicacion').val(ubicacion);
-            $('#hiddenIdUbicacion').val(idUbicacion);
-        }
-
-        mantenerValores();
-
-    });
+    // Tu script aquí (el que proporcionaste anteriormente)
 </script>
+
 <?= $this->endSection() ?>

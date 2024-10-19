@@ -25,10 +25,14 @@ $routes->post('/inventario/dardebaja/(:num)', 'CInventario::dardebaja/$1');
 $routes->post('/inventario/actualizar/(:num)', 'CInventario::actualizar/$1');
 
 
+//Prestamos
+$routes->get('prestamos', 'PrestamosArticuloController::index');
+$routes->post('prestamos/save', 'PrestamosArticuloController::asignar');
+$routes->post('prestamos/obtener-estado-ubicacion', 'PrestamosArticuloController::obtenerEstadoUbicacion');
+
 //Asignar Articulo
 $routes->get('asignar-articulo', 'AsignarArticuloController::index');
-$routes->post('asignar-articulo/save', 'AsignarArticuloController::asignar');
-$routes->post('asignar-articulo/obtener-estado-ubicacion', 'AjaxAsignarController::obtenerEstadoUbicacion');
+$routes->post('asignar-articulo/buscarPorSerial', 'AjaxAsignarArticuloController::obtenerInventarioPorSerial');
 
 //seguridad
 ///Gestion de usuarios

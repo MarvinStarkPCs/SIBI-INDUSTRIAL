@@ -2,10 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Helpers\helpers;
 use App\Models\ArticuloModel;
 use App\Models\ComboboxModel;
 use App\Models\GestionUsuariosModel;
 use App\Models\InventarioModel;
+use App\Models\MovimientosModel;
 use App\Models\TrasladoModel;
 use CodeIgniter\Controller;
 
@@ -22,13 +24,13 @@ class CInventario extends Controller
         $session = session();
 
         // Log de datos de la sesión
-        log_message('debug', 'Session Data: ' . print_r($session->get(), true));
+        //log_message('debug', 'Session Data: ' . print_r($session->get(), true));
 
         if (!$session->get('login')) {
-            log_message('debug', 'Redirecting to login because session is not set.');
+           // log_message('debug', 'Redirecting to login because session is not set.');
             return redirect()->to('/'); // Asegúrate de usar la ruta correcta para el login
         } else {
-            log_message('debug', 'User is logged in, loading INVENTARIO view.');
+           // log_message('debug', 'User is logged in, loading INVENTARIO view.');
 
             // Cargar los modelos
             $modelInventario = new InventarioModel();
@@ -45,114 +47,283 @@ class CInventario extends Controller
             $data['procedencias'] = $modelProcedencias->getTableData('procedencias'); // Obtener datos de procedencias
             $data['ubicaciones'] = $modelUbicaciones->getTableData('ubicaciones', ['id' => [1, 3]]); // Obtener datos de ubicaciones
             $data['sedes'] = $modelSedes->getTableData('sedes'); // Obtener datos de sedes
-            // Pasar los datos a la vista
+            $data['marcas'] = $modelSedes->getTableData('marcas'); // Obtener datos de sedes
+
+//            Pasar los datos a la vista
+//            log_message('info', 'Resultados de inventario: ' . print_r($data['inventarios'], true));
+//            log_message('info', 'Resultados de Articulos: ' . print_r($data['articulos'], true));
+            //log_message('info', 'Resultados de todo: ' . print_r($data, true));
+//
             return view('inventario', $data);
         }
     }
 
+//    public function insertinventario()
+//    {
+//        log_message('info', 'Datos del inventario: ');
+//
+//        $model = new InventarioModel();
+//        $validation = \Config\Services::validation();
+//
+//        $validation->setRules([
+//            'articulo_id' => 'required|integer',
+//            'estado_id' => 'required|integer',
+//            'procedencia_id' => 'required|integer',
+//        ]);
+//
+//        if (!$validation->withRequest($this->request)->run()) {
+//            return redirect()->back()->withInput()->with('errors-open', $validation->getErrors());
+//        }
+//
+//        $articulo_id = $this->request->getPost('articulo_id');
+//        $estado_id = $this->request->getPost('estado_id');
+//        $procedencia_id = $this->request->getPost('procedencia_id');
+//
+//        // Siempre se establece la ubicación a ID = 2
+//        $ubicacion_id = 2;
+//
+//        $añoActual = date('Y'); // Obtener el año actual
+//
+//        // Verificar si ya existe un registro con los mismos datos y del año presente
+//        $registroExistente = $model->where('articulo_id', $articulo_id)
+//            ->where('ubicacion_id', $ubicacion_id)
+//            ->where('estado_id', $estado_id)
+//            ->where('procedencia_id', $procedencia_id)
+//            ->where('YEAR(fecha_ingreso)', $añoActual)  // Extraer el año del TIMESTAMP
+//            ->first();
+//
+//        // Si el registro ya existe en el año actual
+//        if ($registroExistente) {
+//            log_message('info', 'Datos del inventario: El registro ya existe.');
+//
+//            return redirect()->back()->withInput()->with('error', 'El registro con los datos proporcionados ya existe para el año presente.');
+//        }
+//
+//        // Verificar si se han ingresado seriales
+//        $seriales = $this->request->getPost('seriales'); // Asegúrate de que el nombre del campo de seriales sea 'seriales[]'
+//
+//        if ($seriales && is_array($seriales) && count($seriales) > 0) {
+//            // Si hay seriales, guardarlos uno por uno
+//            foreach ($seriales as $serial) {
+//                $data = [
+//                    'serial' => $serial, // Guardar el serial
+//                    'articulo_id' => $articulo_id,
+//                    'ubicacion_id' => $ubicacion_id,
+//                    'estado_id' => $estado_id,
+//                    'procedencia_id' => $procedencia_id,
+//                    'stock_inicio' => 1, // Establecer cantidad en 1
+//                ];
+//
+//                log_message('info', 'Datos del inventario: ' . print_r($data, true));
+//
+//                $model->insert($data);
+//            }
+//        } else {
+//            // Si no hay seriales, guardar la cantidad ingresada
+//            $data = [
+//                'serial' => "", // Sin serial
+//                'articulo_id' => $articulo_id,
+//                'ubicacion_id' => $ubicacion_id,
+//                'estado_id' => $estado_id,
+//                'procedencia_id' => $procedencia_id,
+//                'stock_inicio' => $this->request->getPost('quantity'), // Usar la cantidad ingresada
+//            ];
+//
+//            log_message('info', 'Datos del inventario: ' . print_r($data, true));
+//
+//            $model->insert($data);
+//        }
+//
+//        return redirect()->to('/inventario')->with('success', 'Agregado al inventario exitosamente.');
+//    }
     public function insertinventario()
     {
+        log_message('info', 'Inicio del proceso de inserción en el inventario.');
+        $cod_instucional  = new helpers();
+        $movimientosmodel = new MovimientosModel();
         $model = new InventarioModel();
-
         $validation = \Config\Services::validation();
 
+        // Establecer reglas de validación
         $validation->setRules([
-            'quantity' => 'required|integer',
-            'articulo_id' => 'required|integer',
+            'id_articulo' => 'required|integer',
             'estado_id' => 'required|integer',
             'procedencia_id' => 'required|integer',
-            'ubicacion_id' => 'required|integer',
         ]);
 
+        // Validar los datos
         if (!$validation->withRequest($this->request)->run()) {
+            log_message('error', 'Error en la validación: ' . print_r($validation->getErrors(), true));
             return redirect()->back()->withInput()->with('errors-open', $validation->getErrors());
         }
 
-        $articulo_id = $this->request->getPost('articulo_id');
-        $ubicacion_id = $this->request->getPost('ubicacion_id');
+        // Obtener datos del formulario
+        $articulo_id = $this->request->getPost('id_articulo');
         $estado_id = $this->request->getPost('estado_id');
         $procedencia_id = $this->request->getPost('procedencia_id');
+        log_message('info', 'articulo_id: ' . $articulo_id);
+        log_message('info', 'estado_id: ' . $estado_id);
+        log_message('info', 'procedencia_id: ' . $procedencia_id);
+        // Siempre se establece la ubicación a ID = 2
+        $ubicacion_id = 2;
 
-        $añoActual = date('Y'); // Obtener el año actual
+        // Obtener el año actual
+        $añoActual = date('Y');
+        log_message('info', 'Año actual: ' . $añoActual);
+        // Verificar si se han ingresado seriales
+        $seriales = $this->request->getPost('seriales'); // Asegúrate de que el nombre del campo de seriales sea 'seriales[]'
 
-        // Verificar si ya existe un registro con los mismos datos y del año presente
-        $registroExistente = $model->where('articulo_id', $articulo_id)
-            ->where('ubicacion_id', $ubicacion_id)
-            ->where('estado_id', $estado_id)
-            ->where('procedencia_id', $procedencia_id)
-            ->where('YEAR(fecha)', $añoActual)  // Extraer el año del TIMESTAMP
-            ->first();
+        log_message('info', 'Seriales recibidos: ' . print_r($seriales, true));
 
-        // Si el registro ya existe en el año actual
-        if ($registroExistente) {
-            log_message('info', 'Datos del inventario: El registro ya existe.');
 
-            return redirect()->back()->withInput()->with('error', 'El registro con los datos proporcionados ya existe para el año presente.');
+        if ($seriales && is_array($seriales) && count($seriales) > 0) {
+
+
+            // Si hay seriales, guardarlos uno por uno
+            foreach ($seriales as $serial) {
+                $data = [
+                    'cod_institucional' => $cod_instucional->generateRandomString(),
+                    'serial' => $serial, // Guardar el serial
+                    'articulo_id' => $articulo_id,
+                    'ubicacion_id' => $ubicacion_id,
+                    'estado_id' => $estado_id,
+                    'procedencia_id' => $procedencia_id,
+                    'stock_inicio' => 1, // Establecer cantidad en 1
+                ];
+
+                log_message('info', 'Guardando datos del inventario con serial: ' . print_r($data, true));
+                log_message('info', 'Guardando datos del inventario con serial: ' . print_r($serial, true));
+
+                $model->insert($data);
+            }
+            $serialcount= count($seriales);
+            $data = [
+                'articulo_id'=> $articulo_id,
+                'tipo' => 'entrada',
+                'cantidad' => $serialcount,
+                'fecha' => date('Y-m-d H:i:s') // Ejemplo de salida: 2024-10-15 10:30:45
+
+            ];
+            $movimientosmodel ->insert($data);
+        } else {
+
+            // Verificar si ya existe un registro con los mismos datos y del año presente
+            $registroExistente = $model->where('articulo_id', $articulo_id)
+                ->where('ubicacion_id', $ubicacion_id)
+                ->where('estado_id', $estado_id)
+                ->where('procedencia_id', $procedencia_id)
+                ->where('serial', null) // Verificar si la columna 'seria' es NULL
+
+                ->first();
+
+// Si el registro ya existe en el año actual
+            if ($registroExistente) {
+                log_message('info', 'Registro existente encontrado: ' . print_r($registroExistente, true));
+
+                // Mensaje largo para la alerta
+                $mensajeLargo = "El registro con los datos proporcionados ya existe. " .
+                    "Por favor, busque el registro y utilice el botón 'Actualizar'. " .
+                    "Si necesita más información, consulte el manual del usuario o póngase en contacto con el soporte técnico para resolver su consulta. " .
+                    "Nuestro equipo está aquí para ayudarle.";
+
+                return redirect()->back()->withInput()->with('mensaje', $mensajeLargo);
+            } else {
+                log_message('info', 'No se encontraron registros existentes. Continuando con la inserción.');
+            }
+            // Si no hay seriales, guardar la cantidad ingresada
+            $cantidad = $this->request->getPost('quantity');
+            $data = [
+                'cod_institucional' => $cod_instucional->generateRandomString(),
+                'serial' => null, // Sin serial
+                'articulo_id' => $articulo_id,
+                'ubicacion_id' => $ubicacion_id,
+                'estado_id' => $estado_id,
+                'procedencia_id' => $procedencia_id,
+                'stock_inicio' => $cantidad, // Usar la cantidad ingresada
+            ];
+
+            log_message('info', 'Guardando datos del inventario sin serial: ' . print_r($data, true));
+            $model->insert($data);
+
+            $data = [
+                'articulo_id'=> $articulo_id,
+                'tipo' => 'ENTRADA',
+                'cantidad' => $cantidad,
+                'fecha' => date('Y-m-d H:i:s') // Ejemplo de salida: 2024-10-15 10:30:45
+
+            ];
+            $movimientosmodel ->insert($data);
         }
 
-
-        $data = [
-            'articulo_id' => $articulo_id,
-            'ubicacion_id' => $ubicacion_id,
-            'estado_id' => $estado_id,
-            'procedencia_id' => $procedencia_id,
-            'stock_inicio' => $this->request->getPost('quantity'),
-        ];
-
-        log_message('info', 'Datos del inventario: ' . print_r($data, true));
-
-        $model->insert($data);
-
+        log_message('info', 'Inserción en inventario completada exitosamente.');
         return redirect()->to('/inventario')->with('success', 'Agregado al inventario exitosamente.');
     }
 
 
     public function descargarInventarioExcel()
     {
-
         // Crear una instancia del modelo
         $inventarioModel = new InventarioModel();
 
         // Obtener los datos del inventario
-        $inventarios = $inventarioModel->getInventarioConValorTotal(); // Asegúrate de que este método exista en el modelo
+        $inventarios = $inventarioModel->getInventarioConValorTotal();
+
+        // Verificar si hay datos
+        if (empty($inventarios)) {
+            // Manejar el caso donde no hay datos
+            return; // Salir del método si no hay datos
+        }
 
         // Crear una nueva hoja de cálculo
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
+        // Nombrar la hoja de cálculo
+        $sheet->setTitle('Inventario');
+
         // Agregar encabezados de columna
-        $sheet->setCellValue('A1', 'ID Artículo');
-        $sheet->setCellValue('B1', 'Nombre');
-        $sheet->setCellValue('C1', 'Marca');
-        $sheet->setCellValue('D1', 'Descripción');
-        $sheet->setCellValue('E1', 'Fecha de Adquisición');
-        $sheet->setCellValue('F1', 'Valor Unitario');
-        $sheet->setCellValue('G1', 'Estado');
-        $sheet->setCellValue('H1', 'Procedencia');
-        $sheet->setCellValue('I1', 'Categoría');
-        $sheet->setCellValue('J1', 'Ubicación');
-        $sheet->setCellValue('K1', 'Stock Inicio');
-        $sheet->setCellValue('L1', 'Stock Final');
-        $sheet->setCellValue('M1', 'Fecha');
-        $sheet->setCellValue('N1', 'Precio Total');
+        $headers = [
+            'Nombre Artículo', 'Descripción Artículo',
+            'Categoría', 'Serial', 'Código Institucional', 'Marca',
+            'Estado', 'Procedencia', 'Sede', 'Ubicación',
+            'Fecha de Adquisición', 'Fecha de Ingreso',
+            'Valor Unitario', 'Valor Total', 'Stock Inicio'
+        ];
+        foreach ($headers as $columnIndex => $header) {
+            // Establecer el encabezado
+            $sheet->setCellValue(chr(65 + $columnIndex) . '1', $header);
+
+            // Aplicar el color de fondo a la celda
+            $sheet->getStyle(chr(65 + $columnIndex) . '1')->applyFromArray([
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['argb' => '2A6322'],
+                ],
+                'font' => [
+                    'color' => ['argb' => 'FFFFFF'], // Color de texto blanco
+                    'bold' => true,
+                ],
+            ]);
+        }
 
         // Rellenar los datos en la hoja de cálculo
         $row = 2; // Iniciar en la segunda fila porque la primera tiene los encabezados
         foreach ($inventarios as $item) {
-            $sheet->setCellValue('A' . $row, $item->articulo_id);
-            $sheet->setCellValue('B' . $row, $item->articulo_nombre);
-            $sheet->setCellValue('C' . $row, $item->articulo_marca);
-            $sheet->setCellValue('D' . $row, $item->articulo_descripcion);
-            $sheet->setCellValue('E' . $row, $item->articulo_fecha_adquisicion);
-            $sheet->setCellValue('F' . $row, $item->articulo_valor_unitario);
-            $sheet->setCellValue('G' . $row, $item->estado_nombre);
-            $sheet->setCellValue('H' . $row, $item->procedencia_nombre);
-            $sheet->setCellValue('I' . $row, $item->categoria_nombre);
-            $sheet->setCellValue('J' . $row, $item->ubicacion_nombre);
-            $sheet->setCellValue('K' . $row, $item->inventario_stock_inicio);
-            $sheet->setCellValue('L' . $row, $item->inventario_stock_final);
-            $sheet->setCellValue('M' . $row, $item->inventario_fecha);
-            $sheet->setCellValue('N' . $row, $item->precio_total);
+            $sheet->setCellValue('A' . $row, $item->nombre_articulo);
+            $sheet->setCellValue('B' . $row, $item->descripcion_articulo);
+            $sheet->setCellValue('C' . $row, $item->categoria);
+            $sheet->setCellValue('D' . $row, $item->serial);
+            $sheet->setCellValue('E' . $row, $item->cod_institucional);
+            $sheet->setCellValue('F' . $row, $item->nombre_marca);
+            $sheet->setCellValue('G' . $row, $item->nombre_estado);
+            $sheet->setCellValue('H' . $row, $item->nombre_procedencia);
+            $sheet->setCellValue('I' . $row, $item->nombre_sede);
+            $sheet->setCellValue('J' . $row, $item->nombre_ubicacion);
+            $sheet->setCellValue('K' . $row, $item->fecha_adquisicion);
+            $sheet->setCellValue('L' . $row, $item->fecha_ingreso);
+            $sheet->setCellValue('M' . $row, $item->valor_unitario);
+            $sheet->setCellValue('N' . $row, $item->valor_total);
+            $sheet->setCellValue('O' . $row, $item->stock_inicio);
             $row++;
         }
 
@@ -160,7 +331,7 @@ class CInventario extends Controller
         $writer = new Xlsx($spreadsheet);
 
         // Preparar la respuesta para la descarga
-        $filename = 'inventario_' . date('Y-m-d_H-i') . '.xlsx';
+        $filename = 'inventario_' . date('Y-m-d_H-i') . '.xlsx'; // Nombre del archivo
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');
@@ -172,6 +343,8 @@ class CInventario extends Controller
 
     public function dardebaja($id)
     {
+        $id = intval($id);
+
         $trasladoModel = new TrasladoModel();
         $model = new InventarioModel();
         $asignado_en = date('Y-m-d'); // Fecha actual
@@ -190,7 +363,7 @@ class CInventario extends Controller
         }
 
         // Validar si la cantidad solicitada es mayor al stock inicial
-        if ($result['stock_inicio'] < $cantidad) {
+        if ($result['stock_inicio'] < $cantidad ||  $cantidad == 0 ) {
             return redirect()->back()->withInput()->with('error', 'Stock insuficiente.');
         }
 
@@ -239,6 +412,8 @@ class CInventario extends Controller
 
     public function actualizar($id)
     {
+        $id = intval($id);
+
         $model = new InventarioModel();
         $cantidad = $this->request->getPost('cantidad');
 

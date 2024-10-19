@@ -14,6 +14,8 @@ class InventarioModel extends Model
     // Puedes definir los campos que se pueden actualizar si lo necesitas
 
     protected $allowedFields = [
+        'cod_institucional',
+        'serial',
         'articulo_id',
         'ubicacion_id',
         'estado_id',
@@ -24,47 +26,50 @@ class InventarioModel extends Model
 
     public function getInventarioConValorTotal()
     {
-        $currentYear = date('Y'); // Obtiene el año actual
+        $currentYear = date('Y'); // Año actual
 
-        $builder = $this->db->table('inventario_anual i');
+        $builder = $this->db->table('inventario_anual ia');
         $builder->select([
-            'i.id AS id_inventario_anual',
-            'a.id AS articulo_id',
-            'a.nombre AS articulo_nombre',
-            'a.marca AS articulo_marca',
-            'a.cod_institucional',
-            'a.descripcion AS articulo_descripcion',
-            'a.fecha_adquisicion AS articulo_fecha_adquisicion',
-            'a.valor_unitario AS articulo_valor_unitario',
-            'e.nombre AS estado_nombre',
-            'p.nombre AS procedencia_nombre',
-            'c.nombre AS categoria_nombre',
-            'u.nombre AS ubicacion_nombre',
-            's.nombre AS sede',
-            'i.stock_inicio AS inventario_stock_inicio',
-            'i.stock_final AS inventario_stock_final',
-            'i.fecha AS inventario_fecha',
-            '(a.valor_unitario * i.stock_inicio) AS precio_total'
+            'ia.id AS id_inventario',
+            'a.id AS id_articulo',
+            'a.nombre AS nombre_articulo',
+            'a.descripcion AS descripcion_articulo',
+            'c.nombre AS categoria',
+            "CASE WHEN ia.serial IS NULL THEN 'NO APLICA' ELSE ia.serial END AS serial",
+            'ia.cod_institucional',
+            'm.nombre AS nombre_marca',
+            'e.nombre AS nombre_estado',
+            'p.nombre AS nombre_procedencia',
+            's.nombre AS nombre_sede',
+            'u.nombre AS nombre_ubicacion',
+            'ia.fecha_adquisicion',
+            'ia.fecha_ingreso',
+            'a.valor_unitario',
+            '(a.valor_unitario * ia.stock_inicio) AS valor_total',
+            'ia.stock_inicio',
+            'ia.stock_final'
         ]);
-        $builder->join('articulos a', 'i.articulo_id = a.id');
-        $builder->join('estados e', 'i.estado_id = e.id');
-        $builder->join('procedencias p', 'i.procedencia_id = p.id');
-        $builder->join('categorias c', 'a.categoria_id = c.id');
-        $builder->join('ubicaciones u', 'i.ubicacion_id = u.id');
-        $builder->join('sedes s', 'u.sede_id = s.id');
 
-        // Filtra los resultados por el año actual
-        $builder->where('YEAR(i.fecha)', $currentYear);
+        $builder->join('sibi.articulos a', 'ia.articulo_id = a.id');
+        $builder->join('sibi.marcas m', 'a.marca_id = m.id');
+        $builder->join('sibi.categorias c', 'a.categoria_id = c.id');
+        $builder->join('sibi.ubicaciones u', 'ia.ubicacion_id = u.id');
+        $builder->join('sibi.sedes s', 'u.sede_id = s.id');
+        $builder->join('sibi.estados e', 'ia.estado_id = e.id');
+        $builder->join('sibi.procedencias p', 'ia.procedencia_id = p.id');
 
-        // Excluye artículos con estado "DADO DE BAJA"
+
+
+        // Excluye artículos con estado "DADO DE BAJA" y ubicaciones "Dados de Bajas"
         $builder->where('e.nombre !=', 'DADO DE BAJA');
-        // Excluye artículos ubicados en la ubicación "Dados de Bajas"
-        $builder->where('u.nombre !=', 'Dados de Bajas');
+        $builder->where('u.nombre !=', 'DADOS DE BAJAS');
 
+        // Ordena por nombre de artículo y fecha de ingreso
         $builder->orderBy('a.nombre', 'ASC');
-        $builder->orderBy('i.fecha', 'DESC');
+        $builder->orderBy('ia.fecha_ingreso', 'DESC');
 
         $query = $builder->get();
+
         return $query->getResult();
     }
 

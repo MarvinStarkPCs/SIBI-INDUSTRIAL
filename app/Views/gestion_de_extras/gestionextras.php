@@ -204,6 +204,21 @@
                     </div>
                 </a>
             </div>
+
+            <!--marcas-->
+            <div class="col-12 col-md-4 mb-4">
+                <a href="<?= base_url('marcas'); ?>" class="card">
+                    <div class="card-content">
+                        <div class="card-text">
+                            <h5 class="mb-0">Marcas</h5>
+                        </div>
+                        <div class="card-image">
+                            <img src="<?= base_url('img/gestionextras/7.png'); ?>" alt="Marcas" class="icon-image">
+                        </div>
+                    </div>
+                </a>
+            </div>
+
         </div>
     </div>
 </div>

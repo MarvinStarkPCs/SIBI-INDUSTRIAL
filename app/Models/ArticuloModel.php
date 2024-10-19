@@ -23,18 +23,20 @@ class ArticuloModel extends Model
     public function getArticulos()
     {
         return $this->select('
-        articulos.id, 
-        articulos.nombre, 
-        articulos.marca,
-        articulos.serial, 
-        articulos.cod_institucional, 
-        articulos.descripcion, 
-        articulos.fecha_adquisicion, 
-        articulos.valor_unitario, 
-        categorias.nombre as categoria, 
-        categorias.id as categoria_id
+        a.id AS id_articulo,
+        a.nombre,
+        a.modelo,
+        a.descripcion,
+        a.valor_unitario,
+        m.nombre AS nombre_marca,
+        m.id AS id_marca,
+        c.nombre AS nombre_categoria,
+        c.id AS id_categoria
     ')
-            ->join('categorias', 'articulos.categoria_id = categorias.id')
+            ->from('articulos a')
+            ->join('marcas m', 'a.marca_id = m.id')
+            ->join('categorias c', 'a.categoria_id = c.id')
+            ->groupBy('a.id') // Agrupar por el ID del artículo para evitar duplicados
             ->findAll();
     }
 

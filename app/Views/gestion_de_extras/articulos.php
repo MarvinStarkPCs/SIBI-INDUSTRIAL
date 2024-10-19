@@ -38,8 +38,8 @@
                 <tr>
                     <th>Nombre</th>
                     <th>Marca</th>
+                    <th>Modelo</th>
                     <th>Descripción</th>
-                    <th>Fecha de Adquisición</th>
                     <th>Valor Unitario</th>
                     <th>Categoría</th>
                     <th>Acciones</th>
@@ -49,19 +49,19 @@
                 <?php foreach ($articulos as $articulo): ?>
                     <tr>
                         <td><?= esc($articulo['nombre']) ?></td>
-                        <td><?= esc($articulo['marca']) ?></td>
+                        <td><?= esc($articulo['nombre_marca']) ?></td>
+                        <td><?= esc($articulo['modelo']) ?></td>
                         <td><?= esc($articulo['descripcion']) ?></td>
-                        <td><?= esc($articulo['fecha_adquisicion']) ?></td>
                         <td><?= esc($articulo['valor_unitario'].' $') ?></td>
-                        <td><?= esc($articulo['categoria']) ?></td>
+                        <td><?= esc($articulo['nombre_categoria']) ?></td>
                         <td class="text-center">
-                            <button class="btn btn-icon btn-secondary btn-sm" data-toggle="modal" data-target="#detailsModal-<?= $articulo['id'] ?>" title="Ver detalles">
+                            <button class="btn btn-icon btn-secondary btn-sm" data-toggle="modal" data-target="#detailsModal-<?= $articulo['id_articulo'] ?>" title="Ver detalles">
                                 <i class="fas fa-info-circle"></i>
                             </button>
-                            <button class="btn btn-icon btn-info btn-sm" data-toggle="modal" data-target="#editModal-<?= $articulo['id'] ?>" title="Editar artículo">
+                            <button class="btn btn-icon btn-info btn-sm" data-toggle="modal" data-target="#editModal-<?= $articulo['id_articulo'] ?>" title="Editar artículo">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="btn btn-icon btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal-<?= $articulo['id'] ?>" title="Eliminar artículo">
+                            <button class="btn btn-icon btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal-<?= $articulo['id_articulo'] ?>" title="Eliminar artículo">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </td>
@@ -169,11 +169,11 @@
 </div>
 <!-- Modal de Detalles de Artículo -->
 <?php foreach ($articulos as $articulo): ?>
-    <div class="modal fade" id="detailsModal-<?= $articulo['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel-<?= $articulo['id'] ?>" aria-hidden="true">
+    <div class="modal fade" id="detailsModal-<?= $articulo['id_articulo'] ?>" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel-<?= $articulo['id_articulo'] ?>" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="detailsModalLabel-<?= $articulo['id'] ?>">Detalles del Artículo</h5>
+                    <h5 class="modal-title" id="detailsModalLabel-<?= $articulo['id_articulo'] ?>">Detalles del Artículo</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -186,37 +186,28 @@
                                 <input type="text" class="form-control" id="detailsName" value="<?= esc($articulo['nombre']) ?>" readonly>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="detailsName">Codigo Institucional</label>
-                                <input type="text" class="form-control" id="detailsName" value="<?= esc($articulo['cod_institucional']) ?>" readonly>
+                                <label for="detailsCategory">Marca</label>
+                                <input type="text" class="form-control" id="detailsMarca" value="<?= esc($articulo['nombre_marca']) ?>" readonly>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="detailsBrand">Marca</label>
-                                <input type="text" class="form-control" id="detailsBrand" value="<?= esc($articulo['marca']) ?>" readonly>
+                                <label for="detailsName">Modelo</label>
+                                <input type="text" class="form-control" id="detailsName" value="<?= esc($articulo['modelo']) ?>" readonly>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="detailsBrand">Serial</label>
-                                <input type="text" class="form-control" id="detailsBrand" value="<?= esc($articulo['serial']) ?>" readonly>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="detailsBrand">Cod institucional</label>
-                                <input type="text" class="form-control" id="detailsBrand" value="<?= esc($articulo['cod_institucional']) ?>" readonly>
-                            </div>
+
                             <div class="form-group col-md-12">
                                 <label for="detailsDescription">Descripción</label>
                                 <textarea class="form-control" id="detailsDescription" rows="3" readonly><?= esc($articulo['descripcion']) ?></textarea>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="detailsAcquisitionDate">Fecha de Adquisición</label>
-                                <input type="date" class="form-control" id="detailsAcquisitionDate" value="<?= esc($articulo['fecha_adquisicion']) ?>" readonly>
-                            </div>
+
                             <div class="form-group col-md-6">
                                 <label for="detailsUnitValue">Valor Unitario</label>
                                 <input type="text" class="form-control" id="detailsUnitValue" value="<?= esc($articulo['valor_unitario'].'$') ?> " readonly>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="detailsCategory">Categoría</label>
-                                <input type="text" class="form-control" id="detailsCategory" value="<?= esc($articulo['categoria']) ?>" readonly>
+                                <input type="text" class="form-control" id="detailsCategory" value="<?= esc($articulo['nombre_categoria']) ?>" readonly>
                             </div>
+
                         </div>
                     </form>
                 </div>
@@ -230,33 +221,33 @@
 
 <!-- Modal de Editar Artículo -->
 <?php foreach ($articulos as $articulo): ?>
-    <div class="modal fade" id="editModal-<?= $articulo['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel-<?= $articulo['id'] ?>" aria-hidden="true">
+    <div class="modal fade" id="editModal-<?= $articulo['id_articulo'] ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel-<?= $articulo['id_articulo'] ?>" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel-<?= $articulo['id'] ?>">Editar Artículo</h5>
+                    <h5 class="modal-title" id="editModalLabel-<?= $articulo['id_articulo'] ?>">Editar Artículo</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="<?= base_url('articulos/update/'.$articulo['id']) ?>" method="post" id="editArticleForm-<?= $articulo['id'] ?>">
+                    <form action="<?= base_url('articulos/update/'.$articulo['id_articulo']) ?>" method="post" id="editArticleForm-<?= $articulo['id_articulo'] ?>">
                         <?= csrf_field() ?>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="editName-<?= $articulo['id'] ?>">Nombre</label>
+                                <label for="editName-<?= $articulo['id_articulo'] ?>">Nombre</label>
                                 <input type="text" class="form-control <?= session('errors-edit.nombre') ? 'is-invalid errors-edit' : '' ?>" 
-                                       id="editName-<?= $articulo['id'] ?>" name="nombre" 
+                                       id="editName-<?= $articulo['id_articulo'] ?>" name="nombre"
                                        placeholder="Nombre" value="<?= esc($articulo['nombre']) ?>">
                                 <div class="invalid-feedback">
                                     <?= session('errors-edit.nombre') ?>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="editBrand-<?= $articulo['id'] ?>">Marca</label>
+                                <label for="editBrand-<?= $articulo['id_articulo'] ?>">Marca</label>
                                 <input type="text" class="form-control <?= session('errors-edit.marca') ? 'is-invalid errors-edit' : '' ?>" 
-                                       id="editBrand-<?= $articulo['id'] ?>" name="marca" 
-                                       placeholder="Marca" value="<?= esc($articulo['marca']) ?>">
+                                       id="editBrand-<?= $articulo['id_articulo'] ?>" name="marca"
+                                       placeholder="Marca" value="<?= esc($articulo['nombre_marca']) ?>">
                                 <div class="invalid-feedback">
                                     <?= session('errors-edit.marca') ?>
                                 </div>
@@ -265,9 +256,9 @@
                        
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="editDescription-<?= $articulo['id'] ?>">Descripción</label>
+                                <label for="editDescription-<?= $articulo['id_articulo'] ?>">Descripción</label>
                                 <textarea class="form-control <?= session('errors-edit.descripcion') ? 'is-invalid errors-edit' : '' ?>" 
-                                          id="editDescription-<?= $articulo['id'] ?>" name="descripcion" 
+                                          id="editDescription-<?= $articulo['id_articulo'] ?>" name="descripcion"
                                           rows="3" placeholder="Descripción"><?= esc($articulo['descripcion']) ?></textarea>
                                 <div class="invalid-feedback">
                                     <?= session('errors-edit.descripcion') ?>
@@ -276,18 +267,9 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="editAcquisitionDate-<?= $articulo['id'] ?>">Fecha de Adquisición</label>
-                                <input type="date" class="form-control <?= session('errors-edit.fecha_adquisicion') ? 'is-invalid errors-edit' : '' ?>" 
-                                       id="editAcquisitionDate-<?= $articulo['id'] ?>" name="fecha_adquisicion" 
-                                       value="<?= esc($articulo['fecha_adquisicion']) ?>">
-                                <div class="invalid-feedback">
-                                    <?= session('errors-edit.fecha_adquisicion') ?>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="editUnitValue-<?= $articulo['id'] ?>">Valor Unitario</label>
+                                <label for="editUnitValue-<?= $articulo['id_articulo'] ?>">Valor Unitario</label>
                                 <input type="number" class="form-control <?= session('errors-edit.valor_unitario') ? 'is-invalid errors-edit' : '' ?>" 
-                                       id="editUnitValue-<?= $articulo['id'] ?>" name="valor_unitario" 
+                                       id="editUnitValue-<?= $articulo['id_articulo'] ?>" name="valor_unitario" 
                                        placeholder="Valor Unitario" value="<?= esc($articulo['valor_unitario']) ?>">
                                 <div class="invalid-feedback">
                                     <?= session('errors-edit.valor_unitario') ?>
@@ -295,11 +277,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="editCategory-<?= $articulo['id'] ?>">Categoría</label>
+                            <label for="editCategory-<?= $articulo['id_articulo'] ?>">Categoría</label>
                             <select class="form-control <?= session('errors-edit.categoria_id') ? 'is-invalid errors-edit' : '' ?>" 
-                                    id="editCategory-<?= $articulo['id'] ?>" name="categoria_id">
+                                    id="editCategory-<?= $articulo['id_articulo'] ?>" name="categoria_id">
                                 <?php foreach ($categorias as $categoria): ?>
-                                    <option value="<?= esc($categoria['id']) ?>" <?= $articulo['categoria_id'] == $categoria['id'] ? 'selected' : '' ?>>
+                                    <option value="<?= esc($categoria['id']) ?>" <?= $articulo['id_categoria'] == $categoria['id'] ? 'selected' : '' ?>>
                                         <?= esc($categoria['nombre']) ?>
                                     </option>
                                 <?php endforeach; ?>
@@ -325,11 +307,11 @@
 
 <!-- Modal de Eliminar Artículo -->
 <?php foreach ($articulos as $articulo): ?>
-    <div class="modal fade" id="deleteModal-<?= $articulo['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-<?= $articulo['id'] ?>" aria-hidden="true">
+    <div class="modal fade" id="deleteModal-<?= $articulo['id_articulo'] ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-<?= $articulo['id_articulo'] ?>" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel-<?= $articulo['id'] ?>">Eliminar Artículo</h5>
+                    <h5 class="modal-title" id="deleteModalLabel-<?= $articulo['id_articulo'] ?>">Eliminar Artículo</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -342,7 +324,7 @@
                     <?= csrf_field() ?>
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <a href="articulos/delete/<?php echo $articulo['id']; ?>" class="btn btn-danger">Eliminar</a>
+                    <a href="articulos/delete/<?php echo $articulo['id_articulo']; ?>" class="btn btn-danger">Eliminar</a>
 
 
                 </div>
