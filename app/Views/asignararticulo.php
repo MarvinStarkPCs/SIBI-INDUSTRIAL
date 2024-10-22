@@ -114,7 +114,7 @@
                     <label for="articulo">Artículo</label>
                     <select class="form-control form-control-sm" id="articulo">
                         <option value="">Seleccione un artículo</option>
-                        <!-- Opciones adicionales -->
+                        <!-- Opciones adicionales se llenarán mediante AJAX -->
                     </select>
                 </div>
             </div>
@@ -123,9 +123,7 @@
                     <label for="estadoUbicacion1">Estado</label>
                     <select class="form-control form-control-sm" id="estadoUbicacion1">
                         <option value="">Seleccione un estado</option>
-                        <option value="Nuevo">Nuevo</option>
-                        <option value="Usado">Usado</option>
-                        <!-- Otras opciones -->
+
                     </select>
                 </div>
             </div>
@@ -140,9 +138,12 @@
                     <label for="estadoUbicacion2">Estado</label>
                     <select class="form-control form-control-sm" id="estadoUbicacion2">
                         <option value="">Seleccione un estado</option>
-                        <option value="Nuevo">Nuevo</option>
-                        <option value="Usado">Usado</option>
-                        <!-- Otras opciones -->
+                        <!-- Llenar las opciones dinámicamente desde el controlador -->
+                        <?php foreach ($estados as $estado): ?>
+                            <option value="<?= $estado['id'] ?>">
+                                <?= $estado['nombre'] ?>
+                            </option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
             </div>
@@ -174,12 +175,8 @@
         </table>
     </div>
 
-    <button class="btn btn-primary float-right">Cambiar ubicación</button>
+    <button class="btn btn-change-ubication btn-primary float-right">Cambiar ubicación</button>
 </div>
 
-
-<script>
-    // Tu script aquí (el que proporcionaste anteriormente)
-</script>
 
 <?= $this->endSection() ?>

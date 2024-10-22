@@ -41,6 +41,15 @@
             });
         });
 
+        const textareas = document.querySelectorAll('textarea');
+
+// Para cada textarea, agregar un evento 'input'
+        textareas.forEach(function(textarea) {
+            textarea.addEventListener('input', function() {
+                // Cambiar el valor del textarea a mayúsculas mientras escribe
+                textarea.value = textarea.value.toUpperCase();
+            });
+        });
 
     });
 

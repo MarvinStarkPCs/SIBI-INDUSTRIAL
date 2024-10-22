@@ -26,4 +26,21 @@ class AjaxAsignarArticuloController extends Controller
         }
         return redirect()->to('/');
     }
+    public function obtenerInventarioPorUbicacion(){
+        if ($this->request->isAJAX()) {
+            $idUbicacion = $this->request->getPost('ubicacion_id_origen'); // Obtener el ID de la ubicación
+
+            $modelo = new AjaxAsignarArticuloModel();
+            $resultado = $modelo->getInventarioxUbicaion($idUbicacion);
+
+            log_message('info', 'Ubicación ID: ' . $idUbicacion);
+            // Validar si se encontró el artículo en la ubicación
+            if (empty($resultado)) {
+                return $this->response->setJSON(['error' => 'Este artículo no se encuentra en la ubicación seleccionada.']);
+            }
+
+            return $this->response->setJSON($resultado);
+        }
+        return redirect()->to('/');
+    }
 }

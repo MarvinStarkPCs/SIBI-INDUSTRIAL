@@ -1,5 +1,14 @@
 $(document).ready(function() {
 
+
+
+
+
+    $('#selectBrand').select2({
+        width: '100%', // Asegura que el campo select ocupe el 100% del ancho
+        dropdownParent: $('#addArticleModal') // El modal donde está el select
+    });
+
     // Inicializa Select2 para los select del modal
     $('#openProcedencia,#openArticulo').select2({
         width: '100%',
@@ -96,6 +105,9 @@ $(document).ready(function() {
                             '<button type="button" class="btn btn-danger btn-sm removeSerialButton">Eliminar</button>' +
                             '</div>'
                         );
+
+                        var audio = new Audio('sound/notification-sound-7062.mp3'); // Cambia 'path/to/' por la ruta de tu archivo de sonido
+                        audio.play();
 
                         // Añadir el input oculto al formulario
                         $('#openInventoryForm').append(serialInput);

@@ -9,6 +9,13 @@ class ArticuloController extends BaseController
 
     public function index()
     {
+        log_message('info', 'Accediendo al índice de artículos.');
+
+        // Agregar un mensaje de advertencia
+        log_message('warning', 'Esto es una advertencia.');
+
+        // Agregar un mensaje de error
+        log_message('error', 'Esto es un error.');
         $session = session();
         // Verifica si la sesión 'login' está activa
         if (!$session->get('login')) {
@@ -18,10 +25,13 @@ class ArticuloController extends BaseController
             $modelcombo = new ComboboxModel();
             $data['articulos'] = $model->getArticulos();
             $data['categorias'] = $modelcombo->getTableData('categorias');
+            $data['marcas'] = $modelcombo->getTableData('marcas');
+
 
             return view('gestion_de_extras/articulos', $data);
         }
     }
+
     public function store()
     {
         $model = new ArticuloModel();
@@ -30,36 +40,36 @@ class ArticuloController extends BaseController
         // Obtén el servicio de validación
         $validation = \Config\Services::validation();
 
-        // Reglas de validación
         $validation->setRules([
             'nombre' => 'required|string|max_length[20]',
-            'marca' => 'required|string|max_length[7]',
-            'modelo' => 'required|string|max_length[20]',
-            'serial' => 'required|string|max_length[20]',
             'descripcion' => 'required|string',
-            'fecha_adquisicion' => 'required|valid_date',
-            'valor_unitario' => 'required|decimal',
             'categoria_id' => 'required|integer',
+            'marca_id' => 'required|integer',
+
         ]);
 
         // Validar los datos del formulario
         if (!$validation->withRequest($this->request)->run()) {
+            log_message('error', 'Errores de validación: ' . json_encode($validation->getErrors()));
+
             return redirect()->back()->withInput()->with('errors-insert', $validation->getErrors());
         }
 
         // Recoge los datos del formulario
         $data = [
             'nombre' => $this->request->getPost('nombre'),
-            'marca' => $this->request->getPost('marca'),
+            'marca_id' => $this->request->getPost('marca_id'), // Usar el ID de la marca
             'modelo' => $this->request->getPost('modelo'),
             'serial' => $this->request->getPost('serial'),
             'descripcion' => $this->request->getPost('descripcion'),
             'fecha_adquisicion' => $this->request->getPost('fecha_adquisicion'),
-            'valor_unitario' => $this->request->getPost('valor_unitario'),
+            'valor_unitario' => $this->formatCurrencyToDecimal($this->request->getPost('valor_unitario')), // Formatear y convertir a decimal
             'categoria_id' => $this->request->getPost('categoria_id'),
             'cod_institucional' => $cod_instucional->generateRandomString()
         ];
-        log_message('info', 'Datos del formulario: ' . print_r($data, true));
+
+        log_message('error', 'Datos del formulario: ' . print_r($data, true));
+
         // Insertar el artículo en la base de datos
         if ($model->save($data)) {
             return redirect()->to('/articulos')->with('success', 'Artículo agregado con éxito.');
@@ -67,6 +77,18 @@ class ArticuloController extends BaseController
             return redirect()->back()->withInput()->with('error', 'Hubo un problema al guardar el artículo.');
         }
     }
+
+    private function formatCurrencyToDecimal($currency)
+    {
+        // Elimina cualquier carácter que no sea un dígito o punto decimal
+        $number = preg_replace('/[^0-9.]/', '', $currency);
+
+        // Convierte el número a formato decimal
+        return (float) $number;
+    }
+
+
+
     public function update($id)
     {
         $model = new ArticuloModel();

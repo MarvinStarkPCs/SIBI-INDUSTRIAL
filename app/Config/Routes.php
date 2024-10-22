@@ -33,6 +33,11 @@ $routes->post('prestamos/obtener-estado-ubicacion', 'PrestamosArticuloController
 //Asignar Articulo
 $routes->get('asignar-articulo', 'AsignarArticuloController::index');
 $routes->post('asignar-articulo/buscarPorSerial', 'AjaxAsignarArticuloController::obtenerInventarioPorSerial');
+$routes->post('asignar-articulo/buscarPorUbicacion', 'AjaxAsignarArticuloController::obtenerInventarioPorUbicacion');
+$routes->post('asignar-articulo/buscarPorEstados', 'AjaxAsignarArticuloController::getInventarioxEstados');
+$routes->post('asignar-articulo/asignar', 'AsignarArticuloController::actualizarUbicacion');
+
+
 
 //seguridad
 ///Gestion de usuarios
@@ -48,7 +53,7 @@ $routes->get('cambiar-contrasena', 'CambioContrasena::index');
 $routes->get('gestion-extras', 'Cgestionextra::index');
 ///articulos
 $routes->get('/articulos', 'ArticuloController::index');
-$routes->post('/articulos/addusuarios', 'ArticuloController::store');
+$routes->post('/articulos/add', 'ArticuloController::store');
 $routes->post('/articulos/update/(:num)', 'ArticuloController::update/$1');
 $routes->get('/articulos/delete/(:num)', 'ArticuloController::delete/$1');
 $routes->get('/articulos/articulos-excel', 'ArticuloController::ArticuloExcel');

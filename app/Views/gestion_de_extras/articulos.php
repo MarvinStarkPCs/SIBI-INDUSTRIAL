@@ -85,64 +85,43 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('articulos/addusuarios') ?>" method="post" id="addArticleForm">
+                <form action="<?= base_url('/articulos/add') ?>" method="post" id="addArticleForm">
                     <?= csrf_field() ?>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputName">Nombre</label>
-                            <input type="text" class="form-control <?= session('errors-insert.nombre') ? 'is-invalid errors-insert-article' : '' ?>" id="inputName" name="nombre" placeholder="Nombre" value="<?= old('nombre') ?>">
+                            <input type="text" class="form-control <?= session('errors-insert.nombre') ? 'is-invalid' : '' ?>" id="inputName" name="nombre" placeholder="Nombre" value="<?= old('nombre') ?>">
                             <div class="invalid-feedback">
                                 <?= session('errors-insert.nombre') ?>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="inputBrand">Marca</label>
-                            <input type="text" class="form-control <?= session('errors-insert.marca') ? 'is-invalid errors-insert-article' : '' ?>" id="inputBrand" name="marca" placeholder="Marca" value="<?= old('marca') ?>">
-                            <div class="invalid-feedback">
-                                <?= session('errors-insert.marca') ?>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputBrand">Modelo</label>
-                            <input type="text" class="form-control <?= session('errors-insert.modelo') ? 'is-invalid errors-insert-article' : '' ?>" id="inputBrand" name="modelo" placeholder="modelo" value="<?= old('modelo') ?>">
+                            <label for="inputModel">Modelo</label>
+                            <input type="text" class="form-control <?= session('errors-insert.modelo') ? 'is-invalid' : '' ?>" id="inputModel" name="modelo" placeholder="Modelo" value="<?= old('modelo') ?>">
                             <div class="invalid-feedback">
                                 <?= session('errors-insert.modelo') ?>
                             </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputBrand">Serial</label>
-                            <input type="text" class="form-control <?= session('errors-insert.serial') ? 'is-invalid errors-insert-article' : '' ?>" id="inputBrand" name="serial" placeholder="serial" value="<?= old('serial') ?>">
-                            <div class="invalid-feedback">
-                                <?= session('errors-insert.serial') ?>
-                            </div>
-                        </div>
-
                         <div class="form-group col-md-12">
                             <label for="inputDescription">Descripción</label>
-                            <textarea class="form-control <?= session('errors-insert.descripcion') ? 'is-invalid errors-insert-article' : '' ?>" id="inputDescription" name="descripcion" rows="3" placeholder="Descripción"><?= old('descripcion') ?></textarea>
+                            <textarea class="form-control <?= session('errors-insert.descripcion') ? 'is-invalid' : '' ?>" id="inputDescription" name="descripcion" rows="3" placeholder="Descripción"><?= old('descripcion') ?></textarea>
                             <div class="invalid-feedback">
                                 <?= session('errors-insert.descripcion') ?>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="inputAcquisitionDate">Fecha de Adquisición</label>
-                            <input type="date" class="form-control <?= session('errors-insert.fecha_adquisicion') ? 'is-invalid errors-insert-article' : '' ?>" id="inputAcquisitionDate" name="fecha_adquisicion" value="<?= old('fecha_adquisicion') ?>">
-                            <div class="invalid-feedback">
-                                <?= session('errors-insert.fecha_adquisicion') ?>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6">
                             <label for="inputUnitValue">Valor Unitario</label>
-                            <input type="number" class="form-control <?= session('errors-insert.valor_unitario') ? 'is-invalid errors-insert-article' : '' ?>" id="inputUnitValue" name="valor_unitario" placeholder="Valor Unitario" value="<?= old('valor_unitario') ?>">
+                            <input type="text" class="form-control <?= session('errors-insert.valor_unitario') ? 'is-invalid errors-insert-article' : '' ?>" id="inputUnitValue" name="valor_unitario" placeholder="Valor Unitario" value="<?= old('valor_unitario') ?>" oninput="formatCurrency(this)">
                             <div class="invalid-feedback">
                                 <?= session('errors-insert.valor_unitario') ?>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="form-group">
                         <label for="selectCategory">Categoría</label>
-                        <select class="form-control <?= session('errors-insert.categoria_id') ? 'is-invalid errors-insert-article' : '' ?>" id="selectCategory" name="categoria_id">
+                        <select class="form-control <?= session('errors-insert.categoria_id') ? 'is-invalid' : '' ?>" id="selectCategory" name="categoria_id">
                             <?php foreach ($categorias as $categoria): ?>
                                 <option value="<?= esc($categoria['id']) ?>" <?= old('categoria_id') == $categoria['id'] ? 'selected' : '' ?>>
                                     <?= esc($categoria['nombre']) ?>
@@ -154,8 +133,18 @@
                         </div>
                     </div>
 
-                    <div style="border: 1px solid #17a2b8; padding: 10px; background-color: #e9f7fc; border-radius: 5px; margin-bottom: 15px;">
-                        <strong>Información:</strong> Asegúrate de ingresar todos los datos correctamente antes de guardar el artículo.
+                    <div class="form-group">
+                        <label for="selectBrand">Marca</label>
+                        <select class="form-control select2 <?= session('errors-insert.marca_id') ? 'is-invalid' : '' ?>" id="selectBrand" name="marca_id">
+                            <?php foreach ($marcas as $marca): ?>
+                                <option value="<?= esc($marca['id']) ?>" <?= old('marca_id') == $marca['id'] ? 'selected' : '' ?>>
+                                    <?= esc($marca['nombre']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                        <div class="invalid-feedback">
+                            <?= session('errors-insert.marca_id') ?>
+                        </div>
                     </div>
 
                     <div class="modal-footer">
@@ -360,6 +349,20 @@
 
 
     });
+    function formatCurrency(input) {
+        // Remove any non-digit characters
+        let value = input.value.replace(/[^0-9.]/g, '');
+
+        // Convert to float and format as currency
+        value = parseFloat(value).toFixed(2);
+
+        // Add currency formatting (e.g., $1,234.56)
+        if (!isNaN(value)) {
+            input.value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace(/^/, "$");
+        } else {
+            input.value = '';
+        }
+    }
 
 </script>
 <?= $this->endSection() ?>
